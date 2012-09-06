@@ -1,13 +1,17 @@
 Projectcamp::Application.routes.draw do
+  devise_for :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  root to: "pages#index"
+  root to: "projects#index"
 
   resources :pages, only: [:show, :index]
 
   get "sessions/login", to: "sessions#login", as: :login
   get "sessions/register", to: "sessions#register", as: :register
+  
+  resources :projects 
 
 
   # Sample of regular route:

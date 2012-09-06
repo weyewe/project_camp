@@ -1,6 +1,7 @@
 class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
+      t.string :title 
       t.integer :package_id
       t.integer :client_id 
       t.integer :creator_id 
@@ -15,6 +16,13 @@ class CreateProjects < ActiveRecord::Migration
 
       t.date    :internal_deadline
       t.date    :external_deadline 
+      
+      
+      t.boolean :is_deleted  , :default => false 
+      t.integer :deleter_id 
+      t.boolean :is_finished , :default => false 
+      t.integer :finisher_id 
+      
       
       
 

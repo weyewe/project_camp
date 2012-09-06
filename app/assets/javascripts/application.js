@@ -16,3 +16,5 @@
 //= require prettify
 //= require sidebar
 //= require docs
+//= require bootstrap-datepicker
+//= require script

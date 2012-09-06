@@ -6,15 +6,17 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-project = Project.new 
-project.package_id          =  nil
-project.client_id           =  nil 
-project.creator_id          = 
-project.is_fixed_location   = 
-project.is_fixed_date       = 
-project.shoot_location      = 
-project.shoot_date          = 
-project.shoot_start_date    = 
-project.shoot_end_date      = 
-project.internal_deadline   = 
-project.external_deadline   = 
+# project = Project.new 
+# project.package_id          =  nil
+# project.client_id           =  nil 
+# project.creator_id          = 
+# project.is_fixed_location   = 
+# project.is_fixed_date       = 
+# project.shoot_location      = 
+# project.shoot_date          = 
+# project.shoot_start_date    = 
+# project.shoot_end_date      = 
+# project.internal_deadline   = 
+# project.external_deadline   = 
+
+User.create(:name => "Willy", :password => "willy1234", :password_confirmation => "willy1234", :email => "w.yunnal@gmail.com")

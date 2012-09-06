@@ -36,57 +36,20 @@
 <div class="main">
   <div class="container">
 
-    <div class="row">
-      <div class="span9">
-        <ul class="nav nav-tabs header-tabs btn-block pull-right">
-          <li class="active"><a href="#"><i class="icon-dashboard"></i> Summary</a></li>
-          <li><%= link_to "Deliverable", '#deliverable' %></li>
-          <li><%= link_to "Membership", '#project_memberships' %></li>
-          <li><%= link_to "Concept", '#concept' %></li>
-          <li><%= link_to "Property", '#property' %></li>
-          <li><%= link_to "Data", register_path %></li>
-          <li><%= link_to "Production", '#production' %></li>
-          <li><%= link_to "Post Production", '#post_production' %></li>
-          
-          <!-- <li><%#= link_to "Production", register_path %></li>
-                 <li><%#= link_to "Post Production", register_path %></li> -->
-          
-          
-          <!-- <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </li> -->
-          
-        </ul>
-      </div>
-    </div>
 
-    <div class="row wrapper">
+    <%= yield :additional_mini_app_nav %>
+    
 
-      <div class="span9 main-left">
-        <div class="heading-bar">
-          <h3 class="pull-left">Jimmy Shinta Prewedding <span class="subheading">(tentative 12/3/2012)</span></h3>
-          <ul class="nav-links pull-right">
-            <li><a href="#"><i class="icon-caret-left"></i> back</a></li>
-            <li class="divider-vertical"></li>
-            <li><a href="#">some link</a></li>
-            <li class="divider-vertical"></li>
-            <li><a href="#">another link</a></li>
-          </ul>
-        </div>
-
+    <div class="row wrapper"> 
+      <div class="span9 main-left"> 
+        <%#= render :partial => "layouts/breadcrumb" %> 
+        <%= create_breadcrumb(@breadcrumbs).html_safe %>
         <%= yield %>
       </div>
-
-      <%= render "layouts/sidebar" %>
-
+      <%= render "layouts/sidebar" %> 
     </div>
+    
+    
     <%= render "layouts/footer" %>
   </div>
 

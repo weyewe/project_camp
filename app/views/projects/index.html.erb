@@ -1,0 +1,44 @@
+
+<div class="padded">
+ 
+  <div class="slate">
+    <div class="slate-content">
+      <div class="box-left">
+        <%= image_tag "clipboard.png" %>
+      </div>
+
+      <div class="box-right">
+        <h3>Your company doesn't have any projects yet.</h3>
+        <div class="text">
+        </div>
+        <!-- <a href="#">Learn more about project tasks</a> -->
+        <span class="btn blue btn-slate-action"><i class="icon-plus-sign"></i> Add the first project!</span><br />
+        
+        <%= simple_form_for( @new_project, :html => 
+          {:class => "form-vertical prevent_double_submit form-toggler no_content_form" }) do |f| %> 
+          
+          <%= f.input :title , :input_html => {:class => "input-xlarge span5"}, 
+            :label => "Title" %>
+           
+          <%#= f.input :title , :input_html => {:class => "input-xlarge span5"}, 
+            :label => "Title" %>
+            
+          <%= f.input :shoot_date , :input_html => { :rows => 1, 
+            :class => "input-xlarge datepicker" }, 
+            :label => "Shoot  Date", :hint => "Shoot Date (MM/DD/YYYY)", :as => :text, 
+            :input_html => {
+              :rows => 1, 
+              :value => format_date_from_datetime( @new_project.shoot_date  ), 
+              :class => 'datepicker' 
+            }
+            %>
+           
+          <div class="form-actions">
+             <%= f.button :submit , :class => "btn btn-primary", :text=> "Create Client" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>
