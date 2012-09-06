@@ -19,22 +19,48 @@
           
           <%= f.input :title , :input_html => {:class => "input-xlarge span5"}, 
             :label => "Title" %>
-           
-          <%#= f.input :title , :input_html => {:class => "input-xlarge span5"}, 
-            :label => "Title" %>
             
-          <%= f.input :shoot_date , :input_html => { :rows => 1, 
+          <hr />
+          <%= f.input :is_fixed_date , 
+            :label => "Is shoot date fixed?", :hint => "If it is not fixed (i.e.: prewedding, we can be more flexible)" %>
+            
+            
+          <%= f.input :shoot_location , :input_html => {:class => "input-xlarge span5"}, 
+            :label => "Shoot Location" %>
+            
+          <%= f.input :shoot_date , :input_html => 
+            { :rows => 1, 
             :class => "input-xlarge datepicker" }, 
-            :label => "Shoot  Date", :hint => "Shoot Date (MM/DD/YYYY)", :as => :text, 
-            :input_html => {
-              :rows => 1, 
-              :value => format_date_from_datetime( @new_project.shoot_date  ), 
-              :class => 'datepicker' 
-            }
+            :label => "Shoot  Date", :hint => "(dd/mm/YYYY)", :as => :string,  
             %>
-           
+          
+          <%= f.input :shoot_start_date , :input_html => 
+            { :rows => 1, 
+            :class => "input-xlarge datepicker" }, 
+            :label => "Shoot Start Date", :hint => "(dd/mm/YYYY)", :as => :string,  
+            %>
+            
+          <%= f.input :shoot_end_date , :input_html => 
+            { :rows => 1, 
+            :class => "input-xlarge datepicker" }, 
+            :label => "Shoot End Date", :hint => "(dd/mm/YYYY)", :as => :string,  
+            %>
+        
+        <hr />
+          <%= f.input :external_deadline , :input_html => 
+            { :rows => 1, 
+            :class => "input-xlarge datepicker" }, 
+            :label => "External Deadline", :hint => "(dd/mm/YYYY)", :as => :string,  
+            %>
+            
+          <%= f.input :internal_deadline , :input_html => 
+            { :rows => 1, 
+            :class => "input-xlarge datepicker" }, 
+            :label => "Internal Deadline", :hint => "(dd/mm/YYYY)", :as => :string,  
+            %>
+
           <div class="form-actions">
-             <%= f.button :submit , :class => "btn btn-primary", :text=> "Create Client" %>
+             <%= f.button :submit , :class => "btn btn-primary", :value=> "Create Project" %>
           </div>
         <% end %>
       </div>

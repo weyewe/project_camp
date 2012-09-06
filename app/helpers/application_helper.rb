@@ -17,7 +17,7 @@ module ApplicationHelper
     if datetime.nil? 
       return ""
     end
-    "#{datetime.month}/#{datetime.day}/#{datetime.year}"
+    "#{datetime.day}/#{datetime.month}/#{datetime.year}"
   end
 
 

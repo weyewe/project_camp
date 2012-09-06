@@ -6,7 +6,6 @@ class CreateProjects < ActiveRecord::Migration
       t.integer :client_id 
       t.integer :creator_id 
 
-      t.boolean :is_fixed_location, :default => true 
       t.boolean :is_fixed_date , :default    => true 
 
       t.string  :shoot_location
@@ -15,7 +14,7 @@ class CreateProjects < ActiveRecord::Migration
       t.date    :shoot_end_date 
 
       t.date    :internal_deadline
-      t.date    :external_deadline 
+      t.date    :external_deadline  # when they are getting married 
       
       
       t.boolean :is_deleted  , :default => false 
@@ -24,7 +23,7 @@ class CreateProjects < ActiveRecord::Migration
       t.integer :finisher_id 
       
       
-      
+      # tracking the usage? use the user activity. 
 
       t.timestamps
     end

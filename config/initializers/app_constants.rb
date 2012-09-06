@@ -4,47 +4,28 @@ COMPANY_TITLE = "potoSys"
   MODEL CONSTANT
 =end
 JAKARTA_HOUR_OFFSET = 7 
-USER_ROLE = {
-  :admin => "Admin",
-  :pro_photographer => "ProPhotographer",
-  :amateur_photographer => "AmateurPhotographer",
-  :pro_videographer => "ProVideographer",
-  :amateur_videographer => "AmateurVideographer",
-  
-  # Marketing Team: composed of several marketers  + several marketing head
-  #   marketing will add client to crm, add contact report, 
-  #   deal with package selection
-  #   and its modification
-  #   select the photographer 
-  #   select the date
-  :marketing_head => "MarketingHead",
-  :marketing => "Marketing", 
-  
-  # Graphic Team: composed of several graphic heads + several graphic editor 
-  # it will create revision: video and pics
-  :graphic_designer_head => "GraphicDesignerHead",
-  :graphic_designer => "GraphicDesigner",
-  
-  # Project Management Team: 
-  # oversee the whole development
-  # controlling the deadline etc 
-  :project_manager_head => "ProjectManagerHead",
+# in the whole application 
+USER_ROLE = { 
+  :crew => "Crew",
+  :head_project_manager => "HeadProjectManager", # can create projects  
   :project_manager => "ProjectManager",
+  :ae => "AccountExecutive" , 
+  # Back office roles .. there can be designer editor 
+  :production => "Production",
+  :post_production => "PostProduction" 
   
-  :post_production_head => "PostProductionHead",
-  :post_production => "PostProduction",
-  
-  # AccountExecutive deals with the communication to clients
-  :account_executive => "AccountExecutive",
-  :publisher => "Publisher"
 }
 
 PROJECT_ROLE = {
-  :account_executive => "AccountExecutive",
-  :graphic_designer => "GraphicDesigner",
-  :project_manager => "ProjectManager" ,
+  :main_crew => "MainCrew",
+  :crew => "Crew", 
+  
+  :project_manager => "ProjectManager",
+  :account_executive => "AccountExecutive", 
+  :designer => "Designer",
+  :editor => "Editor",
   :post_production => "PostProduction",
-  :crew => "Crew" # crew is those people going out to take picture (handling the supply side)
+  :quality_control => "QualityControl"
 }
 
 
