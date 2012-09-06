@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   end
   
   
-  def create
+  def create 
     @new_project = Project.create_by_user( current_user, params[:project] )
     
     if @new_project.errors.messages.length == 0 

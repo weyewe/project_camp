@@ -22,6 +22,8 @@ class CreateProjects < ActiveRecord::Migration
       t.boolean :is_finished , :default => false 
       t.integer :finisher_id 
       
+      t.integer :score , :default => 0 
+      
       
       # tracking the usage? use the user activity. 
 

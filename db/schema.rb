@@ -11,9 +11,46 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120906055051) do
+ActiveRecord::Schema.define(:version => 20120906093428) do
 
   create_table "assignments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "deliverable_component_subcriptions", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "deliverable_components", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "deliverable_items", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "deliverable_subcriptions", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "deliverables", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "drafts", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "packages", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -38,7 +75,6 @@ ActiveRecord::Schema.define(:version => 20120906055051) do
     t.integer  "package_id"
     t.integer  "client_id"
     t.integer  "creator_id"
-    t.boolean  "is_fixed_location", :default => true
     t.boolean  "is_fixed_date",     :default => true
     t.string   "shoot_location"
     t.date     "shoot_date"
@@ -50,21 +86,24 @@ ActiveRecord::Schema.define(:version => 20120906055051) do
     t.integer  "deleter_id"
     t.boolean  "is_finished",       :default => false
     t.integer  "finisher_id"
+    t.integer  "score",             :default => 0
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
   end
 
   create_table "roles", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "name"
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.boolean  "is_main_user",           :default => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

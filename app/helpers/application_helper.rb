@@ -1,5 +1,8 @@
 module ApplicationHelper
-  
+  ACTIVE = 'active'
+  REVISION_SELECTED = "selected"
+  NEXT_BUTTON_TEXT = "Next &rarr;"
+  PREV_BUTTON_TEXT = " &larr; Prev "
   
 
 =begin
@@ -46,6 +49,14 @@ module ApplicationHelper
 =begin
   BREADCRUMB
 =end
+  def get_checkbox_value(checkbox_value )
+    if checkbox_value == true
+      return TRUE_CHECK
+    else
+      return FALSE_CHECK
+    end
+  end
+  
   def create_breadcrumb(breadcrumbs)
     
     if (  breadcrumbs.nil? ) || ( breadcrumbs.length ==  0) 
@@ -88,6 +99,267 @@ module ApplicationHelper
     element << "</li>"
     
     return element
+  end
+  
+=begin
+  SIDE PROCESS NAV
+=end
+
+  def get_process_nav( symbol, params ) 
+    if symbol == :status
+      return create_process_nav(STATUS_PROCESS_LIST, params )
+    end
+    
+    if symbol == :master
+      return create_process_nav(MASTER_PROCESS_LIST, params )
+    end
+    
+    if symbol == :employee
+      return create_process_nav(EMPLOYEE_PROCESS_LIST, params )
+    end
+  end
+  
+  def create_header_nav( process_list, params ) 
+    result = ""
+    result << "<div class='heading-bar'>"
+    result << "<h5 class='pull-left'>"  + process_list[:header_title] + "</h5>"
+    result << "</div>"
+    return result
+  end
+  
+  def create_process_nav( process_list, params )
+    result = ""
+    
+    
+    
+    result << create_header_nav( process_list, params ) 
+    result << "<ul class='aside-menu'>"
+    
+    
+    process_list[:processes].each do |process|
+      result << create_process_entry( process, params )
+    end
+    
+    result << "</ul>" 
+    return result
+  end
+   
+  def create_process_entry( process, params )
+    is_active = is_process_active?( process[:conditions], params)
+        # 
+        # <li class="active"><a href="#"><i class="icon-th-list"></i> Projects</a></li>
+        # <li><a href="#"><i class="icon-tasks"></i> Tasks</a></li>
+        # <li><a href="#"><i class="icon-envelope"></i> Reminders</a></li> 
+        # <li><a href="#"><i class="icon-calendar"></i> Calendar</a></li>  
+        # 
+    
+    
+    process_entry = ""
+    process_entry << "<li class='#{is_active}'>"
+    process_entry << "<a href='#{extract_url( process[:destination_link] ) }'>"
+    process_entry << "<i class='#{process[:icon_class]}'></i>"
+    process_entry << process[:title] 
+    process_entry << "</a>"
+    process_entry << "</li>" 
+                      
+                      
+    
+    return process_entry
+  end
+  
+  def is_process_active?( active_conditions, params  )
+    active_conditions.each do |condition|
+      if condition[:controller] == params[:controller] &&
+        condition[:action] == params[:action]
+        return ACTIVE
+      end
+
+    end
+
+    return ""
+  end
+  
+  STATUS_PROCESS_LIST = {
+    :header_title => 'Status',
+    :processes => [
+      {
+        :title => "Projects",
+        :icon_class => 'icon-th-list',
+        :destination_link => "root_url",
+        :conditions => [
+          {
+            :controller => "projects",
+            :action => 'index'
+          },
+          {
+            :controller => 'projects',
+            :action => 'new'
+          },
+          {
+            :controller => 'projects',
+            :action => 'create'
+          }
+        ]
+      },
+      {
+        :title => "Tasks",
+        :icon_class => 'icon-tasks',
+        :destination_link => "root_url",
+        :conditions => [
+          {
+            :controller => '',
+            :action => ''
+          }
+        ]
+      },
+      {
+        :title => 'Reminders',
+        :icon_class => 'icon-envelope',
+        :destination_link => "root_url",
+        :conditions => [
+          {
+            :controller => '',
+            :action => ''
+          }
+        ]
+      }
+    ]
+  }
+  
+  MASTER_PROCESS_LIST = {
+    :header_title => 'Master Data',
+    :processes => [
+      {
+        :title => "Package",
+        :icon_class => 'icon-briefcase',
+        :destination_link => "root_url",
+        :conditions => [
+          {
+            :controller => '',
+            :action => ''
+          }
+        ]
+      },
+      {
+        :title => "Deliverable",
+        :icon_class => 'icon-gift',
+        :destination_link => "root_url",
+        :conditions => [
+          {
+            :controller => '',
+            :action => ''
+          }
+        ]
+      },
+      {
+        :title => 'Deliverable Component',
+        :icon_class => 'icon-list-alt',
+        :destination_link => "root_url",
+        :conditions => [
+          {
+            :controller => '',
+            :action => ''
+          }
+        ]
+      }
+    ]
+  }
+  
+  EMPLOYEE_PROCESS_LIST = {
+    :header_title => 'Employee',
+    :processes => [
+      {
+        :title => "Manpower Management",
+        :icon_class => 'icon-user',
+        :destination_link => "new_employee_creation_url",
+        :conditions => [
+          {
+            :controller => 'offices',
+            :action => 'new_employee_creation'
+          }
+        ]
+      } 
+    ]
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+=begin
+  MAIN PROCESS NAVIGATION
+=end
+  def get_main_process_nav( symbol, params)
+
+    if symbol == :project_management
+      return create_main_process_nav(PROJECT_MANAGEMENT_PROCESS_LIST, params )
+    end
+    if symbol == :admin
+      return create_main_process_nav(ADMIN_PROCESS_LIST, params )
+    end
+    if symbol == :head_project_manager
+      return create_main_process_nav( HEAD_PROJECT_MANAGER_PROCESS_LIST, params )
+    end 
+  end
+  
+  PROJECT_MANAGEMENT_PROCESS_LIST = {
+    :title => "Project Management",
+    :destination_link => "projects_url",
+    :conditions => [
+      {
+        :controller => 'projects',
+        :action => 'index' 
+      },
+      {
+        :controller => 'projects',
+        :action => 'create'
+      },
+      {
+        :controller => 'projects',
+        :action => 'show'
+      }
+    ]
+  }
+  #######################################################
+  #####
+  #####     Start of the MAIN process navigation code 
+  #####
+  #######################################################
+  def create_main_process_nav( process_list, params )
+    result = ""
+    is_active = is_main_process_active?( process_list[:conditions], params)
+    result << "<li class='#{is_active}'>  "  +  
+                  link_to( process_list[:title] , 
+                    extract_url( process_list[:destination_link] )    ) + 
+              "</li>"         
+ 
+    return result
+  end
+    
+  
+  def is_main_process_active?( active_conditions, params  )
+    active_conditions.each do |condition|
+      if condition[:controller] == params[:controller] &&
+        condition[:action] == params[:action]
+        return ACTIVE
+      end
+
+    end
+
+    return ""
+  end
+  
+  def extract_url( some_url )
+    if some_url == '#'
+      return '#'
+    end
+    
+    eval( some_url ) 
   end
   
 end

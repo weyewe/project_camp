@@ -1,0 +1,42 @@
+<div class="padded">
+  <table class="table table-bordered table-striped table-header">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Admin</th>
+        <th>Head PM</th>
+        <th>Employee</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr> 
+          <td>
+            <%= link_to employee.name , show_role_for_employee_url(employee) %>
+          </td>
+          <td>
+            <% if employee.has_role?(:admin)%>
+              <span class="label green">Yes</span>
+            <% else %>
+              <span class="label">No</span>
+            <% end %>
+          </td>
+          <td>
+            <% if employee.has_role?(:head_project_manager)%>
+              <span class="label green">Yes</span>
+            <% else %>
+              <span class="label">No</span>
+            <% end %>
+          </td>
+          <td>
+            <% if employee.has_role?(:employee)%>
+              <span class="label green">Yes</span>
+            <% else %>
+              <span class="label">No</span>
+            <% end %>
+          </td> 
+        </tr>
+      <% end %> 
+    </tbody>
+  </table>
+</div>

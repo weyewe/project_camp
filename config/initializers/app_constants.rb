@@ -6,26 +6,37 @@ COMPANY_TITLE = "potoSys"
 JAKARTA_HOUR_OFFSET = 7 
 # in the whole application 
 USER_ROLE = { 
-  :crew => "Crew",
+  :admin => "Admin",
+  
   :head_project_manager => "HeadProjectManager", # can create projects  
-  :project_manager => "ProjectManager",
-  :ae => "AccountExecutive" , 
-  # Back office roles .. there can be designer editor 
-  :production => "Production",
-  :post_production => "PostProduction" 
+  :employee => "Employee", 
+  # :crew => "Crew",
+  # 
+  # :project_manager => "ProjectManager",
+  # :account_executive => "AccountExecutive" , 
+  # # Back office roles .. there can be designer editor 
+  # :production => "Production",
+  # :post_production => "PostProduction" 
   
 }
 
 PROJECT_ROLE = {
-  :main_crew => "MainCrew",
-  :crew => "Crew", 
+  :main_crew => "MainCrew", # main photographer
+  :crew => "Crew",  # assistant 
   
-  :project_manager => "ProjectManager",
-  :account_executive => "AccountExecutive", 
-  :designer => "Designer",
-  :editor => "Editor",
-  :post_production => "PostProduction",
-  :quality_control => "QualityControl"
+  :project_manager => "ProjectManager", # the one in charge to assign task to production team 
+  # assign task to post production team 
+  # 
+  :account_executive => "AccountExecutive",  # the one talking to client 
+  :production => "Production" , # in charge to create design + edit .. Assumption: no context switching
+  # but, case: if she finishes early that schedule, what should she do if there are no projects?
+  #   assign another project? 
+  # yeah, assign another project. But first, she has to be recorded as the participant in the given project
+  # then, she will be assigned job request
+  
+  # definition designer and editor -> in the draft.. only relevant in the album creation..
+  :post_production => "PostProduction", # the one chasing the printing 
+  :quality_control => "QualityControl" # the one giving internal approval before AE pass the draft to client 
 }
 
 
@@ -113,4 +124,6 @@ ARTICLE_WIDTH = 800
 S3_BUCKET_BLOG_DEV  = 'nomina-dev'
 S3_BUCKET_BLOG_PROD = 'nomina-prod'
 
+
+SHOWLOADING_LOADER_URL = "http://s3.amazonaws.com/circle-static-assets/loading.gif"
 

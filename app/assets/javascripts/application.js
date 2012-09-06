@@ -17,4 +17,6 @@
 //= require sidebar
 //= require docs
 //= require bootstrap-datepicker
+//= require jquery.showLoading.min
+//= require utility
 //= require script

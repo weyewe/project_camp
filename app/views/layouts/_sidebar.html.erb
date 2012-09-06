@@ -1,8 +1,5 @@
 <div id="sidebar" class="span3 sidebar-right">
-
-  <div class="codehint">These buttons are surrounded by an sexy inset margin</div>
-  <pre>&lt;ul class=&quot;nav inset-margin&quot;&gt;<br/>    &lt;li&gt;<br/>      &lt;a class=&quot;btn blue&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-plus&quot;&gt;&lt;/i&gt; New project&lt;/a&gt;<br/>    &lt;/li&gt;<br/><br/>    &lt;li&gt;<br/>      &lt;a class=&quot;btn green&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-pencil&quot;&gt;&lt;/i&gt; Edit project&lt;/a&gt;<br/>    &lt;/li&gt;<br/>  &lt;/ul&gt;</pre>
-
+ 
   <ul class="nav inset-margin">
     <li>
       <a class="btn blue" href="#"><i class="icon-plus"></i> New project</a>
@@ -11,24 +8,35 @@
     <li>
       <a class="btn green" href="#"><i class="icon-pencil"></i> Edit project</a>
     </li>
-  </ul>
+  </ul> 
 
-  <div class="codehint">To create this arrow style menu, make a list with class aside-menu</div>
-  <pre>&lt;ul class=&quot;aside-menu&quot;&gt;<br/>    &lt;li class=&quot;active&quot;&gt;
-  ...</pre>
 
+  <!-- common user navigation -->
+  <!-- Master Data -->
+  
+  <%= get_process_nav(:status, params).html_safe %> 
+  
+  <% if current_user.has_role?(:admin) %>
+    <%= get_process_nav(:master, params).html_safe %>  
+    <%= get_process_nav(:employee, params).html_safe %> 
+  <% end %>
+  
+  
+  <!-- Master Data -->
+  <!-- <div class="heading-bar">
+    <h5 class="pull-left">Master Data</h5>
+  </div>
+  
   <ul class="aside-menu">
-    <li class="active"><a href="#"><i class="icon-th-list"></i> Projects</a></li>
-    <li><a href="#"><i class="icon-tasks"></i> Tasks</a></li>
-    <li><a href="#"><i class="icon-envelope"></i> Reminders</a></li>
-    <li><a href="#"><i class="icon-bar-chart"></i> Statistics</a></li>
-  </ul>
+    <li class="active"><a href="#"><i class="icon-briefcase"></i> Package</a></li>
+    <li><a href="#"><i class="icon-gift"></i> Deliverable</a></li>
+    <li><a href="#"><i class="icon-list-alt"></i> Deliverable Component</a></li> 
+  </ul> -->
 
 
   <div class="heading-bar">
     <h5 class="pull-left">Calendar</h5>
   </div>
-
   <%= render "layouts/cal" %>
 
   <div class="heading-bar">
