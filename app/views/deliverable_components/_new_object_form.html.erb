@@ -1,0 +1,17 @@
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => "form-horizontal prevent_double_submit ajax-form   no_content_form",
+        :id => "new_object"}) do |f| %>
+
+  <%= f.input :name  , :input_html => {:class => "input-xlarge span5"}, 
+  :label => "Name" %>
+
+  <%= f.input :description , :input_html => {:class => "input-xlarge span5", :rows => 5}, 
+  :label => "Description" %>
+  
+  <div class="form-actions">
+    <%= f.button :submit , :class => "btn btn-primary", :value=> "Create DeliverableComponent" %>
+  </div>
+<% end %>
+
+ 

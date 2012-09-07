@@ -7,8 +7,8 @@ class Package < ActiveRecord::Base
   
   validates_presence_of :title 
   
-  def Package.create_object( employee, object_params  ) 
-    new_object = Package.new object_params 
+  def self.create_object( employee, object_params  ) 
+    new_object = self.new object_params 
     if not employee.has_role?(:admin)
       return new_object 
     end

@@ -26,8 +26,14 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
   end
 
   create_table "deliverable_components", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "is_deleted",                 :default => false
+    t.integer  "deliverable_id"
+    t.boolean  "is_production_element",      :default => true
+    t.boolean  "is_post_production_element", :default => true
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   create_table "deliverable_items", :force => true do |t|
@@ -49,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
     t.boolean  "has_sub_item",      :default => false
     t.string   "sub_item_name"
     t.integer  "sub_item_quantity"
+    t.boolean  "is_deleted",        :default => false
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
   end

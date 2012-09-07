@@ -13,6 +13,9 @@ Projectcamp::Application.routes.draw do
   
   resources :projects  
   resources :packages 
+  resources :deliverables do
+    resources :deliverable_components 
+  end
 =begin
   SETUP, Create User +  Office Role
 =end

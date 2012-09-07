@@ -1,0 +1,48 @@
+<div class="padded">
+  
+  <%= render :partial => "layouts/new_object_opener", :locals => {
+    :text => "New Deliverable"
+  } %>
+  
+  
+   
+  <% if @deliverables.length == 0 %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "deliverables",
+      :single_object => "deliverable" 
+    } %>
+  <% end %>
+   
+   
+  <%= render :partial => "deliverables/new_object_form", :locals => {
+    :new_object => @new_deliverable,
+    :url => deliverables_url  
+  }%>
+ 
+  
+  
+  
+ 
+  
+  
+  
+    <table class="table table-bordered table-striped table-header <%= show_table?( @deliverables )%>" id="object_list">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Sub Item Name</th>
+          <th>Sub Item Quantity</th> 
+          <th>Component</th> 
+        </tr>
+      </thead>
+      <tbody id="package_list">
+        <% @deliverables.each do |deliverable| %>
+          <%= render :partial => "deliverables/object_list_entry", :locals => {
+            :object => deliverable 
+          }%>
+        
+        <% end %> 
+      </tbody>
+    </table>
+</div>

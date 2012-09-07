@@ -8,6 +8,6 @@ class DeliverablesController < ApplicationController
   
    
   def create 
-    @new_object =  Deliverable.create_object( current_user, params[:package])  
+    @new_object =  Deliverable.create_object( current_user, params[:deliverable])  
   end
 end

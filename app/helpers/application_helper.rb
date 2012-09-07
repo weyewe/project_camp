@@ -255,27 +255,16 @@ module ApplicationHelper
         ]
       },
       {
-        :title => "Deliverable",
+        :title => "Deliverable + Component",
         :icon_class => 'icon-gift',
-        :destination_link => "root_url",
+        :destination_link => "deliverables_url",
         :conditions => [
           {
-            :controller => '',
-            :action => ''
+            :controller => 'deliverables',
+            :action => 'index'
           }
         ]
-      },
-      {
-        :title => 'Deliverable Component',
-        :icon_class => 'icon-list-alt',
-        :destination_link => "root_url",
-        :conditions => [
-          {
-            :controller => '',
-            :action => ''
-          }
-        ]
-      }
+      }  
     ]
   }
   

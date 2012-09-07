@@ -1,0 +1,24 @@
+
+<tr id="object_list_entry-<%= object.id %>"> 
+  <td>
+    <%=  object.name   %>
+  </td>
+  <td> 
+    <%= object.description %>
+  </td>
+  <% if object.has_sub_item == true %>
+    <td>
+      <%= object.sub_item_name %>
+    </td>
+    <td>
+      <%= object.sub_item_quantity  %>
+    </td>
+  <% else %>
+    <td colspan='2' style='text-align:center;'>
+      <span class="label red">No SubItem</span>
+    </td>
+  <% end %>
+  <td>
+    <%= link_to object.active_deliverable_components.count , deliverable_deliverable_components_url( object ) %>
+  </td>
+</tr>
