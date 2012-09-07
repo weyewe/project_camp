@@ -127,3 +127,5 @@ S3_BUCKET_BLOG_PROD = 'nomina-prod'
 
 SHOWLOADING_LOADER_URL = "http://s3.amazonaws.com/circle-static-assets/loading.gif"
 
+# APP HELPER
+HIDE_TABLE = "object_list_hidden"

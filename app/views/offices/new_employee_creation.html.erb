@@ -1,15 +1,19 @@
 <div class="padded">
   
-  <div class="row" id="new_object_opener">  
-    <div class="pull-right">
-      <button data-toggle="button" class="btn blue form_opener"  style="cursor:pointer;">New Employee</button>
-      <!-- <a href="#modal" data-toggle="modal" class="btn">Launch Modal</a> -->
-    </div>   
-  </div>
+  <%= render :partial => "layouts/new_object_opener", :locals => {
+    :text => "New Employee"
+  } %>
+  
+  <% if @employees.length == 0 %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "packages",
+      :single_object => "package" 
+    } %>
+  <% end %>
   
    
   <%= render :partial => "offices/new_employee_form", :locals => {
-    :new_employee => @new_employee,
+    :new_object => @new_employee,
     :url => create_employee_url  
   }%>
  
@@ -30,7 +34,7 @@
     <tbody id="employee_list">
       <% @employees.each do |employee| %>
         <%= render :partial => "offices/employee_list_entry", :locals => {
-          :employee => employee 
+          :object => employee 
         }%>
         
       <% end %> 

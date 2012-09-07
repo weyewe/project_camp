@@ -5,4 +5,19 @@ class Package < ActiveRecord::Base
   has_many :deliverables, :through => :deliverable_subcriptions 
   has_many :deliverable_subcriptions 
   
+  validates_presence_of :title 
+  
+  def Package.create_object( employee, object_params  ) 
+    new_object = Package.new object_params 
+    if not employee.has_role?(:admin)
+      return new_object 
+    end
+    
+    new_object.save 
+    return new_object  
+  end
+  
+  def active_deliverable_subcriptions
+    self.deliverable_subcriptions.where(:is_active => true )
+  end
 end

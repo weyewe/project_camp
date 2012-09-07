@@ -20,7 +20,11 @@ $(document).ready(function(){
   jQuery('.prevent_double_submit').preventDoubleSubmit();
   
   $(".form_opener").click(function(){
+    //  open the form 
     $("form.no_content_form").toggle();
+    
+    // hide the no_object_list notification 
+    $("#no_object_list").toggle();
     return false;
   });
   

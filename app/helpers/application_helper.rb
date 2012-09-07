@@ -3,7 +3,7 @@ module ApplicationHelper
   REVISION_SELECTED = "selected"
   NEXT_BUTTON_TEXT = "Next &rarr;"
   PREV_BUTTON_TEXT = " &larr; Prev "
-  HIDE_TABLE = "object_list_hidden"
+  
   
 
 =begin
@@ -249,8 +249,8 @@ module ApplicationHelper
         :destination_link => "packages_url",
         :conditions => [
           {
-            :controller => '',
-            :action => ''
+            :controller => 'packages',
+            :action => 'index'
           }
         ]
       },

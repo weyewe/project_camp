@@ -7,7 +7,7 @@ class OfficesController < ApplicationController
   end
   
   def create_employee
-    @new_employee = User.create_basic_user(current_user,  params[:user] )   
+    @new_object = User.create_basic_user(current_user,  params[:user] )   
     
     
     # what's gonna happen if it is jquery AJAX ? 

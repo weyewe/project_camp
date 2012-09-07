@@ -1,0 +1,14 @@
+<tr id="package_list_entry-<%= object.id %>"> 
+  <td>
+    <%=  object.title   %>
+  </td>
+  <td> 
+    <%= object.description %>
+  </td>
+  <td>
+    <%= object.projects.count %>
+  </td>
+  <td>
+    <%= object.active_deliverable_subcriptions.count  %>
+  </td> 
+</tr>

@@ -36,13 +36,21 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
   end
 
   create_table "deliverable_subcriptions", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "package_id"
+    t.integer  "deliverable_id"
+    t.boolean  "is_active",      :default => true
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "deliverables", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "has_sub_item",      :default => false
+    t.string   "sub_item_name"
+    t.integer  "sub_item_quantity"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "drafts", :force => true do |t|
