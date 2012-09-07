@@ -51,8 +51,11 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
   end
 
   create_table "packages", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "is_deleted",  :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "project_assignments", :force => true do |t|

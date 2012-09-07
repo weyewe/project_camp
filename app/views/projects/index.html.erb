@@ -1,70 +1,8 @@
 
 <div class="padded">
  
-  <div class="slate">
-    <div class="slate-content">
-      <div class="box-left">
-        <%= image_tag "clipboard.png" %>
-      </div>
-
-      <div class="box-right">
-        <h3>Your company doesn't have any projects yet.</h3>
-        <div class="text">
-        </div>
-        <!-- <a href="#">Learn more about project tasks</a> -->
-        <span class="btn blue btn-slate-action"><i class="icon-plus-sign"></i> Add the first project!</span><br />
-        
-        <%= simple_form_for( @new_project, :html => 
-          {:class => "form-vertical prevent_double_submit form-toggler no_content_form" }) do |f| %> 
-          
-          <%= f.input :title , :input_html => {:class => "input-xlarge span5"}, 
-            :label => "Title" %>
-            
-          <hr />
-          <%= f.input :is_fixed_date , 
-            :label => "Is shoot date fixed?", :hint => "If it is not fixed (i.e.: prewedding, we can be more flexible)" %>
-            
-            
-          <%= f.input :shoot_location , :input_html => {:class => "input-xlarge span5"}, 
-            :label => "Shoot Location" %>
-            
-          <%= f.input :shoot_date , :input_html => 
-            { :rows => 1, 
-            :class => "input-xlarge datepicker" }, 
-            :label => "Shoot  Date", :hint => "(dd/mm/YYYY)", :as => :string,  
-            %>
-          
-          <%= f.input :shoot_start_date , :input_html => 
-            { :rows => 1, 
-            :class => "input-xlarge datepicker" }, 
-            :label => "Shoot Start Date", :hint => "(dd/mm/YYYY)", :as => :string,  
-            %>
-            
-          <%= f.input :shoot_end_date , :input_html => 
-            { :rows => 1, 
-            :class => "input-xlarge datepicker" }, 
-            :label => "Shoot End Date", :hint => "(dd/mm/YYYY)", :as => :string,  
-            %>
-        
-        <hr />
-          <%= f.input :external_deadline , :input_html => 
-            { :rows => 1, 
-            :class => "input-xlarge datepicker" }, 
-            :label => "External Deadline", :hint => "(dd/mm/YYYY)", :as => :string,  
-            %>
-            
-          <%= f.input :internal_deadline , :input_html => 
-            { :rows => 1, 
-            :class => "input-xlarge datepicker" }, 
-            :label => "Internal Deadline", :hint => "(dd/mm/YYYY)", :as => :string,  
-            %>
-
-          <div class="form-actions">
-             <%= f.button :submit , :class => "btn btn-primary", :value=> "Create Project" %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
+  <%= render :partial => "layouts/no_object_list" %>
+   
+  
 
 </div>

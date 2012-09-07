@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :assignments
   has_many :roles, :through => :assignments
   
+  validates_presence_of :name, :email 
+  
   
   
 =begin
@@ -22,14 +24,23 @@ class User < ActiveRecord::Base
     if not employee.has_role?(:admin)
       return nil
     end
+    
+    password = 'willy1234'
+    user_params[:password] = password
+    user_params[:password_confirmation] = password
     user = User.create user_params
+    if user.errors.messages.length != 0 
+      puts "111 There is errorr.. returning \n"*10
+      return user
+    end
+    
+    puts "GONNA UPGRADE TO BASIC USER \n"*10
     user.upgrade_to_basic_user
+    user.reload 
     return user 
   end
   
-  def upgrade_to_basic_user
-    self.is_main_user = true 
-    self.save 
+  def upgrade_to_basic_user 
     
     employee_role = Role.find_by_name(USER_ROLE[:employee])  
     self.add_role_if_not_exists(employee_role )  
@@ -42,6 +53,10 @@ class User < ActiveRecord::Base
 
   def User.create_main_user( user_params ) 
     user = User.create user_params
+    if user.errors.messages.length != 0 
+      return user 
+    end
+    
     user.upgrade_to_main_user  
     return user 
   end
@@ -74,6 +89,10 @@ class User < ActiveRecord::Base
     end
     
     user = User.create user_params 
+    if user.errors.messages.length != 0 
+      return user
+    end
+    
     role_list.each do |role|
       user.add_role_if_not_exists( role   ) 
     end 

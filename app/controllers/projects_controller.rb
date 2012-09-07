@@ -17,4 +17,8 @@ class ProjectsController < ApplicationController
       render :file => 'projects/index'
     end
   end
+  
+  def show
+    @project = Project.find_by_id params[:id]
+  end
 end

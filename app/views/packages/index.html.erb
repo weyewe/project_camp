@@ -1,0 +1,48 @@
+<div class="padded">
+  
+  <div class="row" id="new_object_opener">  
+    <div class="pull-right">
+      <button data-toggle="button" class="btn blue form_opener" id="docs" style="cursor:pointer;">New Employee</button>
+      <!-- <a href="#modal" data-toggle="modal" class="btn">Launch Modal</a> -->
+    </div>   
+  </div>
+  
+   
+   
+  <%= render :partial => "layouts/no_object_list", :locals => {
+    :objects => "packages",
+    :single_object => "package" 
+  } %>
+   
+   
+  <%= render :partial => "packages/new_package_form", :locals => {
+    :new_package => @new_package,
+    :url => packages_url  
+  }%>
+ 
+  
+  
+  
+  
+  
+  
+  
+    <table class="table table-bordered table-striped table-header <%= show_table?( @packages )%>" id="object_list">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Total Projects</th>
+          <th>Deliverables</th> 
+        </tr>
+      </thead>
+      <tbody id="package_list">
+        <% @packages.each do |package| %>
+          <%= render :partial => "packages/package_list_entry", :locals => {
+            :package => package 
+          }%>
+        
+        <% end %> 
+      </tbody>
+    </table>
+</div>

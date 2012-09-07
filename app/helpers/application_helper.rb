@@ -3,7 +3,21 @@ module ApplicationHelper
   REVISION_SELECTED = "selected"
   NEXT_BUTTON_TEXT = "Next &rarr;"
   PREV_BUTTON_TEXT = " &larr; Prev "
+  HIDE_TABLE = "object_list_hidden"
   
+
+=begin
+  Object List Display 
+=end
+
+  def show_table?( object_list )
+    if object_list.length != 0 
+      return ""
+    end 
+    return HIDE_TABLE 
+  end
+
+
 
 =begin
   For printing numbers (money)
@@ -185,7 +199,7 @@ module ApplicationHelper
       {
         :title => "Projects",
         :icon_class => 'icon-th-list',
-        :destination_link => "root_url",
+        :destination_link => "projects_url",
         :conditions => [
           {
             :controller => "projects",
@@ -232,7 +246,7 @@ module ApplicationHelper
       {
         :title => "Package",
         :icon_class => 'icon-briefcase',
-        :destination_link => "root_url",
+        :destination_link => "packages_url",
         :conditions => [
           {
             :controller => '',

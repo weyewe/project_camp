@@ -19,6 +19,33 @@ $(document).ready(function(){
   
   jQuery('.prevent_double_submit').preventDoubleSubmit();
   
+  $(".form_opener").click(function(){
+    $("form.no_content_form").toggle();
+    return false;
+  });
+  
+  
+  
+  $(".ajax-form").live("submit", function(){
+    var $form = $(this);  
+    $form.showLoading();
+
+    $.ajax({
+      url: $form.attr("action"),
+      type: "POST",
+      data: $form.serialize(),
+      dataType: 'script',
+      success: function(response){
+        // 
+        // $form.clearForm();
+        // $entry_link.hideLoading();
+      }
+    });
+    
+    return false ; 
+  });
+  
+  
   $(".default-hidden-toggler").click(function(){
     $("form.form-toggler").toggle();
     return false;

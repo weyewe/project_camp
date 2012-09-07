@@ -1,5 +1,24 @@
 <div class="padded">
-  <table class="table table-bordered table-striped table-header">
+  
+  <div class="row" id="new_object_opener">  
+    <div class="pull-right">
+      <button data-toggle="button" class="btn blue form_opener"  style="cursor:pointer;">New Employee</button>
+      <!-- <a href="#modal" data-toggle="modal" class="btn">Launch Modal</a> -->
+    </div>   
+  </div>
+  
+   
+  <%= render :partial => "offices/new_employee_form", :locals => {
+    :new_employee => @new_employee,
+    :url => create_employee_url  
+  }%>
+ 
+  
+  
+  
+  
+  
+  <table class="table table-bordered table-striped table-header" id="object_list">
     <thead>
       <tr>
         <th>Name</th>
@@ -8,34 +27,12 @@
         <th>Employee</th> 
       </tr>
     </thead>
-    <tbody>
+    <tbody id="employee_list">
       <% @employees.each do |employee| %>
-        <tr> 
-          <td>
-            <%= link_to employee.name , show_role_for_employee_url(employee) %>
-          </td>
-          <td>
-            <% if employee.has_role?(:admin)%>
-              <span class="label green">Yes</span>
-            <% else %>
-              <span class="label">No</span>
-            <% end %>
-          </td>
-          <td>
-            <% if employee.has_role?(:head_project_manager)%>
-              <span class="label green">Yes</span>
-            <% else %>
-              <span class="label">No</span>
-            <% end %>
-          </td>
-          <td>
-            <% if employee.has_role?(:employee)%>
-              <span class="label green">Yes</span>
-            <% else %>
-              <span class="label">No</span>
-            <% end %>
-          </td> 
-        </tr>
+        <%= render :partial => "offices/employee_list_entry", :locals => {
+          :employee => employee 
+        }%>
+        
       <% end %> 
     </tbody>
   </table>

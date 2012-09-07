@@ -12,6 +12,7 @@ Projectcamp::Application.routes.draw do
   get "sessions/register", to: "sessions#register", as: :register
   
   resources :projects  
+  resources :packages 
 =begin
   SETUP, Create User +  Office Role
 =end

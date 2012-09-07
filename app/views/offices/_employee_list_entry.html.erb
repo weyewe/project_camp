@@ -1,0 +1,26 @@
+<tr id="employee_list_entry-<%= employee.id %>"> 
+  <td>
+    <%= link_to employee.name , show_role_for_employee_url(employee) %>
+  </td>
+  <td>
+    <% if employee.has_role?(:admin)%>
+      <span class="label green">Yes</span>
+    <% else %>
+      <span class="label">No</span>
+    <% end %>
+  </td>
+  <td>
+    <% if employee.has_role?(:head_project_manager)%>
+      <span class="label green">Yes</span>
+    <% else %>
+      <span class="label">No</span>
+    <% end %>
+  </td>
+  <td>
+    <% if employee.has_role?(:employee)%>
+      <span class="label green">Yes</span>
+    <% else %>
+      <span class="label">No</span>
+    <% end %>
+  </td> 
+</tr>
