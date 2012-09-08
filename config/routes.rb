@@ -12,7 +12,9 @@ Projectcamp::Application.routes.draw do
   get "sessions/register", to: "sessions#register", as: :register
   
   resources :projects  
-  resources :packages 
+  resources :packages  do
+    resources :deliverable_subcriptions  
+  end
   resources :deliverables do
     resources :deliverable_components 
   end
