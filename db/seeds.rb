@@ -40,5 +40,78 @@ postprod = User.create_basic_user(admin, :name => "postProd", :password => "will
 prod2  = User.create_basic_user(admin, :name => "Prod 2", :password => "willy1234", :password_confirmation => "willy1234", :email => "prod2@gmail.com" )
 
 
+# Creating Package
 
-   
+beauty_shoot_package = Package.create_object( admin, {
+  :title => "Beauty Shoot"
+})
+
+pre_wedding_package = Package.create_object( admin, {
+  :title => "Pre Wedding"
+})  
+
+wedding_package = Package.create_object( admin, {
+  :title => "Wedding Day Coverage"
+})
+
+maternity_package = Package.create_object( admin, {
+  :title => "Maternity, before the baby is born"
+})
+
+
+ 
+
+canvas =  Deliverable.create_object( admin, {
+  :name => "Canvas",
+  :has_sub_item => false
+})
+
+photo_clip =  Deliverable.create_object( admin, {
+  :name => "Photo Clip",
+  :has_sub_item => false
+})
+
+album =  Deliverable.create_object( admin, {
+  :name => "Album",
+  :has_sub_item => true,
+  :sub_item_name => "Edited Pics",
+  :sub_item_quantity => 50
+})
+
+
+# Create Deliverable Component : CANVAS
+DeliverableComponent.create_child_object( admin, canvas, {
+  :name => "Frame"
+}) 
+
+DeliverableComponent.create_child_object( admin, canvas, {
+  :name => "Image"
+}) 
+
+# Create Deliverable Component : ALBUM
+DeliverableComponent.create_child_object( admin, album, {
+  :name => "Cover"
+}) 
+
+DeliverableComponent.create_child_object( admin, album, {
+  :name => "Album Content"
+})
+
+DeliverableComponent.create_child_object( admin, album, {
+  :name => "Packaging"
+})
+
+# Create Deliverable Component : Photoclip
+DeliverableComponent.create_child_object( admin, photo_clip, {
+  :name => "CD Cover"
+}) 
+
+DeliverableComponent.create_child_object( admin, photo_clip, {
+  :name => "Photoclip"
+})
+ 
+ 
+# CREATING THE DELIVERABLE SUBCRIPTION 
+
+DeliverableSubcription.create_child_object( admin, pre_wedding_package, :deliverable_id => canvas.id  ) 
+DeliverableSubcription.create_child_object( admin, pre_wedding_package, :deliverable_id => album.id  ) 

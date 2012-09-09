@@ -17,6 +17,7 @@ class CreateProjects < ActiveRecord::Migration
       t.date    :external_deadline  # when they are getting married 
       
       
+      # only projects that is not is_active
       t.boolean :is_deleted  , :default => false 
       t.integer :deleter_id 
       t.boolean :is_finished , :default => false 

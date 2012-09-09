@@ -211,7 +211,7 @@ module ApplicationHelper
           },
           {
             :controller => 'projects',
-            :action => 'create'
+            :action => 'show'
           }
         ]
       },
@@ -251,6 +251,10 @@ module ApplicationHelper
           {
             :controller => 'packages',
             :action => 'index'
+          },
+          {
+            :controller => 'deliverable_subcriptions',
+            :action =>"index"
           }
         ]
       },
@@ -261,6 +265,10 @@ module ApplicationHelper
         :conditions => [
           {
             :controller => 'deliverables',
+            :action => 'index'
+          },
+          {
+            :controller => 'deliverable_components',
             :action => 'index'
           }
         ]

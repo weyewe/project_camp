@@ -9,7 +9,8 @@
   <% if @deliverables.length == 0 %>
     <%= render :partial => "layouts/no_object_list", :locals => {
       :objects => "deliverables",
-      :single_object => "deliverable" 
+      :single_object => "deliverable" ,
+      :subject => "company"
     } %>
   <% end %>
    

@@ -9,6 +9,6 @@
     <%= object.projects.count %>
   </td>
   <td>
-    <%= object.active_deliverable_subcriptions.count  %>
+    <%= link_to object.active_deliverable_subcriptions.count, package_deliverable_subcriptions_url( object )   %>
   </td> 
 </tr>

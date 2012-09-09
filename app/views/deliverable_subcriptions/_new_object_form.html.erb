@@ -1,0 +1,16 @@
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => "form-horizontal prevent_double_submit ajax-form   no_content_form",
+        :id => "new_object"}) do |f| %>
+ 
+  <%= f.input :deliverable_id, :hint => "Select Deliverable", :label => "Deliverable" do %>
+     <%= f.select :deliverable_id, 
+         Deliverable.all_selectable_deliverables %>
+   <% end %>
+    
+  <div class="form-actions">
+    <%= f.button :submit , :class => "btn btn-primary", :value=> "Assign Deliverable" %>
+  </div>
+<% end %>
+
+ 

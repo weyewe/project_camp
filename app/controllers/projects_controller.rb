@@ -1,24 +1,21 @@
 class ProjectsController < ApplicationController
-  def index
-    @total_active_projects = Project.count 
-    @new_project = Project.new
+  def index 
+    @new_project = Project.new 
+    @projects = Project.active_deliverable_subcriptions
     
-    add_breadcrumb "Active Projects", 'projects_url' 
+    add_breadcrumb "Project Management", 'projects_url'
   end
   
-  
+   
   def create 
-    @new_project = Project.create_by_user( current_user, params[:project] )
-    
-    if @new_project.errors.messages.length == 0 
-      
-    else
-      flash[:error] = "Check your data!"
-      render :file => 'projects/index'
-    end
+    @new_object =  Project.create_object( current_user, params[:project])  
   end
   
   def show
     @project = Project.find_by_id params[:id]
+    add_breadcrumb "Project Management", 'projects_url'
+    set_breadcrumb_for @project, 'project_url' + "(#{@project.id})", 
+          "Project Management for #{@project.title}"
+    
   end
 end

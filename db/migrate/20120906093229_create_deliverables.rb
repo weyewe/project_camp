@@ -8,7 +8,7 @@ class CreateDeliverables < ActiveRecord::Migration
       t.string :sub_item_name 
       t.integer :sub_item_quantity 
       
-      t.boolean :is_deleted, :default => false 
+      t.boolean :is_active, :default => true 
        
       t.timestamps
     end

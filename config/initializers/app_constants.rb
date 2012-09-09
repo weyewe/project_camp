@@ -1,5 +1,5 @@
-COMPANY_NAME = "potoSys"
-COMPANY_TITLE = "potoSys"
+COMPANY_NAME = "magnifique360"
+COMPANY_TITLE = "magnifique360"
 =begin
   MODEL CONSTANT
 =end

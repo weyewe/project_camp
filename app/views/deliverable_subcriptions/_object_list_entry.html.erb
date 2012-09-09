@@ -1,0 +1,19 @@
+
+<tr id="object_list_entry-<%= object.id %>"> 
+  <td>
+    <%=  object.deliverable.name    %>
+  </td>
+  <% if object.deliverable.has_sub_item == true %>
+    <td> 
+      <%= object.deliverable.sub_item_name %>
+    </td>
+    <td> 
+      <%= object.deliverable.sub_item_quantity %>
+    </td>
+  <% else %>
+    <td style='text-align:center;' colspan='2'> 
+      <span class="label red">No Sub Item</span>
+    </td>
+  <% end %>
+  
+</tr>

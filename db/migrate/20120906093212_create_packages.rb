@@ -4,7 +4,7 @@ class CreatePackages < ActiveRecord::Migration
       t.string :title
       t.text :description 
       
-      t.boolean :is_deleted, :default  => false 
+      t.boolean :is_active, :default  => false 
       
       t.timestamps
     end

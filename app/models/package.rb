@@ -18,6 +18,6 @@ class Package < ActiveRecord::Base
   end
   
   def active_deliverable_subcriptions
-    self.deliverable_subcriptions.where(:is_active => true )
+    self.deliverable_subcriptions.joins(:deliverable).where(:is_active => true )
   end
 end

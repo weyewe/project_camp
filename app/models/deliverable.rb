@@ -30,7 +30,24 @@ class Deliverable < ActiveRecord::Base
   
   
   def active_deliverable_components
-    self.deliverable_components.where(:is_deleted => false).order("created_at DESC")
+    self.deliverable_components.where(:is_active => false).order("created_at DESC")
   end
   
+  
+  def self.all_selectable_deliverables
+    deliverables  = Deliverable.where(:is_active => true ).order("name ASC")
+    result = []
+    deliverables.each do |deliverable|
+      if deliverable.has_sub_item == true 
+        result << [ "#{deliverable.name} -- SubItem: #{deliverable.sub_item_name} "+
+                "-- Default SubItem Quantity: #{deliverable.sub_item_quantity} "  , 
+                        deliverable.id ]
+      else
+        result << [ "#{deliverable.name}" , 
+                        deliverable.id ]
+      end
+          
+    end
+    return result
+  end
 end

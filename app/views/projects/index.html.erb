@@ -1,8 +1,51 @@
-
 <div class="padded">
- 
-  <%= render :partial => "layouts/no_object_list" %>
-   
   
-
+  
+  <%= render :partial => "layouts/new_object_opener", :locals => {
+    :text => "New Project"
+  } %>
+  
+  
+   
+  <% if @projects.length == 0 %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "active projects",
+      :single_object => "project" , 
+      :subject => "company"
+    } %>
+  <% end %>
+   
+   
+  <%= render :partial => "projects/new_object_form", :locals => {
+    :new_object => @new_project,
+    :url => projects_url  
+  }%>
+ 
+  
+  
+  
+  
+  
+  
+    <table class="table table-bordered table-striped table-header <%= show_table?( @projects )%>" id="object_list">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Deadline</th>
+          <th>Deliverables</th>
+          <th>Membership</th>
+          <th>Concept</th> 
+          <th>Production</th>
+          <th>Post Production</th>
+        </tr>
+      </thead>
+      <tbody id="package_list">
+        <% @projects.each do |project| %>
+          <%= render :partial => "projects/object_list_entry", :locals => {
+            :object => project 
+          }%>
+        
+        <% end %> 
+      </tbody>
+    </table>
 </div>

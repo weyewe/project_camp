@@ -1,0 +1,43 @@
+<div class="padded">
+  
+  <%= render :partial => "layouts/new_object_opener", :locals => {
+    :text => "New Deliverable Component"
+  } %>
+  
+  
+   
+  <% if @deliverable_subcriptions.length == 0 %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "deliverable assigments",
+      :single_object => "deliverable assignment" ,
+      :subject => "package"
+    } %>
+  <% end %>
+   
+   
+  <%= render :partial => "deliverable_subcriptions/new_object_form", :locals => {
+    :new_object => @new_deliverable_subcription,
+    :url => package_deliverable_subcriptions_url(@package)  
+  }%>
+ 
+   
+  
+    <table class="table table-bordered table-striped table-header <%= show_table?( @deliverable_subcriptions )%>"
+       id="object_list">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Sub Item</th> 
+          <th>Sub Item Quantity</th> 
+        </tr>
+      </thead>
+      <tbody id="package_list">
+        <% @deliverable_subcriptions.each do |deliverable_subcription| %>
+          <%= render :partial => "deliverable_subcriptions/object_list_entry", :locals => {
+            :object => deliverable_subcription 
+          }%>
+        
+        <% end %> 
+      </tbody>
+    </table>
+</div>

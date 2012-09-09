@@ -1,0 +1,34 @@
+<tr id="object_list_entry-<%= object.id %>"> 
+  <!-- <th>Title</th>
+   <th>Deadline</th>
+   <th>Deliverables</th>
+   <th>Membership</th>
+   <th>Concept</th> 
+   <th>Production</th>
+   <th>Post Production</th>
+    -->
+  
+  <td>
+    <%=  link_to  object.title , project_url( object )   %>
+  </td>
+  <td> 
+    <%= format_date_from_datetime( object.external_deadline )  %>
+  </td>
+  
+  <td> 
+    <%= format_date_from_datetime( object.external_deadline )  %>
+  </td>
+  <td> 
+    <%= format_date_from_datetime( object.external_deadline )  %>
+  </td>
+  <td> 
+    <%= format_date_from_datetime( object.external_deadline )  %>
+  </td>
+  <td> 
+    <%= format_date_from_datetime( object.external_deadline )  %>
+  </td>
+  <td> 
+    <%= format_date_from_datetime( object.external_deadline )  %>
+  </td>
+  
+</tr>
