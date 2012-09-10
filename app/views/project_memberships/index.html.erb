@@ -1,0 +1,83 @@
+<% content_for :additional_mini_app_nav do %>
+  <%= render :partial => 'layouts/mini_app_nav' %>
+<% end %>
+
+<div class="padded">
+ 
+  <% if @project.is_membership_assignment_finalized == true %>
+    <%= render :partial => "project_memberships/membership_assignment_finalized", :locals => {
+      :project => @project 
+    }%>
+  <% else %>
+    <%= render :partial => "project_memberships/finalize_membership_assignment", :locals => {
+      :project => @project 
+    }%>
+  <% end %>
+  
+  
+  <div class="shadow-box yellow">
+    Every project has to have at least: 
+    <ul>
+      <li>Project Manager(PM): assigning the tasks (layout design, photo edit, draft revision) to the production team. 
+      </li>
+      <li>Main Crew (can be the leading photographers or videographers)
+      </li>
+      <li>Crew (Assistant to the photographer or videographers)
+      </li>
+      <li>Account Executive /AE ( Collaborate with client in selecting pictures and  finalizing draft for deliverables )
+      </li>
+      
+      <li>Quality Control /QC (Before any draft reached client, it has to pass the internal quality control)
+      </li>
+    </ul>
+    
+  </div>
+
+  
+
+  <table class="table table-bordered table-striped table-header">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>PM</th>
+        <th>MainCrew</th>
+        <th>Crew</th>
+        <th>AE</th>
+        <th>QC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% User.order("created_at DESC").each do |user| %>
+        <%= render :partial => "project_memberships/project_role_assignment_entry", :locals => {
+          :project => @project,
+          :employee => user ,
+          :main_crew =>    @main_crew_project_role ,
+          :crew =>    @crew_project_role ,
+          :pm =>    @pm_project_role ,
+          :ae =>    @ae_project_role ,
+          :prod =>    @prod_project_role , 
+          :post_prod =>    @post_prod_project_role ,
+          :qc =>    @qc_project_role  
+        }%>
+      <% end %> 
+     
+    </tbody>
+  </table>
+  
+  
+  
+  
+
+ 
+ 
+</div>
+
+<div class=" hidden" id="checkbox_form_wrapper">
+  <%= form_for @new_project_membership, :url => assign_project_membership_role_for_url(@project),  :method => :post   do |f| %>
+    <%= hidden_field_tag 'membership_provider' , ''  %>
+    <%= hidden_field_tag 'membership_consumer', '' %>
+    <%= hidden_field_tag 'membership_decision', '' %>
+  <% end %>
+</div>
+
+ 

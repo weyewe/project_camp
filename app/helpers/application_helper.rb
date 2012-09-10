@@ -212,6 +212,14 @@ module ApplicationHelper
           {
             :controller => 'projects',
             :action => 'show'
+          },
+          {
+            :controller => 'deliverable_items',
+            :action => "index"
+          },
+          {
+            :controller => "project_memberships",
+            :action => 'index'
           }
         ]
       },

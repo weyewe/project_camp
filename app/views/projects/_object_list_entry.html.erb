@@ -1,5 +1,6 @@
 <tr id="object_list_entry-<%= object.id %>"> 
-  <!-- <th>Title</th>
+  <!-- 
+   <th>Title</th>
    <th>Deadline</th>
    <th>Deliverables</th>
    <th>Membership</th>
@@ -16,10 +17,18 @@
   </td>
   
   <td> 
-    <%= object.deliverable_items.count %>
+    
+    <span class="badge blue rounded"><%= object.deliverable_items.count %></span> 
+    
   </td>
   <td> 
-    <%= format_date_from_datetime( object.external_deadline )  %>
+    <% if object.is_membership_assignment_finalized and object.is_core_project_member_complete? %>
+      <span class="label green">Complete</span>
+    <% else %>
+      <span class="label orange">Pending</span>
+      
+    <% end %>
+    <span class="badge blue rounded"><%= object.users.count %></span> 
   </td>
   <td> 
     <%= format_date_from_datetime( object.external_deadline )  %>

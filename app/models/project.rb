@@ -101,14 +101,92 @@ class Project < ActiveRecord::Base
   def self.active_projects
     Project.where(:is_deleted => false  , :is_finished => false ).order("external_deadline ASC, score DESC")
   end
-  
+
 =begin
-  PROJECT MEMBERSHIPS
+  ASSIGNING PROJECT MEMBERSHIP 
 =end
+  def add_project_membership( employee,  project_collaborator,  project_role  )
+    if not employee.has_role?(:admin)
+      return nil
+    end
 
-   
+    project_membership = ProjectMembership.find(:first, :conditions => {
+      :user_id => project_collaborator.id ,
+      :project_id => self.id
+    })
 
-    # 
+    if project_membership.nil?
+      project_membership = ProjectMembership.create(
+                      :user_id => project_collaborator.id ,
+                      :project_id => self.id 
+                  )
+    end
+
+    project_membership.add_roles( [project_role] )
+  end
+
+  def remove_project_membership(employee, project_collaborator,  project_role  )
+    if not employee.has_role?(:admin)
+      return nil
+    end
+
+    project_membership = ProjectMembership.find(:first, :conditions => {
+      :user_id => project_collaborator.id ,
+      :project_id => self.id
+    })
+
+    if project_membership.nil?
+      return nil
+    end
+ 
+    project_membership.remove_project_role( project_role )   
+  end
+
+  def project_memberships_for_project_role( project_role )
+    project_membership_id_list =  self.project_memberships.map{|x| x.id }
+
+    ProjectAssignment.where(:project_role_id => project_role.id, 
+            :project_membership_id => project_membership_id_list)
+
+  end
+  
+  def finalize_project_membership_assignment(employee)
+    if not employee.has_role?(:head_project_manager)
+      return nil
+    end
+    
+    if self.is_core_project_member_complete?
+      self.is_membership_assignment_finalized = true 
+      self.membership_assignment_finalized_date = Time.now.to_date 
+      self.save 
+    end
+    #  send email to all project members 
+  end
+
+  def is_core_project_member_complete?
+    project_membership_id_list = self.project_memberships.map{|x| x.id }
+    project_role_id_list  = ProjectAssignment.
+                          where(:project_membership_id =>project_membership_id_list ).
+                          map{|x| x.project_role_id} 
+    # PM  MainCrew  Crew  AE  QC
+    
+    complete_project_role_id_list = ProjectRole.where(:name => [
+      PROJECT_ROLE[:main_crew], 
+      PROJECT_ROLE[:project_manager],
+      PROJECT_ROLE[:account_executive] ,
+      PROJECT_ROLE[:quality_control]
+      ]).map{|x| x.id } 
+      
+    complete_project_role_id_list.each do |x|
+      if not project_role_id_list.include?(x)
+        return false
+      end
+    end
+    
+    return true
+  end  
+  
+  
 =begin
   Utility and Callbacks
 =end

@@ -1,0 +1,14 @@
+$(document).ready(function(){
+  
+  <% new_row = escape_javascript(  render :partial => "project_memberships/project_role_assignment_entry", :locals => {
+            :project => @project,
+            :employee => @employee ,
+            :main_crew =>    @main_crew_project_role ,
+            :crew =>    @crew_project_role ,
+            :pm =>    @pm_project_role ,
+            :ae =>    @ae_project_role ,
+            :prod =>    @prod_project_role , 
+            :post_prod =>    @post_prod_project_role ,
+            :qc =>    @qc_project_role
+          }) %>
+});

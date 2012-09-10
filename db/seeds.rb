@@ -17,11 +17,8 @@ head_pm_role = Role.create :name => USER_ROLE[:head_project_manager]
 admin = User.create_main_user( :name => "Admin", :password => "willy1234", :password_confirmation => "willy1234", :email => "admin@gmail.com" ) 
 admin.add_role_if_not_exists( head_pm_role ) 
 admin.reload
-if admin.has_role?(:admin)
-  puts "THe admin has role ADMIN! \n"*10
-else
-  puts "THe admin DOESN't have role ADMIN! \n"*10
-end
+
+
 head_pm = User.create_user_with_role( admin, [head_pm_role], :name => "Head PM", 
                       :password => "willy1234", 
                       :password_confirmation => "willy1234", 
@@ -39,6 +36,13 @@ prod = User.create_basic_user( admin,:name => "PROD1", :password => "willy1234",
 postprod = User.create_basic_user(admin, :name => "postProd", :password => "willy1234", :password_confirmation => "willy1234", :email => "post_prod@gmail.com" )
 prod2  = User.create_basic_user(admin, :name => "Prod 2", :password => "willy1234", :password_confirmation => "willy1234", :email => "prod2@gmail.com" )
 
+main_crew_project_role = ProjectRole.create :name =>  PROJECT_ROLE[:main_crew]
+crew_project_role = ProjectRole.create :name => PROJECT_ROLE[:crew]
+pm_project_role = ProjectRole.create :name => PROJECT_ROLE[:project_manager]
+ae_project_role = ProjectRole.create :name => PROJECT_ROLE[:account_executive]
+prod_project_role = ProjectRole.create :name => PROJECT_ROLE[:production]
+post_prod_project_role = ProjectRole.create :name => PROJECT_ROLE[:post_production]
+qc_project_role = ProjectRole.create :name => PROJECT_ROLE[:quality_control]
 
 # Creating Package
 

@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
     t.integer  "project_id"
     t.integer  "deliverable_id"
     t.integer  "sub_item_quantity"
-    t.boolean  "is_basic_deliverable",         :default => true
     t.text     "project_specific_description"
+    t.boolean  "is_basic_deliverable",         :default => true
     t.boolean  "is_active",                    :default => true
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
@@ -104,20 +104,23 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
     t.integer  "package_id"
     t.integer  "client_id"
     t.integer  "creator_id"
-    t.boolean  "is_fixed_date",     :default => false
+    t.boolean  "is_fixed_date",                        :default => false
     t.string   "shoot_location"
     t.date     "shoot_date"
     t.date     "shoot_start_date"
     t.date     "shoot_end_date"
     t.date     "internal_deadline"
     t.date     "external_deadline"
-    t.boolean  "is_deleted",        :default => false
+    t.boolean  "is_membership_assignment_finalized",   :default => false
+    t.date     "membership_assignment_finalized_date"
+    t.boolean  "is_deleted",                           :default => false
     t.integer  "deleter_id"
-    t.boolean  "is_finished",       :default => false
+    t.boolean  "is_finished",                          :default => false
     t.integer  "finisher_id"
-    t.integer  "score",             :default => 0
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.date     "finish_date"
+    t.integer  "score",                                :default => 0
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
   end
 
   create_table "roles", :force => true do |t|

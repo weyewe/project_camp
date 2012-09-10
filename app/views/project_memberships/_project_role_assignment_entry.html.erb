@@ -1,0 +1,46 @@
+
+
+<tr id="role_assignment_entry-<%= employee.id %>">
+  <td><b><%= employee.name %></b></td>
+  
+  <td>
+    <% checkbox_value = employee.has_project_role?(project, main_crew ) %>
+    <!-- PM role  -->
+    <%= check_box_tag 'is_checked', get_checkbox_value(checkbox_value )   , 
+        checkbox_value, :class => 'checkbox_tracker', 
+        :id => "provider_#{main_crew.id}-consumer_#{employee.id}" %>  <span class="label"> OK</span>
+  </td>
+  
+  <td>
+    <% checkbox_value = employee.has_project_role?(project, crew ) %>
+    <!-- Main Crew role -->
+    <%= check_box_tag 'is_checked', get_checkbox_value(checkbox_value )   , 
+        checkbox_value, :class => 'checkbox_tracker', 
+        :id => "provider_#{crew.id}-consumer_#{employee.id}" %> <span class="label"> OK</span>
+  </td>
+  
+  <td>
+    <% checkbox_value = employee.has_project_role?(project, pm ) %>
+    <!-- Crew role -->
+    <%= check_box_tag 'is_checked', get_checkbox_value(checkbox_value )   , 
+        checkbox_value, :class => 'checkbox_tracker', 
+        :id => "provider_#{pm.id}-consumer_#{employee.id}" %> <span class="label"> OK</span>
+  </td>
+  
+  <td>
+    <% checkbox_value = employee.has_project_role?(project, ae ) %>
+    <!-- AE role  -->
+    <%= check_box_tag 'is_checked', get_checkbox_value(checkbox_value )   , 
+        checkbox_value, :class => 'checkbox_tracker', 
+        :id => "provider_#{ae.id}-consumer_#{employee.id}" %> <span class="label"> OK</span>
+  </td>
+  
+  
+  <td>
+    <% checkbox_value = employee.has_project_role?(project, qc ) %>
+    <!-- QC role  -->
+    <%= check_box_tag 'is_checked', get_checkbox_value(checkbox_value )   , 
+        checkbox_value, :class => 'checkbox_tracker', 
+        :id => "provider_#{qc.id}-consumer_#{employee.id}" %> <span class="label"> OK</span>
+  </td>
+</tr>

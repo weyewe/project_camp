@@ -32,4 +32,12 @@ Projectcamp::Application.routes.draw do
   match 'show_role_for_employee/:employee_id' => "offices#show_role_for_employee" , :as => :show_role_for_employee
   match 'assign_role_for_employee' => "offices#assign_role_for_employee" , :as => :assign_role_for_employee, :method => :post
 
+
+=begin
+  Assigning project membership for employee
+=end
+
+  match 'assign_project_membership_role_for/:project_id' => "project_memberships#assign_project_membership_role_for",  :as => :assign_project_membership_role_for, :method => :post
+  match 'finalize_membership_assignment' => "projects#finalize_membership_assignment",  :as => :finalize_membership_assignment, :method => :post 
+  
 end

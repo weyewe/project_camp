@@ -35,4 +35,10 @@ class ProjectsController < ApplicationController
       puts "The project doesn't have any errors\n"*5
     end
   end
+  
+  def finalize_membership_assignment
+    @project = Project.find_by_id params[:entity_id]
+    
+    @project.finalize_project_membership_assignment(current_user)
+  end
 end

@@ -1,0 +1,13 @@
+$(document).ready(function(){
+  <% new_notification = escape_javascript(render :partial => "project_memberships/membership_assignment_finalized", 
+    :locals => {
+    :project => @project 
+  }
+  
+  ) %>
+  <% if @project.is_membership_assignment_finalized == true %>
+    $("#finalizer").hideLoading();
+    $("#finalizer").replaceWith('<%= new_notification %>' );
+  <% end %>
+  
+});
