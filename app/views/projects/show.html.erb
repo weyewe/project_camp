@@ -43,3 +43,8 @@
 <div class="padded">
   <a class="btn" data-toggle="modal" href="#modal" >Launch Modal</a>
 </div>
+
+
+<% content_for :additional_js do %> 
+  <%= javascript_include_tag "project_summary" %>
+<% end %>

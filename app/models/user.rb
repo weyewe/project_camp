@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   has_many :assignments
   has_many :roles, :through => :assignments
   
+  has_many :project_memberships 
+  has_many :projects, :through => :project_memberships
+  
   validates_presence_of :name, :email 
   
   
@@ -156,4 +159,20 @@ class User < ActiveRecord::Base
   end
   
   
+=begin
+  PROJECT MEMBERSHIP 
+=end 
+
+  def project_membership_for(project)
+    ProjectMembership.where(:user_id => self.id , :project_id => project.id ).first
+  end
+  
+  def has_project_membership?(project)
+    not project_membership_for(project).nil? 
+  end
+  
+  def has_project_role?( project, project_role)
+    self.has_project_membership?(project) and 
+        self.project_membership_for(project).has_assigned_project_role?(project_role)
+  end
 end

@@ -7,6 +7,14 @@ class Deliverable < ActiveRecord::Base
   validates_presence_of :name 
   has_many :deliverable_components 
   
+  has_many :packages, :through => :deliverable_subcriptions 
+  has_many :deliverable_subcriptions
+  
+  
+  
+  has_many :projects, :through => :deliverable_items 
+  has_many :deliverable_items 
+  
   def self.create_object( employee, object_params  ) 
     new_object = self.new object_params 
     if not employee.has_role?(:admin)

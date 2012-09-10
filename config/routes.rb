@@ -11,10 +11,14 @@ Projectcamp::Application.routes.draw do
   get "sessions/login", to: "sessions#login", as: :login
   get "sessions/register", to: "sessions#register", as: :register
   
-  resources :projects  
+  resources :projects   do
+    resources :project_memberships 
+  end
+  
   resources :packages  do
     resources :deliverable_subcriptions  
   end
+  
   resources :deliverables do
     resources :deliverable_components 
   end

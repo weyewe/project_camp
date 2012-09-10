@@ -1,4 +1,4 @@
-<div class="padded">
+<div class="padded" class='section_wrapper'>
 
   <!-- <div class="row">
     <div class="pull-right">
@@ -19,67 +19,37 @@
   
   
     <div class="row"> 
-      <div class='span7'>
-        <table class="table table-bordered table-striped table-header">
-          <thead>
-            <th colspan='2' style='text-align:center;'>
-              Project Details
-            </th>
-          <thead>
-
-          <tbody>
-            <tr>
-              <td class='project-detail-metric' style="width:50%; text-align:right;">Shoot Date</td>
-              <td>12/5/2012</td>
-            </tr>
-            <tr>
-              <td class='project-detail-metric'>Shoot Location</td>
-              <td>London, UK</td>
-            </tr>
-            <tr>
-              <td class='project-detail-metric'>Shoot Start Date</td>
-              <td>12/5/2012</td>
-            </tr>
-            <tr>
-              <td class='project-detail-metric'>Shoot End Date</td>
-              <td>12/5/2012</td>
-            </tr>
-            
-            <tr>
-              <td class='project-detail-metric'>Internal Deadline</td>
-              <td>30/11/2012</td>
-            </tr> 
-
-            <tr>
-              <td class='project-detail-metric'>External Deadline</td>
-              <td>12/12/2012</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class='span7' id="project_detail_wrapper">
+        <%= render :partial => "projects/edit_object_form", :locals => {
+          :object => @project, 
+          :url => project_url(@project),
+          :id => 'edit_project_detail'
+        }%>
+        
+        <%= render :partial => "projects/project_detail", :locals => {
+          :project => @project 
+        }%>
+        
+        
       </div>
       <div class='span1'>
-          <button id="haha" class="btn blue" data-toggle="button" style="width:100%; text-align:center;">Edit</button>
+          <button  class="btn blue edit_form_opener" data-toggle="button" style="width:100%; text-align:center;">Edit</button>
       </div>
     </div>
   
   
   
-    
-    
-    
-  <div style="line-height: 24px;">
-    This theme comes with new awesome label styles like the <span class="label">label</span>
-    <br/>
-    We also have <span class="label green">label green</span>. Here's some lorem ipsum:
-    <span class="label green">label green</span> dolor sit amet in pretium nisl <span class="label red">label red</span> Nulla volutpat aliquam velit.
-    Lorem ipsum dolor sit amet Consectetur <span class="label orange">label orange</span> elit Integer molestie lorem at massa
-    <span class="label blue">label blue</span> in pretium nisl <span class="label purple">label purple</span> Nulla volutpat aliquam velit.
-    Lorem <span class="label pink">label pink</span> dolor sit amet Consectetur <span class="label yellow">label yellow</span> elit Integer molestie lorem at massa
-
-    <div class="codehint">Add labels using class="label color"</div>
-   <pre>
-    &lt;span class=&quot;label green&quot;&gt;green&lt;/span&gt;
-    &lt;span class=&quot;label blue&quot;&gt;blue&lt;/span&gt;
-    ...</pre>
-  </div>
+  <!--     
+      
+      
+    <div style="line-height: 24px;">
+      This theme comes with new awesome label styles like the <span class="label">label</span>
+      <br/>
+      We also have <span class="label green">label green</span>. Here's some lorem ipsum:
+      <span class="label green">label green</span> dolor sit amet in pretium nisl <span class="label red">label red</span> Nulla volutpat aliquam velit.
+      Lorem ipsum dolor sit amet Consectetur <span class="label orange">label orange</span> elit Integer molestie lorem at massa
+      <span class="label blue">label blue</span> in pretium nisl <span class="label purple">label purple</span> Nulla volutpat aliquam velit.
+      Lorem <span class="label pink">label pink</span> dolor sit amet Consectetur <span class="label yellow">label yellow</span> elit Integer molestie lorem at massa
+   
+    </div> -->
 </div>

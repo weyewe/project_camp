@@ -28,6 +28,16 @@ $(document).ready(function(){
     return false;
   });
   
+  $(".edit_form_opener").click(function(){
+    var $section_wrapper = $(this).parents(".row");
+    //  open the form 
+    $("form.edit_form_opener", $section_wrapper).toggle();
+    
+    // hide the no_object_list notification 
+    $(".form_content", $section_wrapper).toggle();
+    return false;
+  });
+  
   
   
   $(".ajax-form").live("submit", function(){

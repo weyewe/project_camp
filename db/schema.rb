@@ -37,8 +37,13 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
   end
 
   create_table "deliverable_items", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "project_id"
+    t.integer  "deliverable_id"
+    t.integer  "sub_item_quantity"
+    t.boolean  "is_basic_deliverable",         :default => true
+    t.text     "project_specific_description"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
   end
 
   create_table "deliverable_subcriptions", :force => true do |t|
@@ -68,22 +73,27 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
   create_table "packages", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.boolean  "is_active",   :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.boolean  "is_active",   :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "project_assignments", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "project_membership_id"
+    t.integer  "project_role_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "project_memberships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "project_roles", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -93,7 +103,7 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
     t.integer  "package_id"
     t.integer  "client_id"
     t.integer  "creator_id"
-    t.boolean  "is_fixed_date",     :default => true
+    t.boolean  "is_fixed_date",     :default => false
     t.string   "shoot_location"
     t.date     "shoot_date"
     t.date     "shoot_start_date"

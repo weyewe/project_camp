@@ -20,4 +20,17 @@ class Package < ActiveRecord::Base
   def active_deliverable_subcriptions
     self.deliverable_subcriptions.joins(:deliverable).where(:is_active => true )
   end
+  
+  
+  def self.all_selectable_packages
+    packages  = Package.where(:is_active => true ).order("title ASC")
+    result = []
+    packages.each do |package| 
+      result << [ "#{package.title}" , 
+                      package.id ]  
+    end
+    return result
+  end
+  
+   
 end

@@ -13,6 +13,13 @@ form.no_content_form {
   display:none; 
 }
 
+form.form_content {  
+  border: 1px solid rgb(230, 230, 230 );
+  background-color: #fff9e8;
+  padding: 20px;
+  display:none; 
+}
+
 .breadcrumb {
   border-top: 0px;
 }
@@ -37,4 +44,8 @@ form.no_content_form {
 #no_object_list { 
   margin-top: 10px;
   margin-bottom: 10px; 
+}
+
+#project_detail_wrapper .new_object {
+margin-top: 0;
 }

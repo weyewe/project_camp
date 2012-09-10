@@ -42,6 +42,7 @@ prod2  = User.create_basic_user(admin, :name => "Prod 2", :password => "willy123
 
 # Creating Package
 
+
 beauty_shoot_package = Package.create_object( admin, {
   :title => "Beauty Shoot"
 })
@@ -58,7 +59,12 @@ maternity_package = Package.create_object( admin, {
   :title => "Maternity, before the baby is born"
 })
 
-
+package_array = [
+    beauty_shoot_package, 
+    pre_wedding_package,
+    wedding_package,
+    maternity_package 
+  ]
  
 
 canvas =  Deliverable.create_object( admin, {
@@ -115,3 +121,5 @@ DeliverableComponent.create_child_object( admin, photo_clip, {
 
 DeliverableSubcription.create_child_object( admin, pre_wedding_package, :deliverable_id => canvas.id  ) 
 DeliverableSubcription.create_child_object( admin, pre_wedding_package, :deliverable_id => album.id  ) 
+
+
