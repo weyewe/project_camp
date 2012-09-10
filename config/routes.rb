@@ -13,6 +13,7 @@ Projectcamp::Application.routes.draw do
   
   resources :projects   do
     resources :project_memberships 
+    resources :deliverable_items 
   end
   
   resources :packages  do

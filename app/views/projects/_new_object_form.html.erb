@@ -5,16 +5,20 @@
 
   <%= f.input :title  , :input_html => {:class => "input-xlarge span5"}, 
   :label => "Title" %>
+  
+  <%= f.input :package_id, :hint => "Select Package", :label => "Package" do %>
+     <%= f.select :package_id, 
+         Package.all_selectable_packages %>
+   <% end %>
+   
+   <hr />
 
   <%= f.input :external_deadline , :as => :string, 
     :input_html => {:class => "input-xlarge datepicker span5", :rows => 5,
       :value => format_date_from_datetime( new_object.external_deadline)}, 
     :label => "External Deadline", :hint => "(format: dd/mm/yyyy)"   %>
     
-  <%= f.input :package_id, :hint => "Select Package", :label => "Package" do %>
-     <%= f.select :package_id, 
-         Package.all_selectable_packages %>
-   <% end %>
+  
 
   <div class="form-actions">
     <%= f.button :submit , :class => "btn btn-primary", :value=> "Create Project" %>

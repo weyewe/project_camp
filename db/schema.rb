@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
     t.integer  "sub_item_quantity"
     t.boolean  "is_basic_deliverable",         :default => true
     t.text     "project_specific_description"
+    t.boolean  "is_active",                    :default => true
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
   end

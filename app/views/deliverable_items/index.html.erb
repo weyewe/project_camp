@@ -1,0 +1,68 @@
+<% content_for :additional_mini_app_nav do %>
+  <%= render :partial => 'layouts/mini_app_nav', :locals => {
+    :view_page => :summary
+  } %>
+<% end %>
+
+<% content_for :additional_js do %> 
+  <%= javascript_include_tag "project_summary" %>
+<% end %>
+
+
+
+<div class="padded">
+  
+  <%= render :partial => "layouts/new_object_opener", :locals => {
+    :text => "New Deliverable Item"
+  } %>
+  
+  
+   
+  <% if @deliverable_items.length == 0 %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "deliverable items",
+      :single_object => "deliverable item" ,
+      :subject => "project"
+    } %>
+  <% end %>
+   
+   
+  <%= render :partial => "deliverable_items/new_object_form", :locals => {
+    :new_object => @new_deliverable_item,
+    :url => project_deliverable_items_url(@project)  
+  }%>
+ 
+   
+    
+    
+    <table class="table table-bordered table-striped table-header form_content <%= show_table?( @deliverable_items )%>"
+       id='object_list'>
+      <thead>
+
+        <tr>
+          <th>
+            Deliverable
+          </th>
+          <th>
+            Status
+          </th>
+          <th>
+            Sub Item Name
+          </th>
+          <th>
+            Sub Item Quantity
+          </th>
+
+        </tr>
+      <thead>
+
+      <tbody>
+        <% @deliverable_items.each do |deliverable_item| %>
+          <%= render :partial => "deliverable_items/object_list_entry", :locals => {
+            :object => deliverable_item 
+          }%>
+        
+        <% end %> 
+      </tbody>
+    </table> 
+</div>

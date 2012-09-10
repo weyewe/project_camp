@@ -1,8 +1,25 @@
 <div class="row">
   <div class="span9">
     <ul class="nav nav-tabs header-tabs btn-block pull-right">
-      <li class="active"><a href="#"><i class="icon-dashboard"></i> Summary</a></li>
-      <li><%= link_to "Deliverable", '#deliverable' %></li> 
+      <% if params[:controller] == 'projects' && params[:action] == 'show'%>
+        <li class="active">
+          <%= link_to project_url(@project)  do %>
+            <i class="icon-dashboard"></i> Summary
+          <% end %>
+        </li>
+          
+          <!-- <a href="<%= %>"><i class="icon-dashboard"></i> Summary</a></li> -->
+      <% else %>
+        <li>
+          <%= link_to project_url(@project)  do %>
+            <i class="icon-dashboard"></i> Summary
+          <% end %>
+        </li>
+        <!-- <li><a href="#"><i class="icon-dashboard"></i> Summary</a></li> -->
+      <% end %>
+      
+      
+      <li><%= link_to "Deliverable", project_deliverable_items_url(@project) %></li> 
       <li><%= link_to "Membership", '#project_memberships' %></li>
       <li><%= link_to "Concept", '#concept' %></li>
       <!-- <li><%#= link_to "Property", '#property' %></li> -->

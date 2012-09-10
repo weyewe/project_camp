@@ -15,7 +15,7 @@ class Project < ActiveRecord::Base
   
   validates_presence_of :title , :external_deadline, :creator_id  , :package_id 
    
-  after_create :assign_deliverable_items
+  # after_create :assign_deliverable_items
   
   
 =begin
@@ -34,6 +34,9 @@ class Project < ActiveRecord::Base
       return new_object
     end
     new_object.save 
+    if new_object.persisted? 
+      new_object.assign_deliverable_items
+    end
     
     return new_object
   end
@@ -90,14 +93,22 @@ class Project < ActiveRecord::Base
     
   end 
   
+  def active_deliverable_items
+    self.deliverable_items.joins(:deliverable).where(:is_active => true ).order("created_at DESC")
+  end
   
-  
-  
-  def self.active_deliverable_subcriptions
+
+  def self.active_projects
     Project.where(:is_deleted => false  , :is_finished => false ).order("external_deadline ASC, score DESC")
   end
   
-  
+=begin
+  PROJECT MEMBERSHIPS
+=end
+
+   
+
+    # 
 =begin
   Utility and Callbacks
 =end

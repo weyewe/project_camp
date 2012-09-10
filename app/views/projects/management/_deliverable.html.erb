@@ -1,4 +1,4 @@
-<%= render "projects/management/heading", title: "Package & Deliverable", :id => "deliverable" %>
+<%= render "projects/management/heading", title: "Deliverables", :id => "deliverable" %>
 
 <div class="padded">
   
@@ -13,7 +13,7 @@
         
       </div>
       <div class='span1'>
-        <%= link_to "Edit", root_url, :class => 'btn blue', :style => 'width:100%; text-align:center;' %> 
+        <%= link_to "Edit", project_deliverable_items_url(@project), :class => 'btn blue', :style => 'width:100%; text-align:center;' %> 
       </div>
     </div>
 

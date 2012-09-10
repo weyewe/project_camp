@@ -6,6 +6,11 @@
   <%= f.input :title  , :input_html => {:class => "input-xlarge span5"}, 
   :label => "Title" %>
   
+  <%= f.input :package_id, :hint => "Select Package", :label => "Package" do %>
+     <%= f.select :package_id, 
+         Package.all_selectable_packages %>
+   <% end %>
+   
   <hr />  
   <%= f.input :external_deadline , :as => :string, 
     :input_html => {:class => "input-xlarge datepicker span5", :rows => 5,

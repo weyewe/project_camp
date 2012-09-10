@@ -1,0 +1,12 @@
+<% content_for :additional_mini_app_nav do %>
+  <%= render :partial => 'layouts/mini_app_nav', :locals => {
+    :view_page => :summary
+  } %>
+<% end %>
+
+ 
+<%= render "projects/management/deliverable" %>
+ 
+<% content_for :additional_js do %> 
+  <%= javascript_include_tag "project_summary" %>
+<% end %>

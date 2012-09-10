@@ -7,6 +7,11 @@
 
   <tbody>
     <tr>
+      <td class='project-detail-metric'>Package</td>
+      <td><%= project.package.title  %></td>
+    </tr>
+    
+    <tr>
       <td class='project-detail-metric'>External Deadline</td>
       <td><%= format_date_from_datetime(project.external_deadline) %></td>
     </tr>

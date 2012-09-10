@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   def index 
     @new_project = Project.new 
-    @projects = Project.active_deliverable_subcriptions
+    @projects = Project.active_projects
     
     add_breadcrumb "Project Management", 'projects_url'
   end

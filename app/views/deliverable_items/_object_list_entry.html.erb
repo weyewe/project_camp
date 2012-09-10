@@ -1,0 +1,22 @@
+<tr id="object_list_entry-<%= object.id %>">
+  <td><%= object.deliverable.name %></td>
+  <td>
+    <% if object.is_basic_deliverable? %>
+      <span class="label">Basic</span>
+    <% else %>
+      <span class="label green">Extra</span>
+    <% end %>
+
+    <%= object.project_specific_description %>
+  </td>
+
+  <% if object.deliverable.has_sub_item? %> 
+    <td><%= object.deliverable.name %></td>
+    <td><%= object.sub_item_quantity %></td>
+  <% else %>
+    <td colspan='2' style="text-align:center; ">
+      <span class="label red">No Sub Item</span>
+    </td>
+  <% end %>
+
+</tr>

@@ -1,10 +1,6 @@
 <table class="table table-bordered table-striped table-header form_content" id='package_detail'>
   <thead>
-    <tr>
-      <th colspan='4' style='text-align:center;'>
-        <%= package.title %>
-      </th>
-    </tr>
+     
     <tr>
       <th>
         Deliverable
@@ -23,7 +19,7 @@
   <thead>
 
   <tbody>
-    <% project.deliverable_items.order("created_at DESC").each do |deliverable_item| %>
+    <% project.active_deliverable_items.each do |deliverable_item| %>
       <tr>
         <td><%= deliverable_item.deliverable.name %></td>
         <td>
