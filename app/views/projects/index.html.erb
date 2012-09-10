@@ -1,9 +1,11 @@
 <div class="padded">
   
   
-  <%= render :partial => "layouts/new_object_opener", :locals => {
-    :text => "New Project"
-  } %>
+  <% if  current_user.has_role?(:head_project_manager)%>
+    <%= render :partial => "layouts/new_object_opener", :locals => {
+      :text => "New Project"
+    } %>
+  <% end %>
   
   
    
@@ -16,10 +18,12 @@
   <% end %>
    
    
-  <%= render :partial => "projects/new_object_form", :locals => {
-    :new_object => @new_project,
-    :url => projects_url  
-  }%>
+  <% if  current_user.has_role?(:head_project_manager)%>
+    <%= render :partial => "projects/new_object_form", :locals => {
+      :new_object => @new_project,
+      :url => projects_url  
+    }%>
+  <% end %>
  
  
  

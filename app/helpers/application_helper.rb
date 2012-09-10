@@ -301,8 +301,32 @@ module ApplicationHelper
     ]
   }
   
-  
-  
+  def render_project_mini_app_nav( tab_array , params ) 
+    result = ""
+    active = ''
+    result << "<ul class='nav nav-tabs header-tabs btn-block pull-right'>"
+    tab_array.each do |tab_hash|
+      active = "" 
+      tab_hash[:conditions].each do |condition|
+        if condition[:controller] == params[:controller] && 
+            condition[:action] == params[:action]
+          active = 'active'
+          break 
+        end
+      end
+      result << "<li class='#{active}'>"
+        result << "<a href='#{tab_hash[:destination_url]}'>"
+          if not tab_hash[:icon_class].nil? and not tab_hash[:icon_class].length == 0 
+            result << "<i class='#{tab_hash[:icon_class]}'></i>" 
+          end
+          result << tab_hash[:tab_text]
+        result << "</a>"
+      result << "</li>"
+    end
+    
+    result << "</ul>"
+  end
+   
   
   
   

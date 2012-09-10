@@ -17,13 +17,17 @@
           </div>
         </div>
       <% else %>
-        <%= render "projects/management/tables" %> 
+        <%= render "projects/management/tables"  %> 
       <% end %>
         
       
     </div>
     <div class='span1'>
-      <%= link_to "Edit", project_project_memberships_url(@project), :class => 'btn blue', :style => 'width:100%; text-align:center;' %> 
+      <% if current_user.has_role?(:head_project_manager)%>
+        <%= link_to "Edit", project_project_memberships_url(@project), :class => 'btn blue', :style => 'width:100%; text-align:center;' %> 
+      <% else %>
+        <span class="label blue">Head Project Manager</span>
+      <% end %>
     </div>
   </div>
   

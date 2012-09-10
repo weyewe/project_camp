@@ -17,17 +17,22 @@
   </td>
   
   <td> 
+    <%= link_to  project_deliverable_items_url(object) do %>
+      <span class="badge blue rounded"><%= object.deliverable_items.count %></span> 
+    <% end %>
     
-    <span class="badge blue rounded"><%= object.deliverable_items.count %></span> 
     
   </td>
   <td> 
-    <% if object.is_membership_assignment_finalized and object.is_core_project_member_complete? %>
-      <span class="label green">Complete</span>
-    <% else %>
-      <span class="label orange">Pending</span>
-      
+    
+    <%= link_to project_project_memberships_url(object)  do %>
+      <% if object.is_membership_assignment_finalized and object.is_core_project_member_complete? %>
+        <span class="label green">Complete</span>
+      <% else %>
+        <span class="label orange">Pending</span> 
+      <% end %>
     <% end %>
+    
     <span class="badge blue rounded"><%= object.users.count %></span> 
   </td>
   <td> 
