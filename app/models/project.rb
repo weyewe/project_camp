@@ -211,10 +211,11 @@ class Project < ActiveRecord::Base
     # t.integer  "final_sub_item_quantity"
     # t.text     "project_specific_description"
     self.package.deliverable_subcriptions.each do |deliverable_subcription|
-      self.deliverable_items.create(:deliverable_id => deliverable_subcription.deliverable_id, 
+      deliverable_item = self.deliverable_items.create(:deliverable_id => deliverable_subcription.deliverable_id, 
                 :sub_item_quantity => deliverable_subcription.deliverable.sub_item_quantity,
                 :project_specific_description => deliverable_subcription.deliverable.description
               )
+      deliverable_item.assign_deliverable_component_subcription 
     end
     
   end

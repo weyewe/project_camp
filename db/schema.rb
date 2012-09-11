@@ -21,8 +21,19 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
   end
 
   create_table "deliverable_component_subcriptions", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "deliverable_item_id"
+    t.integer  "deliverable_component_id"
+    t.boolean  "is_production_started",       :default => false
+    t.date     "production_start_date"
+    t.boolean  "is_production_finished",      :default => false
+    t.date     "production_finish_date"
+    t.boolean  "is_post_production_started",  :default => false
+    t.date     "post_production_start_date"
+    t.boolean  "is_post_production_finished", :default => false
+    t.date     "post_production_finish_date"
+    t.boolean  "is_active",                   :default => true
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
   end
 
   create_table "deliverable_components", :force => true do |t|
