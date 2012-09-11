@@ -1,49 +1,19 @@
 <%= render "projects/management/heading", title: "Production", :id => "production" %>
 
 <div class="padded">
-
   
-  <div class="alert alert-error">
-    <i class="icon-exclamation-sign"></i> You need to sign in or sign up before continuing.
+  <div class="row"> 
+    <div class='span8' id="package_detail_wrapper">
+    
+        
+      <% @deliverable_items.each do |deliverable_item| %>
+        <%= render :partial => "projects/deliverable_item_production_progress", :locals => {
+          :deliverable_item => deliverable_item 
+        }%>
+        
+      <% end %>
+    </div> 
   </div>
-
-  <div class="alert alert-success">
-    <i class="icon-ok-sign"></i> Project successfully created!
-  </div>
- 
-  <div class="row">
-    <div class="span7" style="padding: 15px 0">
-      <div class="btn-group btn-block">
-        <button class="btn">A red badge <span class="badge red">1</span></button>
-        <button class="btn">A blue badge <span class="badge blue rounded">22</span></button>
-        <button class="btn">A green top badge <span class="badge green top">33</span></button>
-      </div>
-    </div>
-  </div>
- 
-  <div class="row">
-    <div class="span7" style="padding: 15px 0">
-      <ul class="tags red">
-        <li><a href="#">Some</a></li>
-        <li><a href="#">Nice</a></li>
-        <li><a href="#">Colorful</a></li>
-        <li><a href="#">Tags</a></li>
-      </ul>
-
-      <ul class="tags green">
-        <li><a href="#">Design</a></li>
-        <li><a href="#">Illustration</a></li>
-        <li><a href="#">Component</a></li>
-        <li><a href="#">Misc</a></li>
-      </ul>
-
-      <ul class="tags blue">
-        <li><a href="#">Infrastructure</a></li>
-        <li><a href="#">Application</a></li>
-        <li><a href="#">Mobile</a></li>
-        <li><a href="#">Desktop</a></li>
-      </ul>
-
-    </div>
-  </div>
+  
+  
 </div>

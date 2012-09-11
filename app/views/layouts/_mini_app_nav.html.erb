@@ -61,11 +61,11 @@
           {
             :tab_text => 'Production',
             :icon_class => '',
-            :destination_url => project_deliverable_items_url(@project) , 
+            :destination_url => project_deliverable_items_production_overview_url(@project) , 
             :conditions => [
               {
-                :controller => '',
-                :action => ''
+                :controller => 'deliverable_items',
+                :action => 'project_deliverable_items_production_overview'
               }
             ]
           },

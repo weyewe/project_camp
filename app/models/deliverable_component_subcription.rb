@@ -3,5 +3,7 @@ class DeliverableComponentSubcription < ActiveRecord::Base
   belongs_to :deliverable_item
   belongs_to :deliverable_component
   
+  has_many :drafts 
+  
   
 end

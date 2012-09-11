@@ -220,6 +220,10 @@ module ApplicationHelper
           {
             :controller => "project_memberships",
             :action => 'index'
+          },
+          {
+            :controller => 'deliverable_items',
+            :action => 'project_deliverable_items_production_overview'
           }
         ]
       },

@@ -23,6 +23,11 @@ Projectcamp::Application.routes.draw do
   resources :deliverables do
     resources :deliverable_components 
   end
+  
+  resources :deliverable_component_subcriptions do
+    resources :drafts 
+  end
+  
 =begin
   SETUP, Create User +  Office Role
 =end
@@ -40,4 +45,9 @@ Projectcamp::Application.routes.draw do
   match 'assign_project_membership_role_for/:project_id' => "project_memberships#assign_project_membership_role_for",  :as => :assign_project_membership_role_for, :method => :post
   match 'finalize_membership_assignment' => "projects#finalize_membership_assignment",  :as => :finalize_membership_assignment, :method => :post 
   
+=begin
+  PRODUCTION MANAGEMENT 
+=end
+
+  match 'project_deliverable_items_production_overview/:project_id' => 'deliverable_items#project_deliverable_items_production_overview', :as => :project_deliverable_items_production_overview
 end

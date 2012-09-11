@@ -19,4 +19,13 @@ class DeliverableItemsController < ApplicationController
   def destroy
   end
   
+  def project_deliverable_items_production_overview
+    @project = Project.find_by_id params[:project_id]
+    @deliverable_items = @project.deliverable_items
+    
+    add_breadcrumb "Project Management", 'projects_url'
+    set_breadcrumb_for @project, 'project_deliverable_items_production_overview_url' + "(#{@project.id})", 
+          "Production Management"
+  end
+  
 end

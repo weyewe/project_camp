@@ -78,8 +78,26 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
   end
 
   create_table "drafts", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "overall_feedback"
+    t.integer  "number"
+    t.integer  "creator_id"
+    t.integer  "project_id"
+    t.integer  "deliverable_component_subcription_id"
+    t.date     "deadline_date"
+    t.integer  "deadline_creator_id"
+    t.boolean  "is_qc_approved",                       :default => false
+    t.integer  "qc_approver_id"
+    t.date     "qc_approval_date"
+    t.date     "client_approval_deadline_date"
+    t.integer  "client_approval_deadline_creator_id"
+    t.boolean  "is_client_approved",                   :default => false
+    t.integer  "client_approval_marker_id"
+    t.date     "client_approval_date"
+    t.boolean  "is_finished",                          :default => false
+    t.date     "finish_date"
+    t.integer  "finisher_id"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
   end
 
   create_table "packages", :force => true do |t|
