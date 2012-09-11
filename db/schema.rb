@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
   create_table "deliverable_component_subcriptions", :force => true do |t|
     t.integer  "deliverable_item_id"
     t.integer  "deliverable_component_id"
+    t.integer  "project_id"
     t.boolean  "is_production_started",       :default => false
     t.date     "production_start_date"
     t.boolean  "is_production_finished",      :default => false

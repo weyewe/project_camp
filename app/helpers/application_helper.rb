@@ -224,6 +224,10 @@ module ApplicationHelper
           {
             :controller => 'deliverable_items',
             :action => 'project_deliverable_items_production_overview'
+          },
+          {
+            :controller => 'drafts',
+            :action => 'index'
           }
         ]
       },

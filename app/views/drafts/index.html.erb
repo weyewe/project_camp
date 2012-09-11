@@ -1,0 +1,53 @@
+<% content_for :additional_mini_app_nav do %>
+  <%= render :partial => 'layouts/mini_app_nav' %>
+<% end %>
+
+<div class="padded">
+  
+  <% if @deliverable_component_subcription.drafts.where(:is_finished => false).count == 0 %>
+    <%= render :partial => "layouts/new_object_opener", :locals => {
+      :text => "New Draft"
+    } %>
+  <% end %>
+  
+  
+   
+  <% if @drafts.length == 0 %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "drafts",
+      :single_object => "draft" ,
+      :subject => "component"
+    } %>
+  <% end %>
+   
+  <% if @deliverable_component_subcription.drafts.where(:is_finished => false).count == 0 %>
+    <%= render :partial => "drafts/new_object_form", :locals => {
+      :new_object => @new_draft,
+      :url => deliverable_component_subcription_drafts_url(@deliverable_component_subcription)  
+    }%>
+  <% end %>
+ 
+  
+   
+  <table class="table table-bordered table-striped table-header <%= show_table?( @drafts )%>" id="object_list">
+    <thead>
+      <tr>
+        <th>Draft</th>
+        <th>Description</th>
+        <th>Production Staff</th>
+        <th>QC Approval</th>
+        <th>Deadline</th> 
+        <th>Client Approval</th> 
+        <th>Client Deadline</th>  
+      </tr>
+    </thead>
+    <tbody id="package_list">
+      <% @drafts.each do |draft| %>
+        <%= render :partial => "drafts/object_list_entry", :locals => {
+          :object => draft 
+        }%>
+      
+      <% end %> 
+    </tbody>
+  </table>
+</div>

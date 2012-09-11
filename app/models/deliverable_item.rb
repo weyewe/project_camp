@@ -31,7 +31,8 @@ class DeliverableItem < ActiveRecord::Base
     self.deliverable.deliverable_components.each do |deliverable_component|
       DeliverableComponentSubcription.create( 
           :deliverable_component_id => deliverable_component.id,
-          :deliverable_item_id => self.id 
+          :deliverable_item_id => self.id ,
+          :project_id => self.project_id 
       )
     end
     

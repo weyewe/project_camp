@@ -13,6 +13,8 @@ class Project < ActiveRecord::Base
   has_many :project_memberships 
   has_many :users, :through => :project_memberships
   
+  has_many :deliverable_component_subcriptions
+  
   validates_presence_of :title , :external_deadline, :creator_id  , :package_id 
    
   # after_create :assign_deliverable_items

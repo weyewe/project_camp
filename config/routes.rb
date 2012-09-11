@@ -28,6 +28,8 @@ Projectcamp::Application.routes.draw do
     resources :drafts 
   end
   
+  resources :job_requests 
+  
 =begin
   SETUP, Create User +  Office Role
 =end

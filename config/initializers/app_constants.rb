@@ -73,19 +73,49 @@ MAX_YDAY = 366
 
 DEFAULT_IMPORTANT_EVENT_PERIOD = 60
 
+#  THIS IS THE CORE OF THE APP
+# locking the business process 
 JOB_REQUEST_SOURCE = {
-  # photographers 1-40
-  :crew_booking => 1, 
-  :crew_day_off => 2 , 
-  :transportation_off_day => 3, 
-  # account executive  41 - 80
-  :follow_up_draft => 41, 
+  # is created on Membership FINALIZATION  by Head PM 
+  :concept_planning => 1 ,  # main crew will have this job request
+  # on finish -> nothing happen  -> just notify the PM .. no further job_request created 
   
-  # graphic designer 81 - 120, production team 
-  :production_scheduling => 81,
+  :shoot => 5,  # main crew and crew  
+  # on finish -> AE will be notified to start the production 
   
-  :post_production_scheduling => 131
+  :start_production => 10, # AE will have this task, to create draft 
+  # on finish -> PM will be notified to give task to production team 
   
+  # gonna be created after AE created the draft for a particular component 
+  :production_scheduling => 20, # PM will have this job request, to assign job
+  # on finish -> the selected production team will have task + deadline 
+  
+  # 
+  :production_execution => 25, # production team will have this request -> either layout design or photo edit 
+  # on finish -> QC will be notified, and requested for approval  
+  
+  :qc_approval => 35,  # QC will have this job request, before passing the draft to client 
+  # on finish -> AE will be notified to pass the draft to the client 
+  :client_start_draft_review => 40,  # AE will have this job, after QC approve the draft 
+  # on finish -> AE will be notified to do follow up at the specified date 
+  
+  :follow_up_client_draft_review => 45,  # AE will have this job, auto generated after AE mark that draft has been passed
+  # after client returned the draft review, there can be 2 options -> finish drafting for that component 
+  #                                                                 -> start another draft  -> it will be back to production scheduling (20)
+  
+  # if it finishing the drafting -> production is done for that component, notify the PM to start allocating
+  # post-production resources for that component's post production 
+  :component_post_production_scheduling => 50, # PM will have this job. For a particular component, he has to give task to subordinate to start searching
+    # on finish -> PP will be notified to find supplier and negotiate + create purchase order 
+    
+  :component_post_production_execution => 55, # Post Production will have this job.. search for the supplier, and create the fucking shit.
+    # on finish => PP will be notified to do follow up at the estimated finish date 
+    
+  :component_post_production_follow_up => 60, # PP will have the job still. He needs to follow up so that we can have the shit together.
+    # on finish => AE will be notified to do delivery to the client 
+    
+  :post_production_delivery => 65 # AE will have the job. Send the deliverables to the customer  
+    # on finish => PM and Head PM will be notified that the particular Deliverable is sent 
 }
 
 =begin
