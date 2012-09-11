@@ -161,7 +161,8 @@ class Project < ActiveRecord::Base
       self.is_membership_assignment_finalized = true 
       self.membership_assignment_finalized_date = Time.now.to_date 
       self.save 
-      self.create_on_project_member_assignment_finalization_job_requests
+      self.create_on_project_member_assignment_finalization_job_requests(employee)
+      self.create_project_member_assignment_notification 
     end
     #  send email to all project members 
   end
@@ -189,9 +190,50 @@ class Project < ActiveRecord::Base
     return true
   end  
   
+  def create_project_member_assignment_notification
+    # send notification email 
+  end
   
-  def create_on_project_member_assignment_finalization_job_requests
+  def project_members_with_project_role(project_role_symbol_list)
+    project_role_name_list = []
+    project_role_symbol_list.each do |projecy_role_symbol|
+      project_role_name_list << PROJECT_ROLE[projecy_role_symbol]
+    end
     
+    project_role_id_list = ProjectRole.where(:name =>  project_role_name_list).map{|x| x.id }
+    user_id_list = User.joins(:project_memberships => [:project_assignments]).where(
+      :project_memberships => { 
+          :project_id => self.id ,
+          :project_assignments => {:project_role_id => project_role_id_list}
+      }
+    ).map{|x| x.id }
+    
+    User.where(:id => user_id_list.uniq )
+  end
+  
+  def create_on_project_member_assignment_finalization_job_requests(employee) 
+    
+    self.project_members_with_project_role( [:main_crew] ).each do |x|
+      job_request = JobRequest.new 
+      job_request.project_id = self.id 
+      job_request.user_id = x.id 
+      job_request.start_date = Time.now.to_date 
+      job_request.deadline_date = self.shoot_start_date 
+      job_request.creator_id = employee.id 
+      job_request.job_request_source  = JOB_REQUEST_SOURCE[:concept_planning] 
+      job_request.save 
+    end 
+    
+    self.project_members_with_project_role([:crew, :main_crew]).each do |x|
+      job_request = JobRequest.new 
+      job_request.project_id = self.id 
+      job_request.user_id = x.id 
+      job_request.start_date = self.shoot_start_date 
+      job_request.deadline_date = self.shoot_end_date 
+      job_request.creator_id = employee.id 
+      job_request.job_request_source  = JOB_REQUEST_SOURCE[:shoot] 
+      job_request.save
+    end    
   end
   
 =begin

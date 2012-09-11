@@ -5,6 +5,19 @@ module ApplicationHelper
   PREV_BUTTON_TEXT = " &larr; Prev "
   
   
+=begin
+  JOB REQUEST SPECIFIC
+=end
+  def get_job_request_color(job_request)
+    job_request_source_symbol = JOB_REQUEST_SOURCE.invert[job_request.job_request_source]
+    return PROJECT_ROLE_COLOR[JOB_REQUEST_ROLE[job_request_source_symbol]] 
+  end
+  
+  def get_job_request_text(job_request)
+    job_request_source_symbol = JOB_REQUEST_SOURCE.invert[job_request.job_request_source]
+    return JOB_REQUEST_ROLE_TEXT[JOB_REQUEST_ROLE[job_request_source_symbol]] 
+  end
+  
 
 =begin
   Object List Display 

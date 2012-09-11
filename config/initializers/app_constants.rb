@@ -39,15 +39,6 @@ PROJECT_ROLE = {
   :quality_control => "QualityControl" # the one giving internal approval before AE pass the draft to client 
 }
 
-PROJECT_ROLE_COLOR = {
-  :main_crew => 'red',
-  :crew => 'pink',
-  :project_manager => 'purple',
-  :account_executive => 'blue',
-  :production => 'orange',
-  :post_production => '',
-  :quality_control => 'green'
-}
 
 
 ARTICLE_PICTURE_TYPE = {
@@ -82,6 +73,42 @@ MAX_YDAY = 366
 
 DEFAULT_IMPORTANT_EVENT_PERIOD = 60
 
+# JOB REQUEST SPECIFIC 
+
+PROJECT_ROLE_COLOR = {
+  :main_crew => 'red',
+  :crew => 'pink',
+  :project_manager => 'purple',
+  :account_executive => 'blue',
+  :production => 'orange',
+  :post_production => '',
+  :quality_control => 'green'
+}
+
+JOB_REQUEST_ROLE_TEXT = {
+  :main_crew => "Main Crew",
+  :crew => 'Crew',
+  :project_manager => 'PM',
+  :account_executive => 'AE',
+  :production => 'Prod',
+  :post_production => 'PostProd',
+  :quality_control => 'QC'
+}
+
+JOB_REQUEST_ROLE = {
+  :concept_planning => :main_crew,
+  :shoot => :main_crew, 
+  :start_production => :account_executive, 
+  :production_scheduling => :project_manager, 
+  :production_execution => :production, 
+  :qc_approval => :quality_control,
+  :client_start_draft_review => :account_executive, 
+  :follow_up_client_draft_review => :account_executive, 
+  :component_post_production_scheduling => :project_manager , 
+  :component_post_production_execution => :post_production , 
+  :component_post_production_follow_up => :post_production , 
+  :post_production_delivery => :account_executive  
+}
 #  THIS IS THE CORE OF THE APP
 # locking the business process 
 JOB_REQUEST_SOURCE = {
