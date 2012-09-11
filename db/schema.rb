@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120906093428) do
+ActiveRecord::Schema.define(:version => 20120911074352) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "user_id"
@@ -97,6 +97,24 @@ ActiveRecord::Schema.define(:version => 20120906093428) do
     t.boolean  "is_finished",                          :default => false
     t.date     "finish_date"
     t.integer  "finisher_id"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+  end
+
+  create_table "job_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "creator_id"
+    t.integer  "project_id"
+    t.integer  "deliverable_component_subcription_id"
+    t.integer  "draft_id"
+    t.text     "description"
+    t.date     "start_date"
+    t.date     "deadline_date"
+    t.date     "finish_date"
+    t.boolean  "is_finished",                          :default => false
+    t.boolean  "is_canceled",                          :default => false
+    t.integer  "prev_job_request_id"
+    t.integer  "job_request_source",                   :default => 1
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
   end

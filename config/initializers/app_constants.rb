@@ -39,6 +39,15 @@ PROJECT_ROLE = {
   :quality_control => "QualityControl" # the one giving internal approval before AE pass the draft to client 
 }
 
+PROJECT_ROLE_COLOR = {
+  :main_crew => 'red',
+  :crew => 'pink',
+  :project_manager => 'purple',
+  :account_executive => 'blue',
+  :production => 'orange',
+  :post_production => '',
+  :quality_control => 'green'
+}
 
 
 ARTICLE_PICTURE_TYPE = {

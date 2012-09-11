@@ -177,4 +177,11 @@ class User < ActiveRecord::Base
     self.has_project_membership?(project) and 
         self.project_membership_for(project).has_assigned_project_role?(project_role)
   end
+  
+=begin
+  JOB REQUEST
+=end
+  def active_job_requests
+    self.job_requests.where(:is_finished => false , :is_canceled => false ).order("deadline_date ASC")
+  end
 end

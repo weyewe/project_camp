@@ -234,11 +234,11 @@ module ApplicationHelper
       {
         :title => "Tasks",
         :icon_class => 'icon-tasks',
-        :destination_link => "root_url",
+        :destination_link => "job_requests_url",
         :conditions => [
           {
-            :controller => '',
-            :action => ''
+            :controller => 'job_requests',
+            :action => 'index'
           }
         ]
       },

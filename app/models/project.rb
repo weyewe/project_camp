@@ -161,6 +161,7 @@ class Project < ActiveRecord::Base
       self.is_membership_assignment_finalized = true 
       self.membership_assignment_finalized_date = Time.now.to_date 
       self.save 
+      self.create_on_project_member_assignment_finalization_job_requests
     end
     #  send email to all project members 
   end
@@ -188,6 +189,10 @@ class Project < ActiveRecord::Base
     return true
   end  
   
+  
+  def create_on_project_member_assignment_finalization_job_requests
+    
+  end
   
 =begin
   Utility and Callbacks

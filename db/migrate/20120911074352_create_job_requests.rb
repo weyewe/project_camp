@@ -15,6 +15,7 @@ class CreateJobRequests < ActiveRecord::Migration
       t.date :finish_date # only the assignee that can declare that it is finished 
       
       t.boolean :is_finished, :default => false 
+      t.boolean :is_canceled, :default => false 
       
       
       t.integer :prev_job_request_id  
