@@ -277,6 +277,16 @@ class Project < ActiveRecord::Base
     end
     
     self.save 
+    # cleare the job request 
+    self.finish_job_requests_with_source(  JOB_REQUEST_SOURCE[:concept_planning] ) 
+  end
+  
+  def finish_job_requests_with_source( job_request_source) 
+    self.job_requests.where(:job_request_source => job_request_source).each do |job_request|
+      job_request.is_finished = true 
+      job_request.finish_date = Time.now.to_date 
+      job_request.save 
+    end
   end
   
   
@@ -315,11 +325,13 @@ class Project < ActiveRecord::Base
       return nil
     end 
     
-    if not self.shoot_data.nil? and self.shoot_data.length ==0  
+    if not self.shoot_data.nil? and not self.shoot_data.length ==0  
       self.is_shoot_finalized = true  
     end 
     
     self.save 
+    #  clear the job request 
+    self.finish_job_requests_with_source(  JOB_REQUEST_SOURCE[:shoot] ) 
   end
   
   

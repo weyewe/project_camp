@@ -20,7 +20,7 @@
   
   
   
-  <% if @project.is_concept_finalized == true %>
+  <% if @project.is_shoot_finalized == true %>
      <%= render :partial => "projects/job_requests/shoot/shoot_finalized", :locals => {
        :project => @project 
      }%>

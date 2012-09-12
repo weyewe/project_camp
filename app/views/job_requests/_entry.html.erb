@@ -29,7 +29,9 @@
   
    
   <span class="span1 label <%= get_job_request_color(job_request) %> right"><%= get_job_request_text(job_request)%></span> 
-  <span class="span5 title">
+  
+ 
+  <span class="span5 title <%= get_finished_class(job_request) %>">
     <%= get_job_request_message(job_request )  %> 
   </span>
   <span class="span2 date pull-right">20/8/2012 - 20/9/2012</span>

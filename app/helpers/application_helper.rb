@@ -34,6 +34,13 @@ module ApplicationHelper
     :post_production_delivery => :account_executive  
   }
   
+  def get_finished_class(job_request)
+    if job_request.is_finished == true 
+      'strikethrough'
+    else
+      ''
+    end
+  end
   
   def get_job_request_message(job_request)
     case job_request.job_request_source

@@ -128,6 +128,8 @@ class ProjectsController < ApplicationController
   def finalize_shoot_data
     @project = Project.find_by_id params[:entity_id] 
     @project.finalize_shoot_data(current_user)
+    
+    render :file => "projects/job_requests/shoot/finalize_shoot_data" 
   end
   
   protected 
