@@ -1,4 +1,3 @@
-
 <% content_for :additional_js do %>
   <%= javascript_include_tag "project_summary", "wysihtml5-0.3.0_rc2.min", "bootstrap-wysihtml5-0.0.2.min" %>
   <script type="text/javascript">
@@ -17,51 +16,47 @@
 
 
 
-
-
-
 <div class="padded">
   
   
+  
   <% if @project.is_concept_finalized == true %>
-     <%= render :partial => "projects/job_requests/concept_planning/concept_finalized", :locals => {
+     <%= render :partial => "projects/job_requests/shoot/shoot_finalized", :locals => {
        :project => @project 
      }%>
    <% else %>
-     <%= render :partial => "projects/job_requests/concept_planning/finalize_concept", :locals => {
+     <%= render :partial => "projects/job_requests/shoot/finalize_shoot", :locals => {
        :project => @project 
      }%>
    <% end %>
    
+   
+  
   <% if  current_user.has_project_role_symbol?(@project, :main_crew )%>
     <%= render :partial => "layouts/new_object_opener", :locals => {
-      :text => "Edit Concept"
+      :text => "Edit Shoot Data"
     } %>
   <% end %>
   
   
-  
- 
-  
-  
    
-  <% if @project.concept.nil? or @project.concept.length == 0 %>
+  <% if @project.shoot_data.nil? or @project.shoot_data.length == 0 %>
     <%= render :partial => "layouts/no_object_list", :locals => {
-      :objects => "concept ",
-      :single_object => "concept" , 
+      :objects => "shoot_data ",
+      :single_object => "shoot_data" , 
       :subject => "project \"#{@project.title}\""
     } %>
   <% else %>
-    <%= render :partial => "projects/job_requests/concept_planning/display", :locals => {
+    <%= render :partial => "projects/job_requests/shoot/display", :locals => {
       :project => @project 
     } %>
   <% end %>
    
    
   <% if  current_user.has_project_role_symbol?(@project, :main_crew)%>
-    <%= render :partial => "projects/job_requests/concept_planning/object_form", :locals => {
+    <%= render :partial => "projects/job_requests/shoot/object_form", :locals => {
       :object => @project,
-      :url => update_project_concept_url(@project )  
+      :url => update_shoot_data_url(@project )  
     }%>
   <% end %>
    

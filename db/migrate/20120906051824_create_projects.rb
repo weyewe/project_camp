@@ -15,6 +15,9 @@ class CreateProjects < ActiveRecord::Migration
       t.date    :shoot_date
       t.date    :shoot_start_date
       t.date    :shoot_end_date 
+      
+      t.text :shoot_data , :default => nil
+      t.boolean :is_shoot_finalized, :default => false
 
 
 

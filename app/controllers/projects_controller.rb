@@ -48,11 +48,21 @@ class ProjectsController < ApplicationController
   
   
 =begin
-  JOB REQUEST FULFILLMENT 
+  JOB REQUEST FULFILLMENT  JOB_REQUEST_SOURCE[:concept_planning]
 =end
+
+  def project_based_concept_planning_fulfillment
+    @project = Project.find_by_id params[:project_id] 
+    
+    add_breadcrumb "Task Management", 'job_requests_url'  
+    set_breadcrumb_for @project, 'concept_planning_fulfillment_url' + "(#{@project.id})", 
+          "Concept Planning"
+          
+    # render :file => "projects/job_requests/concept_planning/concept_planning_fulfillment"
+  end
+  
   def concept_planning_fulfillment
-    @job_request = JobRequest.find_by_id params[:job_request_id]
-    @project = @job_request.project 
+    @project = Project.find_by_id params[:project_id]  
     
     add_breadcrumb "Task Management", 'job_requests_url'  
     set_breadcrumb_for @project, 'concept_planning_fulfillment_url' + "(#{@project.id})", 
@@ -66,31 +76,61 @@ class ProjectsController < ApplicationController
     @project.update_project_concept(current_user, params[:project][:concept])
     @project.reload 
     @object = @project 
-    
-    if (not @object.errors.any? ) and  
-          (not @object.concept.nil?)  and  
-          (@object.concept.length !=  0  )
-        
-      puts "THIS IS NOT ERROR moron\n"*5
-      if @object.errors.messages.count != 0
-        puts "error count is not equal 0"
-      end
-      
-      if  @object.concept.nil? 
-        puts "the object.concept is nil"
-      end
-      
-      if  @object.concept.length == 0  
-        puts "the object.concept.length is 0 "
-      end
-      
-    else
-      puts "THIS is error"
-    end
-      
+     
   
     render :file => "projects/job_requests/concept_planning/update_project_concept"
   end
+  
+  def finalize_concept
+    @project = Project.find_by_id params[:entity_id] 
+    @project.finalize_concept(current_user)
+    
+    render :file => "projects/job_requests/concept_planning/finalize_concept" 
+  end
+  
+  
+  
+=begin
+  JOB REQUEST FULFILLMENT  JOB_REQUEST_SOURCE[:shoot]
+=end
+
+  def project_based_shoot_finalization
+    @project = Project.find_by_id params[:project_id] 
+
+    add_breadcrumb "Task Management", 'job_requests_url'  
+    set_breadcrumb_for @project, 'concept_planning_fulfillment_url' + "(#{@project.id})", 
+          "Concept Planning"
+
+    # render :file => "projects/job_requests/concept_planning/concept_planning_fulfillment"
+  end
+
+  def shoot_finalization
+    @project = Project.find_by_id params[:project_id]  
+
+    add_breadcrumb "Task Management", 'job_requests_url'  
+    set_breadcrumb_for @project, 'shoot_finalization_url' + "(#{@project.id})", 
+          "Shoot Finalization"
+
+    render :file => "projects/job_requests/shoot/shoot_finalization"
+  end
+
+  def update_shoot_data
+    @project = Project.find_by_id params[:project_id]
+    @project.update_project_shoot_data(current_user, params[:project][:shoot_data])
+    @project.reload 
+    @object = @project 
+ 
+
+
+    render :file => "projects/job_requests/shoot/update_shoot_data"
+  end
+  
+  def finalize_shoot_data
+    @project = Project.find_by_id params[:entity_id] 
+    @project.finalize_shoot_data(current_user)
+  end
+  
+  protected 
   
   def setup_project_role
     @main_crew_project_role = ProjectRole.find_by_name PROJECT_ROLE[:main_crew]

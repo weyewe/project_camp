@@ -22,7 +22,7 @@ form.form_content, div.content_display {
 
 div.content_display {
   margin-top: 20px; 
-  display: block;
+  display: inline;
 } 
 
 .breadcrumb {
@@ -53,4 +53,8 @@ div.content_display {
 
 #project_detail_wrapper .new_object {
 margin-top: 0;
+}
+
+div.finalize { 
+margin-top:10px;
 }

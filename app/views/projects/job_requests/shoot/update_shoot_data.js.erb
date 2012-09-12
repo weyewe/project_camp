@@ -1,8 +1,8 @@
 $(document).ready(function(){
   var $form = $("#object_form");  
-  <% new_form = escape_javascript( render :partial => "projects/job_requests/concept_planning/object_form", :locals => {
+  <% new_form = escape_javascript( render :partial => "projects/job_requests/shoot/object_form", :locals => {
     :object => @object,
-    :url => update_project_concept_url(@object )  
+    :url =>  update_shoot_data_url(@object )    
   }) %>
   
   //  hide showLoading 
@@ -16,14 +16,16 @@ $(document).ready(function(){
   var $form_opener = $("#new_object_opener");
    
   <% if (not @object.errors.any?  ) and  
-        (not @object.concept.nil?)  and  
-        (@object.concept.length !=  0  )  %> 
+        (not @object.shoot_data.nil?)  and  
+        (@object.shoot_data.length !=  0  )  %>
+  // show notification that it is persisted
+    <% puts "Goes to A: NOT ERROR" %>
     <% alert = escape_javascript(render :partial => "layouts/alert", :locals => {
       :success => true , 
-      :text => "Project's  concept is successfully updated."
+      :text => "Project's  shoot_data is successfully updated."
     }) %>
     
-    <% content = escape_javascript(render :partial => "projects/job_requests/concept_planning/display", :locals => {
+    <% content = escape_javascript(render :partial => "projects/job_requests/shoot/display", :locals => {
       :project => @object  
     }) %>
     
@@ -45,10 +47,10 @@ $(document).ready(function(){
    $("#no_object_list").remove(); 
   
   <% else %>
-   
+    
     <% alert = escape_javascript(render :partial => "layouts/alert", :locals => {
       :success => false , 
-      :text => "Update Concept Failed."
+      :text => "Update Shoot Data Failed."
     }) %> 
     $form.show(); 
   <% end %>
@@ -65,6 +67,7 @@ $(document).ready(function(){
     format: 'dd/mm/yyyy',
     autoclose : true 
   });
+  
   
   $('.wysihtml5_textarea').wysihtml5({
   	"html": false, //Button which allows you to edit the generated HTML. Default false

@@ -157,6 +157,10 @@ class Project < ActiveRecord::Base
       return nil
     end
     
+    if self.is_membership_assignment_finalized == true 
+      return nil
+    end 
+    
     if self.is_core_project_member_complete?
       self.is_membership_assignment_finalized = true 
       self.membership_assignment_finalized_date = Time.now.to_date 
@@ -256,14 +260,67 @@ class Project < ActiveRecord::Base
     
     
     self.save
-    puts "Save is successful"
+    return self  
+  end
+  
+  def finalize_concept(employee)
+    if not employee.has_project_role_symbol?(self, :main_crew)
+      return nil
+    end
+    
+    if self.is_concept_finalized == true 
+      return nil 
+    end
+    
+    if not self.concept.nil? and not self.concept.length ==0  
+      self.is_concept_finalized = true  
+    end
+    
+    self.save 
+  end
+  
+  
+=begin
+  PROJECT SHOOT DATA 
+=end
+  def update_project_shoot_data(employee, project_shoot_data )
+    if not employee.has_project_role_symbol?(self, :main_crew)
+      puts "NO AUTHORIZATION \n"*10
+      self.errors.add(:authorization , "Doesn't have proper authorization" );
+      return self 
+    end
+    
+    self.shoot_data = project_shoot_data 
+    
+    if project_shoot_data.nil? or project_shoot_data.length == 0
+      puts "THE CONCEPT LENGTH is 0 \n"*10
+      self.errors.add(:shoot_data , "Must not be empty" );
+      return self 
+    end
+     
+    self.save
     return self  
   end
   
   
   
   
-  
+  def finalize_shoot_data(employee)
+    if not employee.has_project_role_symbol?(self, :main_crew)
+      return nil
+    end
+    
+    
+    if self.is_shoot_finalized == true 
+      return nil
+    end 
+    
+    if not self.shoot_data.nil? and self.shoot_data.length ==0  
+      self.is_shoot_finalized = true  
+    end 
+    
+    self.save 
+  end
   
   
   

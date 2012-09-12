@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(:version => 20120911074352) do
     t.date     "shoot_date"
     t.date     "shoot_start_date"
     t.date     "shoot_end_date"
+    t.text     "shoot_data"
+    t.boolean  "is_shoot_finalized",                   :default => false
     t.date     "internal_deadline"
     t.date     "external_deadline"
     t.boolean  "is_membership_assignment_finalized",   :default => false

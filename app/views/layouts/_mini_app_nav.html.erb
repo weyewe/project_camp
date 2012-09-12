@@ -39,22 +39,22 @@
           {
             :tab_text => 'Concept',
             :icon_class => '',
-            :destination_url => project_deliverable_items_url(@project) , 
+            :destination_url => project_based_concept_planning_fulfillment_url(@project) , 
             :conditions => [
               {
-                :controller => '',
-                :action => ''
+                :controller => 'projects',
+                :action => 'project_based_concept_planning_fulfillment'
               }
             ]
           },
           {
             :tab_text => 'Data',
             :icon_class => '',
-            :destination_url => project_deliverable_items_url(@project) , 
+            :destination_url => project_based_shoot_finalization_url(@project) , 
             :conditions => [
               {
-                :controller => '',
-                :action => ''
+                :controller => 'projects',
+                :action => 'project_based_shoot_finalization'
               }
             ]
           },

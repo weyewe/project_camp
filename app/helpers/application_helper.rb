@@ -38,9 +38,9 @@ module ApplicationHelper
   def get_job_request_message(job_request)
     case job_request.job_request_source
     when JOB_REQUEST_SOURCE[:concept_planning]
-      return link_to "[#{job_request.project.title}] Concept Planning Request", concept_planning_fulfillment_url(job_request.project) 
+      return link_to "[#{job_request.project.title}] Concept Planning Request", concept_planning_fulfillment_url(job_request.project_id) 
     when JOB_REQUEST_SOURCE[:shoot]
-      return link_to "[#{job_request.project.title}] Shoot Schedule", root_url
+      return link_to "[#{job_request.project.title}] Shoot Schedule", shoot_finalization_url(job_request.project_id )
     when JOB_REQUEST_SOURCE[:start_production]
       return link_to "[#{job_request.project.title}] Initiate Production by creating drafts for each deliverable component", root_url
     when JOB_REQUEST_SOURCE[:production_scheduling]
@@ -235,15 +235,7 @@ module ApplicationHelper
   end
    
   def create_process_entry( process, params )
-    is_active = is_process_active?( process[:conditions], params)
-        # 
-        # <li class="active"><a href="#"><i class="icon-th-list"></i> Projects</a></li>
-        # <li><a href="#"><i class="icon-tasks"></i> Tasks</a></li>
-        # <li><a href="#"><i class="icon-envelope"></i> Reminders</a></li> 
-        # <li><a href="#"><i class="icon-calendar"></i> Calendar</a></li>  
-        # 
-    
-    
+    is_active = is_process_active?( process[:conditions], params) 
     process_entry = ""
     process_entry << "<li class='#{is_active}'>"
     process_entry << "<a href='#{extract_url( process[:destination_link] ) }'>"
@@ -277,6 +269,7 @@ module ApplicationHelper
         :icon_class => 'icon-th-list',
         :destination_link => "projects_url",
         :conditions => [
+          # project listing and project creation
           {
             :controller => "projects",
             :action => 'index'
@@ -289,18 +282,30 @@ module ApplicationHelper
             :controller => 'projects',
             :action => 'show'
           },
+          # adding deliverable items 
           {
             :controller => 'deliverable_items',
             :action => "index"
           },
           {
-            :controller => "project_memberships",
-            :action => 'index'
-          },
-          {
             :controller => 'deliverable_items',
             :action => 'project_deliverable_items_production_overview'
           },
+          # adding project member 
+          {
+            :controller => "project_memberships",
+            :action => 'index'
+          },
+          # creating concept for the project 
+          {
+            :controller => "projects",
+            :action => 'project_based_concept_planning_fulfillment'
+          },
+          {
+            :controller => "projects",
+            :action => 'project_based_shoot_finalization'
+          },
+          # creating draft : PRODUCTION 
           {
             :controller => 'drafts',
             :action => 'index'
@@ -319,6 +324,10 @@ module ApplicationHelper
           {
             :controller => 'projects',
             :action => 'concept_planning_fulfillment'
+          },
+          {
+            :controller => 'projects',
+            :action => 'shoot_finalization'
           }
         ]
       },

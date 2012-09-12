@@ -53,12 +53,25 @@ Projectcamp::Application.routes.draw do
 
   match 'project_deliverable_items_production_overview/:project_id' => 'deliverable_items#project_deliverable_items_production_overview', :as => :project_deliverable_items_production_overview
   
-=begin
-  JOB REQUEST FULFILLMENT 
+=begin 
+  JOB REQUEST FULFILLMENT  JOB_REQUEST_SOURCE[:concept_planning]
 =end
-  match 'concept_planning_fulfillment/:job_request_id' => "projects#concept_planning_fulfillment", :as => :concept_planning_fulfillment
+  # from the project
+  match 'project_based_concept_planning_fulfillment/:project_id' => "projects#project_based_concept_planning_fulfillment", :as => :project_based_concept_planning_fulfillment
+  # short cut from the TASK 
+  match 'concept_planning_fulfillment/:project_id' => "projects#concept_planning_fulfillment", :as => :concept_planning_fulfillment
   match 'update_project_concept/:project_id' => "projects#update_project_concept", :as => :update_project_concept, :method => :post 
+  match 'finalize_concept' => 'projects#finalize_concept', :as => :finalize_concept, :method => :post 
   
+=begin 
+  JOB REQUEST FULFILLMENT  JOB_REQUEST_SOURCE[:shoot]
+=end
+  # from the project
+  match 'project_based_shoot_finalization/:project_id' => "projects#project_based_shoot_finalization", :as => :project_based_shoot_finalization
+  # short cut from the TASK 
+  match 'shoot_finalization/:project_id' => "projects#shoot_finalization", :as => :shoot_finalization
+  match 'update_shoot_data/:project_id' => "projects#update_shoot_data", :as => :update_shoot_data, :method => :post
+  match 'finalize_shoot_data' => 'projects#finalize_shoot_data', :as => :finalize_shoot_data, :method => :post 
 end
 
 
