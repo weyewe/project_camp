@@ -10,13 +10,16 @@ $(document).ready(function(){
   $form.replaceWith('<%= new_form %>');  
   var $form = $("#object_form");  
   
+  var $alert = $("#alert"); 
+  
   // show the alert (either success or fail)
   var $form_opener = $("#new_object_opener");
    
-  <% if @object.errors.messages.count == 0  and  
-        not @object.concept.nil? and  
-        @object.concept.length !=  0    %>
+  <% if (not @object.errors.any?  ) and  
+        (not @object.concept.nil?)  and  
+        (@object.concept.length !=  0  )  %>
   // show notification that it is persisted
+    <% puts "Goes to A: NOT ERROR" %>
     <% alert = escape_javascript(render :partial => "layouts/alert", :locals => {
       :success => true , 
       :text => "Project's  concept is successfully updated."
@@ -32,12 +35,42 @@ $(document).ready(function(){
     $form.clearForm(); 
     
    // show the just-created concept 
-    $form_opener.after('<%= content %>'); 
+    if( $alert.length >  0   ){
+      $alert.after('<%= content %>'); 
+    }else{
+      $form_opener.after('<%= content %>'); 
+      
+    }
+    
    
    // remove the no object list notification 
    $("#no_object_list").remove(); 
   
   <% else %>
+   //  
+   // (@object.errors.messages.count == 0 ) and  
+   //       (not @object.concept.nil?)  and  
+   //       (@object.concept.length !=  0  )
+   //       
+   //       
+   
+   <% if @object.errors.any?  %>
+      <% puts "The error messages is not 0 " %>
+       <% puts "The error messages is #{@object.errors.messages.count} " %>
+       <% @object.errors.messages.each do |key,value| %>
+        <% puts "The value is #{value}" %>
+       <% end %>
+   <% end %>
+   
+    <% if @object.concept.nil?  %>
+       <% puts "@object.concept is nil " %>
+    <% end %>
+    
+     <% if @object.concept.length ==0   %>
+        <% puts "@object.concept.length is 0 " %>
+     <% end %>
+     
+    <% puts "Goes To B, ERROR" %> 
     <% alert = escape_javascript(render :partial => "layouts/alert", :locals => {
       :success => false , 
       :text => "Project Creation Failed."

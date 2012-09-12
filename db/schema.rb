@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20120911074352) do
     t.integer  "creator_id"
     t.boolean  "is_fixed_date",                        :default => false
     t.text     "concept"
+    t.boolean  "is_concept_finalized",                 :default => false
     t.string   "shoot_location"
     t.date     "shoot_date"
     t.date     "shoot_start_date"

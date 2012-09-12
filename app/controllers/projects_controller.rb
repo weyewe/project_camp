@@ -64,11 +64,12 @@ class ProjectsController < ApplicationController
   def update_project_concept
     @project = Project.find_by_id params[:project_id]
     @project.update_project_concept(current_user, params[:project][:concept])
+    @project.reload 
     @object = @project 
     
-    if @object.errors.messages.count == 0  and 
-       not  @object.concept.nil? and
-        @object.concept.length != 0  
+    if (not @object.errors.any? ) and  
+          (not @object.concept.nil?)  and  
+          (@object.concept.length !=  0  )
         
       puts "THIS IS NOT ERROR moron\n"*5
       if @object.errors.messages.count != 0

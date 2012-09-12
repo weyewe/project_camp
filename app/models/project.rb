@@ -248,7 +248,7 @@ class Project < ActiveRecord::Base
     
     self.concept = project_concept 
     
-    if self.concept.nil? or self.concept.length == 0
+    if project_concept.nil? or project_concept.length == 0
       puts "THE CONCEPT LENGTH is 0 \n"*10
       self.errors.add(:concept , "Must not be empty" );
       return self 

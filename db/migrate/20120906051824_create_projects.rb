@@ -8,7 +8,8 @@ class CreateProjects < ActiveRecord::Migration
 
       t.boolean :is_fixed_date , :default    => false  
       
-      t.text :concept , :default => nil 
+      t.text :concept , :default => nil
+      t.boolean :is_concept_finalized, :default => false  
 
       t.string  :shoot_location
       t.date    :shoot_date
