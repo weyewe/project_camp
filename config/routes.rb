@@ -52,4 +52,37 @@ Projectcamp::Application.routes.draw do
 =end
 
   match 'project_deliverable_items_production_overview/:project_id' => 'deliverable_items#project_deliverable_items_production_overview', :as => :project_deliverable_items_production_overview
+  
+=begin
+  JOB REQUEST FULFILLMENT 
+=end
+  match 'concept_planning_fulfillment/:job_request_id' => "projects#concept_planning_fulfillment", :as => :concept_planning_fulfillment
+  match 'update_project_concept/:project_id' => "projects#update_project_concept", :as => :update_project_concept, :method => :post 
+  
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

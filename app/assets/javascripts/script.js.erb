@@ -25,6 +25,9 @@ $(document).ready(function(){
     
     // hide the no_object_list notification 
     $("#no_object_list").toggle();
+    
+    // if it is the edit mode 
+    $("#display_content").toggle() ;
     return false;
   });
   
@@ -35,8 +38,14 @@ $(document).ready(function(){
     
     // hide the no_object_list notification 
     $(".form_content", $section_wrapper).toggle();
+    
+    
+    
     return false;
+    
+    
   });
+   
   
   
   

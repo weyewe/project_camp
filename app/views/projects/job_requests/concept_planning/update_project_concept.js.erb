@@ -1,0 +1,64 @@
+$(document).ready(function(){
+  var $form = $("#object_form");  
+  <% new_form = escape_javascript( render :partial => "projects/job_requests/concept_planning/object_form", :locals => {
+    :object => @object,
+    :url => update_project_concept_url(@object )  
+  }) %>
+  
+  //  hide showLoading 
+  $form.hideLoading();  
+  $form.replaceWith('<%= new_form %>');  
+  var $form = $("#object_form");  
+  
+  // show the alert (either success or fail)
+  var $form_opener = $("#new_object_opener");
+   
+  <% if @object.errors.messages.count == 0  and  
+        not @object.concept.nil? and  
+        @object.concept.length !=  0    %>
+  // show notification that it is persisted
+    <% alert = escape_javascript(render :partial => "layouts/alert", :locals => {
+      :success => true , 
+      :text => "Project's  concept is successfully updated."
+    }) %>
+    
+    <% content = escape_javascript(render :partial => "projects/job_requests/concept_planning/display", :locals => {
+      :project => @object  
+    }) %>
+    
+    
+  //  hide the form 
+    $form.hide(); 
+    $form.clearForm(); 
+    
+   // show the just-created concept 
+    $form_opener.after('<%= content %>'); 
+   
+   // remove the no object list notification 
+   $("#no_object_list").remove(); 
+  
+  <% else %>
+    <% alert = escape_javascript(render :partial => "layouts/alert", :locals => {
+      :success => false , 
+      :text => "Project Creation Failed."
+    }) %> 
+    $form.show(); 
+  <% end %>
+  
+  if( $("#alert").length == 0 ){
+    $("#new_object_opener").after('<%= alert %>');
+  }else{
+    $("#alert").replaceWith('<%= alert %>');
+  }
+  
+  
+  
+  $(".datepicker").datepicker({
+    format: 'dd/mm/yyyy',
+    autoclose : true 
+  });
+  
+   
+  
+  
+});

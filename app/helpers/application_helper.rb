@@ -18,6 +18,69 @@ module ApplicationHelper
     return JOB_REQUEST_ROLE_TEXT[JOB_REQUEST_ROLE[job_request_source_symbol]] 
   end
   
+  
+  JOB_REQUEST_ROLE = {
+    :concept_planning => :main_crew,
+    :shoot => :main_crew, 
+    :start_production => :account_executive, 
+    :production_scheduling => :project_manager, 
+    :production_execution => :production, 
+    :qc_approval => :quality_control,
+    :client_start_draft_review => :account_executive, 
+    :follow_up_client_draft_review => :account_executive, 
+    :component_post_production_scheduling => :project_manager , 
+    :component_post_production_execution => :post_production , 
+    :component_post_production_follow_up => :post_production , 
+    :post_production_delivery => :account_executive  
+  }
+  
+  
+  def get_job_request_message(job_request)
+    case job_request.job_request_source
+    when JOB_REQUEST_SOURCE[:concept_planning]
+      return link_to "[#{job_request.project.title}] Concept Planning Request", concept_planning_fulfillment_url(job_request.project) 
+    when JOB_REQUEST_SOURCE[:shoot]
+      return link_to "[#{job_request.project.title}] Shoot Schedule", root_url
+    when JOB_REQUEST_SOURCE[:start_production]
+      return link_to "[#{job_request.project.title}] Initiate Production by creating drafts for each deliverable component", root_url
+    when JOB_REQUEST_SOURCE[:production_scheduling]
+      return link_to "[#{job_request.project.title}] Assign Production Team to work on "+ 
+        "deliverable component: #{job_request.deliverable_component_subcription.deliverable_component.name}, " + 
+        "draft-#{job_request.draft.number}", root_url
+    when JOB_REQUEST_SOURCE[:production_execution]
+      return link_to "[#{job_request.project.title}] Finish the draft-#{job_request.draft.number}", root_url
+    when JOB_REQUEST_SOURCE[:qc_approval]
+      return link_to "[#{job_request.project.title}] Draft approval for: draft-#{job_request.draft.number}", root_url
+    when JOB_REQUEST_SOURCE[:client_start_draft_review]
+      return link_to "[#{job_request.project.title}] Pass the draft to the client on " + 
+                "deliverable component: #{job_request.deliverable_component_subcription.deliverable_component.name} " + 
+                "draft-#{job_request.draft.number}", root_url
+    when JOB_REQUEST_SOURCE[:follow_up_client_draft_review]
+      return link_to "[#{job_request.project.title}] Follow up with client to retrieve "+ 
+            "the draft-#{job_request.draft.number}, from " + 
+            "deliverable component: #{job_request.deliverable_component_subcription.deliverable_component.name}", root_url
+    when JOB_REQUEST_SOURCE[:component_post_production_scheduling]
+      return link_to "[#{job_request.project.title}] Ask Post Production to  start working on "+  
+            "deliverable component: #{job_request.deliverable_component_subcription.deliverable_component.name}", root_url
+    when JOB_REQUEST_SOURCE[:component_post_production_execution]
+      return link_to "[#{job_request.project.title}] Start sourcing for supplier to produce "+  
+            "deliverable component: #{job_request.deliverable_component_subcription.deliverable_component.name}", root_url
+    when JOB_REQUEST_SOURCE[:component_post_production_follow_up]
+      return link_to "[#{job_request.project.title}] Do follow up to supplier to ensure timely delivery date for "+  
+            "deliverable component: #{job_request.deliverable_component_subcription.deliverable_component.name}", root_url
+    when JOB_REQUEST_SOURCE[:post_production_delivery]
+      return link_to "[#{job_request.project.title}] Post Production has retrieved "+  
+            "deliverable component: #{job_request.deliverable_component_subcription.deliverable_component.name} " + 
+            "from the supplier. Now, you can start planning the delivery to client", root_url
+    else
+      return link_to "Wrong MESSAGE", root_url 
+    end 
+  end
+  
+  def get_job_request_date(job_request)
+    
+  end
+  
 
 =begin
   Object List Display 
@@ -252,6 +315,10 @@ module ApplicationHelper
           {
             :controller => 'job_requests',
             :action => 'index'
+          },
+          {
+            :controller => 'projects',
+            :action => 'concept_planning_fulfillment'
           }
         ]
       },

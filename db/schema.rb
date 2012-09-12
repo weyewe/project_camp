@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20120911074352) do
     t.integer  "client_id"
     t.integer  "creator_id"
     t.boolean  "is_fixed_date",                        :default => false
+    t.text     "concept"
     t.string   "shoot_location"
     t.date     "shoot_date"
     t.date     "shoot_start_date"

@@ -13,12 +13,17 @@ form.no_content_form {
   display:none; 
 }
 
-form.form_content {  
+form.form_content, div.content_display {  
   border: 1px solid rgb(230, 230, 230 );
   background-color: #fff9e8;
   padding: 20px;
   display:none; 
 }
+
+div.content_display {
+  margin-top: 20px; 
+  display: block;
+} 
 
 .breadcrumb {
   border-top: 0px;

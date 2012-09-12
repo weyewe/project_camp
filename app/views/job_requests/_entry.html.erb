@@ -1,6 +1,5 @@
 <div class="activity-line row">
   
-  <span class="span1 label <%= get_job_request_color(job_request) %> right"><%= get_job_request_text(job_request)%></span>
   
   <!-- resolve the job_request_message -->
     <% job_request_message = '' %>
@@ -8,11 +7,36 @@
     <% job_request_destination_url = '' %>
   <!-- resolve the job_request deadline  -->
     <% job_request_deadline = '' %>
+    
+  <% if job_request.job_request_source == JOB_REQUEST_SOURCE[:concept_planning] %>
+    <% job_request_message << "[#{job_request.project.title}] Concept Planning Request"%>
+    <% job_request_destination_link = root_url  %>
+    
+    <% if job_request.start_date.nil? %>
+      <% job_request_deadline << "N/A"%>
+    <% else %>
+      <% job_request_deadline <<   format_date_from_datetime( job_request.start_date)    %>
+    <% end %>
+    
+    <% job_request_deadline << " - " %>
+    
+    <% if job_request.deadline_date.nil? %>
+      <% job_request_deadline << "N/A"%>
+    <% else %>
+      <% job_request_deadline <<  format_date_from_datetime( job_request.deadline_date)    %>
+    <% end %>
+  <% end %> 
   
    
+  <span class="span1 label <%= get_job_request_color(job_request) %> right"><%= get_job_request_text(job_request)%></span> 
   <span class="span5 title">
-    <%#= link_to job_request_message(job_request), job_request_destination_url() %>
-    <a href="#">Tight pants next level keffiyeh</a>
+    <%= get_job_request_message(job_request )  %> 
   </span>
   <span class="span2 date pull-right">20/8/2012 - 20/9/2012</span>
+  
+  <!-- <span class="span1 label <%= get_job_request_color(job_request) %> right"><%= get_job_request_text(job_request)%></span> 
+  <span class="span5 title"> 
+    <a href="#">Tight pants next level keffiyeh</a>
+  </span>
+  <span class="span2 date pull-right">20/8/2012 - 20/9/2012</span> -->
 </div>

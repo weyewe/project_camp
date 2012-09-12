@@ -5,6 +5,8 @@ class Draft < ActiveRecord::Base
   
   validates_presence_of :overall_feedback
   
+  has_many :job_requests 
+  
   
   def self.create_child_object(employee, parent_object, object_params)
     project = parent_object.project 

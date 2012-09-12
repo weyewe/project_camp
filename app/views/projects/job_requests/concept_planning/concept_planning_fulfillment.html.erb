@@ -1,0 +1,32 @@
+<div class="padded">
+  
+  
+  <% if  current_user.has_project_role_symbol?(@project, :main_crew )%>
+    <%= render :partial => "layouts/new_object_opener", :locals => {
+      :text => "Edit Concept"
+    } %>
+  <% end %>
+  
+  
+   
+  <% if @project.concept.nil? or @project.concept.length == 0 %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "concept ",
+      :single_object => "concept" , 
+      :subject => "project \"#{@project.title}\""
+    } %>
+  <% else %>
+    <%= render :partial => "projects/job_requests/concept_planning/display", :locals => {
+      :project => @project 
+    } %>
+  <% end %>
+   
+   
+  <% if  current_user.has_project_role_symbol?(@project, :main_crew)%>
+    <%= render :partial => "projects/job_requests/concept_planning/object_form", :locals => {
+      :object => @project,
+      :url => update_project_concept_url(@project )  
+    }%>
+  <% end %>
+   
+</div>

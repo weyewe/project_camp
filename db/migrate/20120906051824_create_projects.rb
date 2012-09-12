@@ -7,6 +7,8 @@ class CreateProjects < ActiveRecord::Migration
       t.integer :creator_id 
 
       t.boolean :is_fixed_date , :default    => false  
+      
+      t.text :concept , :default => nil 
 
       t.string  :shoot_location
       t.date    :shoot_date

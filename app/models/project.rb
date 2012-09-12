@@ -237,6 +237,37 @@ class Project < ActiveRecord::Base
   end
   
 =begin
+  PROJECT CONCEPT
+=end  
+  def update_project_concept(employee, project_concept )
+    if not employee.has_project_role_symbol?(self, :main_crew)
+      puts "NO AUTHORIZATION \n"*10
+      self.errors.add(:authorization , "Doesn't have proper authorization" );
+      return self 
+    end
+    
+    self.concept = project_concept 
+    
+    if self.concept.nil? or self.concept.length == 0
+      puts "THE CONCEPT LENGTH is 0 \n"*10
+      self.errors.add(:concept , "Must not be empty" );
+      return self 
+    end
+    
+    
+    self.save
+    puts "Save is successful"
+    return self  
+  end
+  
+  
+  
+  
+  
+  
+  
+  
+=begin
   Utility and Callbacks
 =end
   

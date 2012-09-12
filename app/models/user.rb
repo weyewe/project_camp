@@ -173,6 +173,11 @@ class User < ActiveRecord::Base
     not project_membership_for(project).nil? 
   end
   
+  def has_project_role_symbol?(project, project_role_symbol)
+    project_role = ProjectRole.find_by_name PROJECT_ROLE[project_role_symbol]
+    has_project_role?( project, project_role)
+  end
+  
   def has_project_role?( project, project_role)
     self.has_project_membership?(project) and 
         self.project_membership_for(project).has_assigned_project_role?(project_role)
