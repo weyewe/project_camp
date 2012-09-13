@@ -14,11 +14,27 @@
   <% end %>
   
   <div class="row"> 
-    <div class='span7 content_display ' style="line-height: 24px;" >
-       
-         <%= @project.shoot_data.html_safe  %>  
-       
-    </div>
+    
+    <% if not @project.shoot_data.nil? and  @project.shoot_data.length != 0 %>
+      <div class='span7 content_display ' style="line-height: 24px;" > 
+        <%= @project.shoot_data.html_safe  %>   
+      </div>
+      
+    <% else %>
+     <div class="slate span7">
+        <div class="slate-content">
+          <div class="box-left">
+            <%= image_tag "clipboard.png" %>
+          </div>
+
+          <div class="box-right">
+            <h3>Your project doesn't have any shoot data yet.</h3>  
+          </div>
+        </div>
+      </div> 
+    <% end %>
+    
+    
     
     
     <div class='span1'>

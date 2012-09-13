@@ -16,6 +16,8 @@ class Project < ActiveRecord::Base
   has_many :deliverable_component_subcriptions
   
   validates_presence_of :title , :external_deadline, :creator_id  , :package_id 
+  
+  has_many :job_requests 
    
   # after_create :assign_deliverable_items
   
@@ -165,6 +167,10 @@ class Project < ActiveRecord::Base
       self.is_membership_assignment_finalized = true 
       self.membership_assignment_finalized_date = Time.now.to_date 
       self.save 
+      
+      # JobRequest.create_event_based_job_request(:on_project_membership_assignment_finalized,creator,    project, draft )
+      # Notification.create_event_based_notification(:on_project_membership_assignmnet_finalized, creator, project, draft )
+      
       self.create_on_project_member_assignment_finalization_job_requests(employee)
       self.create_project_member_assignment_notification 
     end
@@ -274,6 +280,8 @@ class Project < ActiveRecord::Base
     
     if not self.concept.nil? and not self.concept.length ==0  
       self.is_concept_finalized = true  
+    else
+      return nil
     end
     
     self.save 
@@ -327,11 +335,19 @@ class Project < ActiveRecord::Base
     
     if not self.shoot_data.nil? and not self.shoot_data.length ==0  
       self.is_shoot_finalized = true  
+    else
+      return nil
     end 
     
     self.save 
+    # create reaction event: on finalized shoot data, what is the next job request to be done ?
+    # JobRequest.create_event_based_job_request(:on_project_membership_finalized, user, project, draft )
     #  clear the job request 
+    # JobRequest.create_event_based_job_request(:on_project_membership_assignment_finalized,creator,    project, draft )
+    #  JobRequest.finish_associated_job_request( JOB_REQUEST_SOURCE[:shoot], finisher, self, draft)
+    
     self.finish_job_requests_with_source(  JOB_REQUEST_SOURCE[:shoot] ) 
+   
   end
   
   

@@ -6,6 +6,7 @@
    <th>Membership</th>
    <th>Concept</th> 
    <th>Production</th>
+   <th>Shoot Data</th>
    <th>Post Production</th>
     -->
   
@@ -36,7 +37,26 @@
     <span class="badge blue rounded"><%= object.users.count %></span> 
   </td>
   <td> 
-    <%= format_date_from_datetime( object.external_deadline )  %>
+    <% if object.is_concept_finalized == true %>
+      <span class="label green">Done</span>
+    <% else %>
+      <% if not object.concept.nil? and not object.concept.length == 0  %>
+        <span class='label orange'>In Progress</span>
+      <% else %>
+        <span class='label red'>Not Started</span>
+      <% end %>
+    <% end %> 
+  </td>
+  <td> 
+    <% if object.is_shoot_finalized == true %>
+      <span class="label green">Done</span>
+    <% else %>
+      <% if not object.shoot_data.nil? and not object.shoot_data.length == 0  %>
+        <span class='label orange'>In Progress</span>
+      <% else %>
+        <span class='label red'>Not Started</span>
+      <% end %>
+    <% end %>
   </td>
   <td> 
     <%= format_date_from_datetime( object.external_deadline )  %>

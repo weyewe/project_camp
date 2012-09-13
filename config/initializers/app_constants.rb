@@ -112,6 +112,7 @@ JOB_REQUEST_ROLE = {
 #  THIS IS THE CORE OF THE APP
 # locking the business process 
 JOB_REQUEST_SOURCE = {
+  :project_membership_assignment_finalized =>0 , 
   # is created on Membership FINALIZATION  by Head PM 
   :concept_planning => 1 ,  # main crew will have this job request
   # on finish -> nothing happen  -> just notify the PM .. no further job_request created 

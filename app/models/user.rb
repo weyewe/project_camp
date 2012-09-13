@@ -187,6 +187,9 @@ class User < ActiveRecord::Base
   JOB REQUEST
 =end
   def active_job_requests
-    self.job_requests.where(:is_finished => false , :is_canceled => false ).order("deadline_date ASC")
+    self.job_requests.joins(:project).where( :is_canceled => false, :project => {
+      :is_finished => false ,
+      :is_deleted => false 
+    } ).order("deadline_date ASC")
   end
 end
