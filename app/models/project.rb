@@ -171,6 +171,12 @@ class Project < ActiveRecord::Base
       # JobRequest.create_event_based_job_request(:on_project_membership_assignment_finalized,creator,    project, draft )
       # Notification.create_event_based_notification(:on_project_membership_assignmnet_finalized, creator, project, draft )
       
+      JobRequest.finish_associated_job_request(JOB_REQUEST_SOURCE[:project_membership_assignment_finalized],
+          employee, 
+          self, 
+          nil , 
+          nil   )
+      
       self.create_on_project_member_assignment_finalization_job_requests(employee)
       self.create_project_member_assignment_notification 
     end

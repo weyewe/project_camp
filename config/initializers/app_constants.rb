@@ -196,3 +196,9 @@ SHOWLOADING_LOADER_URL = "http://s3.amazonaws.com/circle-static-assets/loading.g
 
 # APP HELPER
 HIDE_TABLE = "object_list_hidden"
+
+=begin
+JOB REQUEST SPECIFIC
+=end
+NUMBER_OF_DAYS_TO_START_PRODUCTION = 7
+NUMBER_OF_DAYS_TO_START_PRODUCTION_SCHEDULING = 4

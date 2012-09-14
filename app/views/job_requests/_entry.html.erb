@@ -3,7 +3,10 @@
    
   
    
-  <span class="span1 label <%= get_job_request_color(job_request) %> right"><%= get_job_request_text(job_request)%></span> 
+  <span class="span1 label <%= get_job_request_color(job_request) %> right">
+    <%= job_request.user.name %>
+    <%#= get_job_request_text(job_request)%>
+  </span> 
   
  
   <span class="span5 title <%= get_finished_class(job_request) %>">
