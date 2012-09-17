@@ -103,23 +103,32 @@ class JobRequest < ActiveRecord::Base
       # notify PM about the draft request , so that PM can start assigning production task 
       JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:production_scheduling] ,employee,project, draft, target  )
     when JOB_REQUEST_SOURCE[:production_scheduling] # PM create tasks to the team member 
-      # notify the assigned team member that there is task. 
-      
+      # notify the assigned target (production)  that there is task. 
+      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:production_execution] ,employee,project, draft, target  )
     when JOB_REQUEST_SOURCE[:production_execution] # assigned production team confirmed that she has finished the shite
-      # NOTIFY QC that it is done , approval is required 
-      
+      # NOTIFY QC that it the production team done , approval is required 
+      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:qc_approval] ,employee,project, draft, target  )
     when JOB_REQUEST_SOURCE[:qc_approval]  # QC approves the draft, ready to be sent to client 
       # NOTIFY associated AE that she can start calling the client for draft review 
-       
+      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:client_start_draft_review] ,employee,project, draft, target  )
     when JOB_REQUEST_SOURCE[:client_start_draft_review] # in order to submit client start draft review, AE has to have the estimated review finish date
       # create another job request for the associated AE to create reminder  based on the estimated review finish date 
+      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:follow_up_client_draft_review] ,employee,project, draft, target  )
     when JOB_REQUEST_SOURCE[:follow_up_client_draft_review] # retrieve the draft review from client + feedback 
       # over here, decide -> create another draft, or finalize draft 
       # if it is finalized, notify PM that the deliverable component is done , ready to assign post production 
+      if draft.deliverable_component_subcription.is_production_finished == true 
+        # notify PM that the shit is finished 
+        # create job requst for PM to start scheduling the post production 
+      else
+        # notify PM that the draft is finished, returned by client.. however, the client is still asking for revisions 
+        # so, automatically create job request for AE to start over the draft creation
+      end
       # if it is another draft creation, create job request for AE to create draft request 
       
     when JOB_REQUEST_SOURCE[:component_post_production_scheduling] # PM creates the jbo request for PP.. on creation, 
       # Notify post production about the deliverable item component printing 
+      # target is used over here 
       
     when JOB_REQUEST_SOURCE[:component_post_production_execution] # PP creates purchase order for supplier + ESTIMATED FINISH DATE
       # notification to associated PM and  AE  that it is in progress.
