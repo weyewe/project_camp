@@ -43,6 +43,7 @@ ae_project_role = ProjectRole.create :name => PROJECT_ROLE[:account_executive]
 prod_project_role = ProjectRole.create :name => PROJECT_ROLE[:production]
 post_prod_project_role = ProjectRole.create :name => PROJECT_ROLE[:post_production]
 qc_project_role = ProjectRole.create :name => PROJECT_ROLE[:quality_control]
+head_project_manager_project_role = ProjectRole.create :name => PROJECT_ROLE[:head_project_manager]
 
 # Creating Package
 

@@ -160,6 +160,14 @@ class User < ActiveRecord::Base
     end 
   end
   
+  def User.with_role(role_list)
+    role_id_list = role_list.map{|x| x.id } 
+    
+    User.joins(:assignments).where(
+      :assignments => {:role_id => role_id_list}
+    )
+  end
+  
   
 =begin
   PROJECT MEMBERSHIP 
@@ -190,6 +198,6 @@ class User < ActiveRecord::Base
     self.job_requests.joins(:project).where( :is_canceled => false, :project => {
       :is_finished => false ,
       :is_deleted => false 
-    } ).order("deadline_date ASC")
+    } ).order("deadline_date ASC, is_finished ASC, created_at DESC")
   end
 end

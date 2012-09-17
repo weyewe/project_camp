@@ -11,6 +11,24 @@ class JobRequest < ActiveRecord::Base
   
   def JobRequest.create_event_based_job_request(job_request_source ,employee,project, draft, target  )
     case job_request_source
+    when JOB_REQUEST_SOURCE[:assign_project_membership]
+      
+      project.project_members_with_project_role([:head_project_manager]).each do |x| 
+        
+        
+        job_request = JobRequest.new 
+        job_request.project_id = project.id 
+        job_request.user_id = x.id 
+        job_request.start_date = project.shoot_start_date 
+        job_request.deadline_date = project.shoot_end_date 
+        job_request.creator_id = employee.id 
+        job_request.job_request_source  = JOB_REQUEST_SOURCE[:assign_project_membership] 
+        job_request.save
+        job_request.send_notification 
+      end
+      
+      
+      
     when JOB_REQUEST_SOURCE[:shoot]
       project.project_members_with_project_role([:crew, :main_crew]).each do |x|
         job_request = JobRequest.new 
@@ -66,6 +84,7 @@ class JobRequest < ActiveRecord::Base
   
   
 
+  
 =begin
   JOB REQUEST SOURCE indicates where the job request came from (which state/phase)
   employee indicates who created or triggered the job request 
@@ -74,10 +93,15 @@ class JobRequest < ActiveRecord::Base
           Production is done by deliverable component  -> Deliverable Component is extracted from the draft object
           passed to the class method 
 =end
-  def JobRequest.finish_associated_job_request(job_request_source, employee, project,   draft ,  target   )
-    # on FINISHING THESE job_request, what should happen? 
-    case job_request_source
-    when JOB_REQUEST_SOURCE[:project_membership_assignment_finalized]
+  def JobRequest.on_finish_job_request_callback( job_request , 
+                employee, project,   draft ,  target   ) 
+    # for example
+    if  job_request.has_similar_and_finished_job_request?
+      return nil 
+    end
+
+    case job_request.job_request_source
+    when JOB_REQUEST_SOURCE[:assign_project_membership]
       # in the little collins case, no job request starts the project creation
       # in nomina case, the project creation will be started by headpm receiving job request from 
       # marketing 
@@ -86,8 +110,12 @@ class JobRequest < ActiveRecord::Base
       # send job_request to main crew to create concept 
       # send job_request to main_crew and crew (assisting main_crew) to prepare for shooting date
       # project.create_on_project_member_assignment_finalization_job_requests(employee)
-      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:shoot] ,employee,project, draft, target  )
-      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:concept_planning] ,employee,project, draft, target  )
+      #  if there is past creation, don't create it anymore. How can I know ? 
+     
+        JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:shoot] ,employee,project, draft, target  )
+        JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:concept_planning] ,employee,project, draft, target  )
+      
+      
       
       # Send Email to the team member notifying their project membership  and their role 
       # project.create_project_member_assignment_notification 
@@ -142,5 +170,42 @@ class JobRequest < ActiveRecord::Base
     else
       return  nil 
     end
+  end
+ 
+
+=begin
+  FINALIZE JOB REQUEST 
+=end
+  def self.finish_job_request( job_request_source, employee, project,   draft ,  target )
+    job_requests = project.job_requests.where(
+      :job_request_source => job_request_source
+    ) 
+    
+    job_requests.each do |job_request|
+      job_request.finish_job_request( employee, project,   draft ,  target)
+    end
+  end
+
+  def finish_job_request( employee, project,   draft ,  target  )
+    self.is_finished = true 
+    self.finish_date = Time.now.to_date 
+    self.save
+
+    # after finish, what should it do? call on_finish_method
+
+    JobRequest.on_finish_job_request_callback( self , 
+                  employee, project,   draft ,  target   ) # target is used if we can't deduce the job request recipient
+                  # from project role. such as: production  + post-production (non dedicated/high frequency)
+  end
+
+
+  def similar_job_requests
+    JobRequest.where(:project_id => self.project_id, 
+    :draft_id => self.draft_id,   
+    :job_request_source => self.job_request_source  )
+  end
+
+  def has_similar_and_finished_job_request?
+    similar_job_requests.count > 1 and similar_job_requests.where(:is_finished => true).count == 1  
   end
 end

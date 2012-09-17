@@ -1,5 +1,7 @@
+<% if params[:action] == 'index' %>
 <% content_for :additional_mini_app_nav do %>
   <%= render :partial => 'layouts/mini_app_nav' %>
+<% end %>
 <% end %>
 
 <div class="padded">

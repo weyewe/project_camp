@@ -39,7 +39,18 @@ class Project < ActiveRecord::Base
     end
     new_object.save 
     if new_object.persisted? 
-      new_object.assign_deliverable_items
+      new_object.assign_deliverable_items 
+      
+      head_pm_role = Role.find_by_name USER_ROLE[:head_project_manager]
+      head_pm_project_role = ProjectRole.find_by_name( PROJECT_ROLE[:head_project_manager])
+      User.with_role( [head_pm_role]).each do |user|
+        new_object.add_project_membership( employee, user ,  head_pm_project_role)
+      end
+      
+      new_object.reload 
+      
+      
+      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:assign_project_membership] ,employee,new_object, nil, nil  )  
     end
     
     return new_object
@@ -167,21 +178,11 @@ class Project < ActiveRecord::Base
       self.is_membership_assignment_finalized = true 
       self.membership_assignment_finalized_date = Time.now.to_date 
       self.save 
+        
+      JobRequest.finish_job_request( JOB_REQUEST_SOURCE[:assign_project_membership], employee, self,   nil ,  nil  )
       
-      # JobRequest.create_event_based_job_request(:on_project_membership_assignment_finalized,creator,    project, draft )
-      # Notification.create_event_based_notification(:on_project_membership_assignmnet_finalized, creator, project, draft )
-      
-      JobRequest.finish_associated_job_request(JOB_REQUEST_SOURCE[:project_membership_assignment_finalized],
-          employee, 
-          self, 
-          nil , 
-          nil   )
-      
-      self.create_on_project_member_assignment_finalization_job_requests(employee)
-      self.create_project_member_assignment_notification 
-    end
-    #  send email to all project members 
-  end
+    end 
+  end 
 
   def is_core_project_member_complete?
     project_membership_id_list = self.project_memberships.map{|x| x.id }
@@ -205,11 +206,7 @@ class Project < ActiveRecord::Base
     
     return true
   end  
-  
-  def create_project_member_assignment_notification
-    # send notification email 
-  end
-  
+   
   def project_members_with_project_role(project_role_symbol_list)
     project_role_name_list = []
     project_role_symbol_list.each do |projecy_role_symbol|
@@ -227,30 +224,7 @@ class Project < ActiveRecord::Base
     User.where(:id => user_id_list.uniq )
   end
   
-  def create_on_project_member_assignment_finalization_job_requests(employee) 
-    
-    self.project_members_with_project_role( [:main_crew] ).each do |x|
-      job_request = JobRequest.new 
-      job_request.project_id = self.id 
-      job_request.user_id = x.id 
-      job_request.start_date = Time.now.to_date 
-      job_request.deadline_date = self.shoot_start_date 
-      job_request.creator_id = employee.id 
-      job_request.job_request_source  = JOB_REQUEST_SOURCE[:concept_planning] 
-      job_request.save 
-    end 
-    
-    self.project_members_with_project_role([:crew, :main_crew]).each do |x|
-      job_request = JobRequest.new 
-      job_request.project_id = self.id 
-      job_request.user_id = x.id 
-      job_request.start_date = self.shoot_start_date 
-      job_request.deadline_date = self.shoot_end_date 
-      job_request.creator_id = employee.id 
-      job_request.job_request_source  = JOB_REQUEST_SOURCE[:shoot] 
-      job_request.save
-    end    
-  end
+
   
 =begin
   PROJECT CONCEPT
@@ -335,6 +309,10 @@ class Project < ActiveRecord::Base
     end
     
     
+    if self.is_concept_finalized != true 
+      return nil
+    end
+      
     if self.is_shoot_finalized == true 
       return nil
     end 
@@ -352,7 +330,7 @@ class Project < ActiveRecord::Base
     # JobRequest.create_event_based_job_request(:on_project_membership_assignment_finalized,creator,    project, draft )
     #  JobRequest.finish_associated_job_request( JOB_REQUEST_SOURCE[:shoot], finisher, self, draft)
     
-    self.finish_job_requests_with_source(  JOB_REQUEST_SOURCE[:shoot] ) 
+    JobRequest.finish_job_request( JOB_REQUEST_SOURCE[:shoot], employee, self,   nil ,  nil  ) 
    
   end
   

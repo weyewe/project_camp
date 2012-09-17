@@ -40,6 +40,20 @@ class ProjectMembershipsController < ApplicationController
     end 
   end
   
+  def project_membership_assignment_from_task
+    @new_project_membership = ProjectMembership.new 
+    @project = Project.find_by_id params[:project_id]
+    
+    @project_memberships = @project.project_memberships
+    
+    setup_project_role
+    
+    
+    add_breadcrumb "Task Management", 'job_requests_url'
+    set_breadcrumb_for @project, 'project_membership_assignment_from_task_url' + "(#{@project.id})", 
+          "Membership Management"
+  end
+  
   def setup_project_role
     @main_crew_project_role = ProjectRole.find_by_name PROJECT_ROLE[:main_crew]
     @crew_project_role = ProjectRole.find_by_name PROJECT_ROLE[:crew]

@@ -18,22 +18,7 @@ module ApplicationHelper
     return JOB_REQUEST_ROLE_TEXT[JOB_REQUEST_ROLE[job_request_source_symbol]] 
   end
   
-  
-  JOB_REQUEST_ROLE = {
-    :concept_planning => :main_crew,
-    :shoot => :main_crew, 
-    :start_production => :account_executive, 
-    :production_scheduling => :project_manager, 
-    :production_execution => :production, 
-    :qc_approval => :quality_control,
-    :client_start_draft_review => :account_executive, 
-    :follow_up_client_draft_review => :account_executive, 
-    :component_post_production_scheduling => :project_manager , 
-    :component_post_production_execution => :post_production , 
-    :component_post_production_follow_up => :post_production , 
-    :post_production_delivery => :account_executive  
-  }
-  
+   
   def get_finished_class(job_request)
     if job_request.is_finished == true 
       'strikethrough'
@@ -44,6 +29,8 @@ module ApplicationHelper
   
   def get_job_request_message(job_request)
     case job_request.job_request_source
+    when JOB_REQUEST_SOURCE[:assign_project_membership]
+      return link_to "[#{job_request.project.title}] Project Membership Assignment Request", project_membership_assignment_from_task_url(job_request.project_id)
     when JOB_REQUEST_SOURCE[:concept_planning]
       return link_to "[#{job_request.project.title}] Concept Planning Request", concept_planning_fulfillment_url(job_request.project_id) 
     when JOB_REQUEST_SOURCE[:shoot]
@@ -335,6 +322,10 @@ module ApplicationHelper
           {
             :controller => 'projects',
             :action => 'shoot_finalization'
+          },
+          {
+            :controller => 'project_memberships',
+            :action => "project_membership_assignment_from_task"
           }
         ]
       },

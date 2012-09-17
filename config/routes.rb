@@ -53,6 +53,15 @@ Projectcamp::Application.routes.draw do
 
   match 'project_deliverable_items_production_overview/:project_id' => 'deliverable_items#project_deliverable_items_production_overview', :as => :project_deliverable_items_production_overview
   
+  
+  
+=begin 
+  JOB REQUEST FULFILLMENT  JOB_REQUEST_SOURCE[:assign_project_membership]
+=end
+  # from the project
+  match 'project_membership_assignment_from_task/:project_id' => "project_memberships#project_membership_assignment_from_task", :as => :project_membership_assignment_from_task
+ 
+  
 =begin 
   JOB REQUEST FULFILLMENT  JOB_REQUEST_SOURCE[:concept_planning]
 =end

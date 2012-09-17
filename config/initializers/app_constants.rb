@@ -21,6 +21,7 @@ USER_ROLE = {
 }
 
 PROJECT_ROLE = {
+  :head_project_manager => "HeadProjectManager",
   :main_crew => "MainCrew", # main photographer
   :crew => "Crew",  # assistant 
   
@@ -82,7 +83,9 @@ PROJECT_ROLE_COLOR = {
   :account_executive => 'blue',
   :production => 'orange',
   :post_production => '',
-  :quality_control => 'green'
+  :quality_control => 'green',
+  
+  :head_project_manager => 'yellow'
 }
 
 JOB_REQUEST_ROLE_TEXT = {
@@ -96,6 +99,7 @@ JOB_REQUEST_ROLE_TEXT = {
 }
 
 JOB_REQUEST_ROLE = {
+  :assign_project_membership => :head_project_manager, 
   :concept_planning => :main_crew,
   :shoot => :main_crew, 
   :start_production => :account_executive, 
@@ -112,7 +116,7 @@ JOB_REQUEST_ROLE = {
 #  THIS IS THE CORE OF THE APP
 # locking the business process 
 JOB_REQUEST_SOURCE = {
-  :project_membership_assignment_finalized =>0 , 
+  :assign_project_membership =>0 , 
   # is created on Membership FINALIZATION  by Head PM 
   :concept_planning => 1 ,  # main crew will have this job request
   # on finish -> nothing happen  -> just notify the PM .. no further job_request created 
