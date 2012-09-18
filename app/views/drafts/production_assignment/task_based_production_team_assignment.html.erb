@@ -1,0 +1,56 @@
+<div class="padded">
+  
+  
+  <% if  current_user.has_role?(:head_project_manager)%>
+    <%= render :partial => "layouts/new_object_opener", :locals => {
+      :text => "New Production Assignment"
+    } %>
+  <% end %>
+  
+  
+   
+  <% if @production_job_requests.length == 0 %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "production assignments",
+      :single_object => "production assignment" , 
+      :subject => "draft"
+    } %>
+  <% end %>
+   
+   
+  <%# if  current_user.has_role?(:head_project_manager)%>
+    <%#= render :partial => "projects/new_object_form", :locals => {
+      :new_object => @new_project,
+      :url => projects_url  
+    }%>
+  <%# end %>
+ 
+ 
+ 
+  
+  
+  
+    
+    <table class="table table-bordered table-striped table-header <%#= show_table?( @production_job_requests )%>" id="object_list">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Deadline</th>
+          <th>Deliverables</th>
+          <th>Membership</th>
+          <th>Concept</th> 
+          <th>Shoot Data</th> 
+          <th>Production</th>
+          <th>Post Production</th>
+        </tr>
+      </thead>
+      <tbody id="package_list">
+        <%# @projects.each do |project| %>
+          <%#= render :partial => "projects/object_list_entry", :locals => {
+            :object => project 
+          }%>
+        
+        <%# end %> 
+      </tbody>
+    </table>
+</div>

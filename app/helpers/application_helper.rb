@@ -30,17 +30,17 @@ module ApplicationHelper
   def get_job_request_message(job_request)
     case job_request.job_request_source
     when JOB_REQUEST_SOURCE[:assign_project_membership]
-      return link_to "[#{job_request.project.title}] Project Membership Assignment Request", project_membership_assignment_from_task_url(job_request.project_id)
+      return link_to "[#{job_request.project.title}] Project Membership Assignment Request", task_based_project_membership_assignment_url(job_request, job_request.project_id)
     when JOB_REQUEST_SOURCE[:concept_planning]
-      return link_to "[#{job_request.project.title}] Concept Planning Request", concept_planning_fulfillment_url(job_request.project_id) 
+      return link_to "[#{job_request.project.title}] Concept Planning Request", concept_planning_fulfillment_url(job_request , job_request.project_id) 
     when JOB_REQUEST_SOURCE[:shoot]
-      return link_to "[#{job_request.project.title}] Shoot Schedule", shoot_finalization_url(job_request.project_id )
+      return link_to "[#{job_request.project.title}] Shoot Data", shoot_finalization_url(job_request, job_request.project_id )
     when JOB_REQUEST_SOURCE[:start_production]
-      return link_to "[#{job_request.project.title}] Initiate Production by creating drafts for each deliverable component", root_url
+      return link_to "[#{job_request.project.title}] Start Production by creating drafts for each deliverable component", task_based_deliverable_items_progress_url(job_request.project_id)
     when JOB_REQUEST_SOURCE[:production_scheduling]
-      return link_to "[#{job_request.project.title}] Assign Production Team to work on "+ 
-        "deliverable component: #{job_request.deliverable_component_subcription.deliverable_component.name}, " + 
-        "draft-#{job_request.draft.number}", root_url
+      return link_to "[#{job_request.project.title}] Assign Production Team for "+ 
+        "deliverable component: #{job_request.draft.deliverable_component_subcription.deliverable_component.name}, " + 
+        "draft-#{job_request.draft.number}", task_based_production_team_assignment_url( job_request, job_request.project_id )
     when JOB_REQUEST_SOURCE[:production_execution]
       return link_to "[#{job_request.project.title}] Finish the draft-#{job_request.draft.number}", root_url
     when JOB_REQUEST_SOURCE[:qc_approval]
@@ -325,7 +325,19 @@ module ApplicationHelper
           },
           {
             :controller => 'project_memberships',
-            :action => "project_membership_assignment_from_task"
+            :action => "task_based_project_membership_assignment"
+          },
+          {
+            :controller => 'deliverable_items',
+            :action => 'task_based_deliverable_items_progress'
+          },
+          {
+            :controller => 'drafts',
+            :action => 'task_based_draft_creation_for_component'
+          },
+          {
+            :controller => 'drafts',
+            :action => 'task_based_production_team_assignment'
           }
         ]
       },

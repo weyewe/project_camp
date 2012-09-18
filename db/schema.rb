@@ -86,9 +86,13 @@ ActiveRecord::Schema.define(:version => 20120911074352) do
     t.integer  "deliverable_component_subcription_id"
     t.date     "deadline_date"
     t.integer  "deadline_creator_id"
+    t.boolean  "is_production_declare_finish",         :default => false
+    t.integer  "production_finish_declarer_id"
     t.boolean  "is_qc_approved",                       :default => false
     t.integer  "qc_approver_id"
     t.date     "qc_approval_date"
+    t.boolean  "is_draft_passed_for_review",           :default => false
+    t.integer  "draft_passer_id"
     t.date     "client_approval_deadline_date"
     t.integer  "client_approval_deadline_creator_id"
     t.boolean  "is_client_approved",                   :default => false

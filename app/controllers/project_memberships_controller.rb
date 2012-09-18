@@ -40,7 +40,7 @@ class ProjectMembershipsController < ApplicationController
     end 
   end
   
-  def project_membership_assignment_from_task
+  def task_based_project_membership_assignment
     @new_project_membership = ProjectMembership.new 
     @project = Project.find_by_id params[:project_id]
     

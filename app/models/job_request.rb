@@ -54,7 +54,7 @@ class JobRequest < ActiveRecord::Base
         job_request.send_notification
       end
     when JOB_REQUEST_SOURCE[:start_production]
-      project.project_members_with_project_role( [:account_executive] ).each do |x|
+      project.project_members_with_project_role( [:account_executive] ).each do |x| 
         job_request = JobRequest.new 
         job_request.project_id = project.id 
         job_request.user_id = x.id 
@@ -69,6 +69,7 @@ class JobRequest < ActiveRecord::Base
       project.project_members_with_project_role( [:project_manager] ).each do |x|
         job_request = JobRequest.new 
         job_request.project_id = project.id 
+        job_request.draft_id = draft.id 
         job_request.user_id = x.id 
         job_request.start_date = Time.now.to_date 
         job_request.deadline_date = Time.now.to_date + NUMBER_OF_DAYS_TO_START_PRODUCTION_SCHEDULING.days
@@ -129,7 +130,8 @@ class JobRequest < ActiveRecord::Base
       JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:start_production] ,employee,project, draft, target  )
     when JOB_REQUEST_SOURCE[:start_production] # AE creates Draft for each deliverable component 
       # notify PM about the draft request , so that PM can start assigning production task 
-      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:production_scheduling] ,employee,project, draft, target  )
+      # JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:production_scheduling] ,employee,project, draft, target  )
+      # notify PM that all deliverable components are on the way
     when JOB_REQUEST_SOURCE[:production_scheduling] # PM create tasks to the team member 
       # notify the assigned target (production)  that there is task. 
       JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:production_execution] ,employee,project, draft, target  )

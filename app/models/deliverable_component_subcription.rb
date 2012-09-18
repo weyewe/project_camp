@@ -6,6 +6,14 @@ class DeliverableComponentSubcription < ActiveRecord::Base
   
   has_many :drafts 
   
+  def last_draft
+    if self.drafts.count == 0
+      return nil
+    end
+    
+    self.drafts.where(:is_finished => false ).order("created_at DESC").first 
+  end
+  
   
   
 end

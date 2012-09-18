@@ -29,6 +29,9 @@ class Draft < ActiveRecord::Base
     new_object.number = parent_object.drafts.count + 1 
     
     new_object.save 
+    if new_object.persisted?
+      JobRequest.create_event_based_job_request( JOB_REQUEST_SOURCE[:production_scheduling] ,employee,project, new_object, nil   )
+    end
     # send the email to PM over here 
     
     return new_object

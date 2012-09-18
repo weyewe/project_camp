@@ -21,8 +21,9 @@ class CreateProjects < ActiveRecord::Migration
 
 
 
-      t.date    :internal_deadline
-      t.date    :external_deadline  # when they are getting married 
+      t.date    :internal_deadline  # when this shit must be done 
+      t.date    :external_deadline  # when they are getting married -> For marriage pics, less demand
+      # since it is not time critical 
       
       t.boolean :is_membership_assignment_finalized ,:default => false  
       t.date :membership_assignment_finalized_date  

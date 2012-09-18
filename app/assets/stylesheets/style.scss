@@ -64,3 +64,11 @@ span.strikethrough {
 }
 
 ul.color-code-notification li { margin-bottom: 5px;}
+span.bold { font-weight: bold; }
+ul.deliverable_summary { margin-left: 5px;}
+ul.deliverable_summary li { list-style:none ;  margin-bottom:4px;}
+
+.activity-line .title {
+  overflow: visible; 
+  white-space: normal;
+}

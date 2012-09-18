@@ -59,7 +59,7 @@ Projectcamp::Application.routes.draw do
   JOB REQUEST FULFILLMENT  JOB_REQUEST_SOURCE[:assign_project_membership]
 =end
   # from the project
-  match 'project_membership_assignment_from_task/:project_id' => "project_memberships#project_membership_assignment_from_task", :as => :project_membership_assignment_from_task
+  match 'task_based_project_membership_assignment/:job_request_id/for/:project_id' => "project_memberships#task_based_project_membership_assignment", :as => :task_based_project_membership_assignment
  
   
 =begin 
@@ -68,7 +68,7 @@ Projectcamp::Application.routes.draw do
   # from the project
   match 'project_based_concept_planning_fulfillment/:project_id' => "projects#project_based_concept_planning_fulfillment", :as => :project_based_concept_planning_fulfillment
   # short cut from the TASK 
-  match 'concept_planning_fulfillment/:project_id' => "projects#concept_planning_fulfillment", :as => :concept_planning_fulfillment
+  match 'concept_planning_fulfillment/:job_request_id/for/:project_id' => "projects#concept_planning_fulfillment", :as => :concept_planning_fulfillment
   match 'update_project_concept/:project_id' => "projects#update_project_concept", :as => :update_project_concept, :method => :post 
   match 'finalize_concept' => 'projects#finalize_concept', :as => :finalize_concept, :method => :post 
   
@@ -78,9 +78,17 @@ Projectcamp::Application.routes.draw do
   # from the project
   match 'project_based_shoot_finalization/:project_id' => "projects#project_based_shoot_finalization", :as => :project_based_shoot_finalization
   # short cut from the TASK 
-  match 'shoot_finalization/:project_id' => "projects#shoot_finalization", :as => :shoot_finalization
+  match 'shoot_finalization/:job_request_id/for/:project_id' => "projects#shoot_finalization", :as => :shoot_finalization
   match 'update_shoot_data/:project_id' => "projects#update_shoot_data", :as => :update_shoot_data, :method => :post
   match 'finalize_shoot_data' => 'projects#finalize_shoot_data', :as => :finalize_shoot_data, :method => :post 
+  
+=begin
+  JOB REQUEST: Start Production
+=end
+  match 'task_based_deliverable_items_progress/:project_id' => "deliverable_items#task_based_deliverable_items_progress", :as => :task_based_deliverable_items_progress
+  match 'task_based_draft_creation_for_component/:deliverable_component_subcription_id' => "drafts#task_based_draft_creation_for_component", :as => :task_based_draft_creation_for_component
+  
+  match 'task_based_production_team_assignment/:job_request_id/for/:project_id' => 'drafts#task_based_production_team_assignment', :as => :task_based_production_team_assignment
 end
 
 

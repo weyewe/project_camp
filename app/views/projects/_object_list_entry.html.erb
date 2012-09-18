@@ -1,29 +1,21 @@
 <tr id="object_list_entry-<%= object.id %>"> 
-  <!-- 
-   <th>Title</th>
-   <th>Deadline</th>
-   <th>Deliverables</th>
-   <th>Membership</th>
-   <th>Concept</th> 
-   <th>Production</th>
-   <th>Shoot Data</th>
-   <th>Post Production</th>
-    -->
-  
+  <!-- Title -->
   <td>
     <%=  link_to  object.title , project_url( object )   %>
   </td>
+  <!-- External Deadline -->
   <td> 
     <%= format_date_from_datetime( object.external_deadline )  %>
   </td>
   
+  <!-- Deliverables -->
   <td> 
     <%= link_to  project_deliverable_items_url(object) do %>
       <span class="badge blue rounded"><%= object.deliverable_items.count %></span> 
-    <% end %>
-    
-    
+    <% end %> 
   </td>
+  
+  <!-- Project Memberships -->
   <td> 
     
     <%= link_to project_project_memberships_url(object)  do %>
@@ -34,32 +26,65 @@
       <% end %>
     <% end %>
     
-    <span class="badge blue rounded"><%= object.users.count %></span> 
+    <%= link_to project_project_memberships_url(object)  do %>
+      <span class="badge blue rounded"><%= object.users.count %></span> 
+    <% end %>
+    
   </td>
   <td> 
-    <% if object.is_concept_finalized == true %>
-      <span class="label green">Done</span>
-    <% else %>
-      <% if not object.concept.nil? and not object.concept.length == 0  %>
-        <span class='label orange'>In Progress</span>
+    
+    <%= link_to project_based_concept_planning_fulfillment_url(object)  do %>
+      <% if object.is_concept_finalized == true %>
+        <span class="label green">Done</span>
       <% else %>
-        <span class='label red'>Not Started</span>
+        <% if not object.concept.nil? and not object.concept.length == 0  %>
+          <span class='label orange'>In Progress</span>
+        <% else %>
+          <span class='label red'>Not Started</span>
+        <% end %>
       <% end %>
     <% end %> 
+    
   </td>
   <td> 
-    <% if object.is_shoot_finalized == true %>
-      <span class="label green">Done</span>
-    <% else %>
-      <% if not object.shoot_data.nil? and not object.shoot_data.length == 0  %>
-        <span class='label orange'>In Progress</span>
+    
+    
+    <%= link_to project_based_shoot_finalization_url(object)  do %>
+      <% if object.is_shoot_finalized == true %>
+        <span class="label green">Done</span>
       <% else %>
-        <span class='label red'>Not Started</span>
+        <% if not object.shoot_data.nil? and not object.shoot_data.length == 0  %>
+          <span class='label orange'>In Progress</span>
+        <% else %>
+          <span class='label red'>Not Started</span>
+        <% end %>
       <% end %>
     <% end %>
+    
   </td>
   <td> 
-    <%= format_date_from_datetime( object.external_deadline )  %>
+    <span class='bold'>Album</span> 
+    <ul class="deliverable_summary">
+      <li> 
+        Cover <span class='label green'>done</span>
+      </li>
+      <li>
+        Packaging <span class='label orange'>Pending</span>
+      </li>
+      <li>
+        Content <span class='label red'>NA</span>
+      </li>
+    </ul>
+    
+    <span class='bold'>Canvas</span>  
+    <ul class="deliverable_summary">
+      <li> 
+        Frame <span class='label green'>done</span>
+      </li>
+      <li>
+        Image
+      </li> 
+    </ul>
   </td>
   <td> 
     <%= format_date_from_datetime( object.external_deadline )  %>

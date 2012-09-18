@@ -1,5 +1,7 @@
+<% if params[:action] =='index'%>
 <% content_for :additional_mini_app_nav do %>
   <%= render :partial => 'layouts/mini_app_nav' %>
+<% end %>
 <% end %>
 
 <div class="padded">
@@ -27,8 +29,7 @@
     }%>
   <% end %>
  
-  
-   
+ 
   <table class="table table-bordered table-striped table-header <%= show_table?( @drafts )%>" id="object_list">
     <thead>
       <tr>

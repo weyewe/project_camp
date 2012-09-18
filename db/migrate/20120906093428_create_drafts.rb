@@ -11,13 +11,21 @@ class CreateDrafts < ActiveRecord::Migration
       t.date :deadline_date  # project manager has the final say of the deadline
       t.integer :deadline_creator_id 
       
+      
+      t.boolean :is_production_declare_finish, :default => false 
+      t.integer :production_finish_declarer_id 
        
       t.boolean :is_qc_approved, :default => false 
       t.integer :qc_approver_id 
       t.date :qc_approval_date 
       
+      # how can we indicate that the draft has been passed ?
+      
+      t.boolean :is_draft_passed_for_review, :default => false 
+      t.integer :draft_passer_id 
+      
       # basis for reminder -> AE 
-      t.date :client_approval_deadline_date  # project manager has the final say of the deadline
+      t.date :client_approval_deadline_date   
       t.integer :client_approval_deadline_creator_id
       
       t.boolean :is_client_approved , :default => false 

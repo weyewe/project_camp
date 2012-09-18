@@ -1,7 +1,9 @@
-<% content_for :additional_mini_app_nav do %>
-  <%= render :partial => 'layouts/mini_app_nav', :locals => {
-    :view_page => :summary
-  } %>
+<% if params[:action] == 'project_deliverable_items_production_overview'%>
+  <% content_for :additional_mini_app_nav do %>
+    <%= render :partial => 'layouts/mini_app_nav', :locals => {
+      :view_page => :summary
+    } %>
+  <% end %>
 <% end %>
 
 <% content_for :additional_js do %> 
@@ -25,6 +27,27 @@
   <% end %>
    
    
+   <% if SHOW_NOTE == true %>
+   <div class="shadow-box yellow">
+     Explanation: 
+     <ul class="color-code-notification">
+       <li><b>Progress</b>: indicates which draft the production is at. <span class="label orange">Draft 1</span> means that the production is at the first draft, and it is pending fulfillment. <span class="label green">Draft 1</span> indicates that the draft 1 is finished. 
+       </li>
+       <li><b>QC Approval</b>: before any draft leaves office, it has to have internal approval. <span class="label red">NA</span> means that the production team hasn't proposed any draft for approval.  <span class="label orange">Pending</span> means that the production team has submitted the draft, and waiting for approval. <span class="label green">OK</span> indicates that the draft is approved, ready to be passed to client by the help of  AE.  
+       </li>
+       <li><b>Draft Deadline</b>: Internal Deadline set by the PM. <span class="label red">NA</span> means that PM hasn't set any internal deadline. Deadline date format: <span class='label'>dd/mm/YYYY</span>
+       </li>
+       <li><b>Client Approval</b>: Indicates whether client has retrieved and reviewed the draft. <span class="label red">NA</span> means that the AE  hasn't passed the draft to client.  <span class="label orange">Pending</span> means that the AE  has passed the draft, and waiting for client's approval + feedback. <span class="label green">OK</span> indicates that the draft is approved, ready for the next draft or finalization.   
+       </li>
+
+       <li><b>Internal Client Deadline</b>: Indicates when the client is expected to give feedback based on the draft. (AE sets the internal deadline) <span class="label red">NA</span> means that the AE  hasn't set the internal deadline.  <span class="label orange">dd/mm/yyyy</span> means that the AE  has set the internal deadline. <span class="label green">OK</span> indicates that the feedback has been returned. 
+       </li>
+     </ul>
+
+   </div>
+   <% end %>
+
+
   <div class="row"> 
     <div class='span8' id="package_detail_wrapper">
 

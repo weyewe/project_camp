@@ -54,7 +54,7 @@ class ProjectsController < ApplicationController
   def project_based_concept_planning_fulfillment
     @project = Project.find_by_id params[:project_id] 
     
-    add_breadcrumb "Task Management", 'job_requests_url'  
+    add_breadcrumb "Project Management", 'projects_url'  
     set_breadcrumb_for @project, 'concept_planning_fulfillment_url' + "(#{@project.id})", 
           "Concept Planning"
           
@@ -97,9 +97,9 @@ class ProjectsController < ApplicationController
   def project_based_shoot_finalization
     @project = Project.find_by_id params[:project_id] 
 
-    add_breadcrumb "Task Management", 'job_requests_url'  
-    set_breadcrumb_for @project, 'concept_planning_fulfillment_url' + "(#{@project.id})", 
-          "Concept Planning"
+    add_breadcrumb "Project Management", 'projects_url'  
+    set_breadcrumb_for @project, 'project_based_shoot_finalization_url' + "(#{@project.id})", 
+          "Shoot Data Planning"
 
     # render :file => "projects/job_requests/concept_planning/concept_planning_fulfillment"
   end

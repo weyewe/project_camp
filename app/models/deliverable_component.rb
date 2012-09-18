@@ -18,4 +18,6 @@ class DeliverableComponent < ActiveRecord::Base
     new_object.save 
     return new_object
   end
+  
+  
 end
