@@ -66,6 +66,13 @@ class DraftsController < ApplicationController
     render :file => "drafts/production_assignment/task_based_production_team_assignment"
   end
   
+  def finalize_production_team_assignment
+    @draft = Draft.find_by_id params[:entity_id]
+    @draft.finalize_production_team_assignment(current_user) 
+    
+    render :file => "drafts/production_assignment/finalize_production_team_assignment"
+  end
+  
 =begin
   INTERNAL QC DEADLINE 
 =end

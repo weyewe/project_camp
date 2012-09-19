@@ -1,0 +1,22 @@
+$(document).ready(function(){
+  
+  
+  $("#finalizer").hideLoading();
+  <% if @draft.is_production_scheduling_finalized == true %>
+    <% new_notification = escape_javascript(render :partial => "drafts/production_assignment/scheduling_finalized", 
+      :locals => {
+      :draft => @draft 
+    }) %>
+    
+    $("#finalizer").replaceWith('<%= new_notification %>' );
+  <% else %>
+   
+    <% new_form = escape_javascript(render :partial => "drafts/production_assignment/finalize_scheduling", 
+      :locals => {
+      :draft => @draft 
+    }) %>
+    
+    $("#finalizer").replaceWith('<%= new_form %>' );
+  <% end %>
+  
+});

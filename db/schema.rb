@@ -86,41 +86,43 @@ ActiveRecord::Schema.define(:version => 20120911074352) do
     t.integer  "deliverable_component_subcription_id"
     t.date     "deadline_date"
     t.integer  "deadline_creator_id"
-    t.boolean  "is_production_declare_finish",         :default => false
+    t.date     "production_scheduling_finalization_date"
+    t.boolean  "is_production_scheduling_finalized",      :default => false
+    t.integer  "production_scheduling_finalizer_id"
+    t.boolean  "is_production_declare_finish",            :default => false
     t.integer  "production_finish_declarer_id"
-    t.boolean  "is_qc_approved",                       :default => false
+    t.boolean  "is_qc_approved",                          :default => false
     t.integer  "qc_approver_id"
     t.date     "qc_approval_date"
-    t.boolean  "is_draft_passed_for_review",           :default => false
+    t.boolean  "is_draft_passed_for_review",              :default => false
     t.integer  "draft_passer_id"
     t.date     "client_approval_deadline_date"
     t.integer  "client_approval_deadline_creator_id"
-    t.boolean  "is_client_approved",                   :default => false
+    t.boolean  "is_client_approved",                      :default => false
     t.integer  "client_approval_marker_id"
     t.date     "client_approval_date"
-    t.boolean  "is_finished",                          :default => false
+    t.boolean  "is_finished",                             :default => false
     t.date     "finish_date"
     t.integer  "finisher_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
   end
 
   create_table "job_requests", :force => true do |t|
     t.integer  "user_id"
     t.integer  "creator_id"
     t.integer  "project_id"
-    t.integer  "deliverable_component_subcription_id"
     t.integer  "draft_id"
     t.text     "description"
     t.date     "start_date"
     t.date     "deadline_date"
     t.date     "finish_date"
-    t.boolean  "is_finished",                          :default => false
-    t.boolean  "is_canceled",                          :default => false
+    t.boolean  "is_finished",         :default => false
+    t.boolean  "is_canceled",         :default => false
     t.integer  "prev_job_request_id"
-    t.integer  "job_request_source",                   :default => 1
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.integer  "job_request_source",  :default => 1
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   create_table "packages", :force => true do |t|

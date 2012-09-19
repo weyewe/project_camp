@@ -8,6 +8,12 @@
   <!-- production team assignment  -->
   <td>
     
+    <% if object.is_production_scheduling_finalized == true %>
+      <%= link_to production_team_assignment_url(object) do %>
+        <span class='label green'>Finalized</span>
+      <% end %>
+    <% end %>
+    
     <%= link_to production_team_assignment_url(object) do %>
       <% if object.assigned_production_members.count == 0 %>
         <span class='label red'>NA</span>

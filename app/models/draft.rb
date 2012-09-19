@@ -98,22 +98,27 @@ class Draft < ActiveRecord::Base
     new_object.start_date = start_date 
     new_object.deadline_date = deadline_date
     new_object.job_request_source = JOB_REQUEST_SOURCE[:production_execution] 
-    new_object.save 
-    
-    # if not self.deadline_date.nil?
-    #     if new_object.deadline_date > self.deadline_date 
-    #       self.deadline_date = new_object.deadline_date
-    #       self.save
-    #     end
-    #   else
-    #     self.deadline_date = new_object.deadline_date
-    #     self.save
-    #   end
+    new_object.save  
     
     new_object.send_notification
     
     return new_object 
     
+  end
+  
+  def finalize_production_team_assignment(employee)
+    pm_project_role = ProjectRole.find_by_name PROJECT_ROLE[:project_manager]
+    project  = self.deliverable_component_subcription.project 
+    if not employee.has_project_role?( project , pm_project_role)
+      self.errors.add(:wrong_authentication , "Must have project role: Project Manager" )
+      return self 
+    end
+    
+    self.is_production_scheduling_finalized = true 
+    self.production_scheduling_finalization_date = DateTime.now.to_date 
+    self.production_scheduling_finalizer_id  = employee.id 
+    self.save 
+    return self 
   end
   
   

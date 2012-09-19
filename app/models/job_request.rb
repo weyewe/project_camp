@@ -133,8 +133,9 @@ class JobRequest < ActiveRecord::Base
       # JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:production_scheduling] ,employee,project, draft, target  )
       # notify PM that all deliverable components are on the way
     when JOB_REQUEST_SOURCE[:production_scheduling] # PM create tasks to the team member 
-      # notify the assigned target (production)  that there is task. 
-      JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:production_execution] ,employee,project, draft, target  )
+      # nothing happen 
+      
+      # JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:production_execution] ,employee,project, draft, target  )
     when JOB_REQUEST_SOURCE[:production_execution] # assigned production team confirmed that she has finished the shite
       # NOTIFY QC that it the production team done , approval is required 
       JobRequest.create_event_based_job_request(JOB_REQUEST_SOURCE[:qc_approval] ,employee,project, draft, target  )

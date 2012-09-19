@@ -12,6 +12,10 @@ class CreateDrafts < ActiveRecord::Migration
       t.integer :deadline_creator_id 
       
       
+      t.date :production_scheduling_finalization_date
+      t.boolean :is_production_scheduling_finalized, :default => false 
+      t.integer :production_scheduling_finalizer_id 
+      
       t.boolean :is_production_declare_finish, :default => false 
       t.integer :production_finish_declarer_id 
        

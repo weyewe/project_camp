@@ -96,6 +96,7 @@ Projectcamp::Application.routes.draw do
   # assign production team (by PM)
   match 'production_team_assignment/:draft_id' => 'drafts#production_team_assignment', :as => :production_team_assignment 
   match 'execute_production_team_assignment/:draft_id' => 'drafts#execute_production_team_assignment', :as => :execute_production_team_assignment, :method => :post 
+  match 'finalize_production_team_assignment' => 'drafts#finalize_production_team_assignment', :as =>  :finalize_production_team_assignment, :method => :post 
   # assign internal deadline ( by PM ) 
   match 'internal_qc_deadline_assignment/:draft_id' => "drafts#internal_qc_deadline_assignment", :as => :internal_qc_deadline_assignment
   match 'execute_internal_qc_deadline_assignment/:draft_id' => 'drafts#execute_internal_qc_deadline_assignment', :as => :execute_internal_qc_deadline_assignment, :method => :post 

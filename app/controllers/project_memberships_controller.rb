@@ -43,6 +43,7 @@ class ProjectMembershipsController < ApplicationController
   def task_based_project_membership_assignment
     @new_project_membership = ProjectMembership.new 
     @project = Project.find_by_id params[:project_id]
+    @job_request = JobRequest.find_by_id params[:job_request_id]
     
     @project_memberships = @project.project_memberships
     
@@ -50,7 +51,7 @@ class ProjectMembershipsController < ApplicationController
     
     
     add_breadcrumb "Task Management", 'job_requests_url'
-    set_breadcrumb_for @project, 'project_membership_assignment_from_task_url' + "(#{@project.id})", 
+    set_breadcrumb_for @project, 'task_based_project_membership_assignment_url' + "(#{@job_request.id},  #{@project.id})", 
           "Membership Management"
   end
   

@@ -29,6 +29,18 @@
 <div class="padded">
   
   
+  <% if @draft.is_production_scheduling_finalized == true %>
+     <%= render :partial => "drafts/production_assignment/scheduling_finalized", :locals => {
+       :draft => @draft 
+     }%>
+   <% else %>
+     <%= render :partial => "drafts/production_assignment/finalize_scheduling", :locals => {
+       :draft => @draft 
+     }%>
+   <% end %>
+   
+   
+  
   <% if  current_user.has_project_role_symbol?(@project, :project_manager) %>
     <%= render :partial => "layouts/new_object_opener", :locals => {
       :text => "New Assignment"

@@ -9,6 +9,8 @@
   
   
    
+ 
+   
   <% if  current_user.has_project_role_symbol?(@project, :project_manager )%>
     <%= render :partial => "layouts/new_object_opener", :locals => {
       :text => "Edit Internal Deadline"
