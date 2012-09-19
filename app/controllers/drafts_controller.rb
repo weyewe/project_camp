@@ -89,7 +89,9 @@ class DraftsController < ApplicationController
   
   def execute_internal_qc_deadline_assignment
     @draft = Draft.find_by_id params[:draft_id]
-    @draft.update_internal_qc_deadline(employee, params[:draft] )
+    @draft.update_internal_qc_deadline(current_user, params[:draft] )
+    @draft.reload 
+    @object = @draft
     
     render :file =>"drafts/qc_deadline/execute_internal_qc_deadline_assignment" 
   end

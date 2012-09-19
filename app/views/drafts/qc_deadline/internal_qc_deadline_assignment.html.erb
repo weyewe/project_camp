@@ -33,7 +33,7 @@
    
   <% if  current_user.has_project_role_symbol?(@project, :project_manager)%>
     <%= render :partial => "drafts/qc_deadline/object_form", :locals => {
-      :new_object => @draft,
+      :object => @draft,
       :url => execute_internal_qc_deadline_assignment_url(@draft )  
     }%>
   <% end %>

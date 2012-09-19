@@ -53,6 +53,15 @@ class Draft < ActiveRecord::Base
 =end
 
   def create_production_assignment(employee, object_params)
+    
+    pm_project_role = ProjectRole.find_by_name PROJECT_ROLE[:project_manager]
+    project  = self.deliverable_component_subcription.project 
+    if not employee.has_project_role?( project , pm_project_role)
+      self.errors.add(:description , "Must have project role: Project Manager" )
+      return self 
+    end
+    
+    
     new_object = JobRequest.new  
     
     new_object.draft_id = self.id
@@ -107,6 +116,33 @@ class Draft < ActiveRecord::Base
     
   end
   
+  
+  def deadline_creator
+    User.find_by_id self.deadline_creator_id 
+  end
+  
+  def update_internal_qc_deadline(employee, object_params )
+    pm_project_role = ProjectRole.find_by_name PROJECT_ROLE[:project_manager]
+    project  = self.deliverable_component_subcription.project 
+    if not employee.has_project_role?( project , pm_project_role)
+      self.errors.add(:deadline_date , "Must have project role: Project Manager" )
+      return self 
+    end
+    
+    deadline_date = Draft.parse_date( object_params[:deadline_date] )
+    if deadline_date.nil?
+      puts "It is a deadline date"
+      self.errors.add(:deadline_date , "Please enter a valid date. Format: dd/mm/yyyy" )
+      
+      return self 
+    end
+    
+    # basis for reminder 
+    self.deadline_date = deadline_date
+    self.deadline_creator_id = employee.id 
+    self.save
+    return self 
+  end
   
   def self.parse_date( date_string ) 
     if date_string.nil? or date_string.length == 0 

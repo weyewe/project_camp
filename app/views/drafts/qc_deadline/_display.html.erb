@@ -1,5 +1,9 @@
 <div class="row " id="display_content"> 
   <div style="line-height: 24px;" class="span8 content_display"> 
-    Internal QC Deadline: <b><%= format_date_from_datetime( draft.deadline_date )   %> </b>
+    Internal QC Deadline: <b><%= format_date_from_datetime( draft.deadline_date )   %> </b> 
+    <% if not draft.deadline_creator_id.nil?%>
+      <hr />
+      Deadline Creator: <b><%= draft.deadline_creator.name %></b>
+    <% end %>
   </div>
 </div>
