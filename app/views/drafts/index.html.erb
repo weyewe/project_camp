@@ -1,7 +1,7 @@
 <% if params[:action] =='index'%>
-<% content_for :additional_mini_app_nav do %>
-  <%= render :partial => 'layouts/mini_app_nav' %>
-<% end %>
+  <% content_for :additional_mini_app_nav do %>
+    <%= render :partial => 'layouts/mini_app_nav' %>
+  <% end %>
 <% end %>
 
 <div class="padded">
@@ -37,7 +37,7 @@
         <th>Description</th>
         <th>Production Staff</th>
         <th>QC Approval</th>
-        <th>Deadline</th> 
+        <th>QC Deadline</th> 
         <th>Client Approval</th> 
         <th>Client Deadline</th>  
       </tr>
@@ -45,7 +45,8 @@
     <tbody id="package_list">
       <% @drafts.each do |draft| %>
         <%= render :partial => "drafts/object_list_entry", :locals => {
-          :object => draft 
+          :object => draft ,
+          :last_draft => @last_draft  
         }%>
       
       <% end %> 

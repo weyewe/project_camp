@@ -303,6 +303,16 @@ module ApplicationHelper
           {
             :controller => 'drafts',
             :action => 'index'
+          },
+          # assigning production team
+          {
+            :controller => 'drafts',
+            :action => 'production_team_assignment'
+          },
+          # assigning internal QC deadline 
+          {
+            :controller => 'drafts',
+            :action => 'internal_qc_deadline_assignment'
           }
         ]
       },

@@ -160,6 +160,20 @@ class User < ActiveRecord::Base
     end 
   end
   
+  def User.all_selectable_employee
+    employee_role = Role.find_by_name USER_ROLE[:employee] 
+    
+    result = []
+    User.with_role( [employee_role] ).each do |user|
+      result << [ "#{user.name}" , 
+                      user.id ]
+    end 
+    return result
+    
+    
+    
+  end
+  
   def User.with_role(role_list)
     role_id_list = role_list.map{|x| x.id } 
     

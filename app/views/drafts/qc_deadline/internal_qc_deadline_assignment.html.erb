@@ -1,0 +1,40 @@
+<% if params[:action] =='internal_qc_deadline_assignment'%>
+  <% content_for :additional_mini_app_nav do %>
+    <%= render :partial => 'layouts/mini_app_nav' %>
+  <% end %>
+<% end %>
+
+
+<div class="padded">
+  
+  
+   
+  <% if  current_user.has_project_role_symbol?(@project, :project_manager )%>
+    <%= render :partial => "layouts/new_object_opener", :locals => {
+      :text => "Edit Internal Deadline"
+    } %>
+  <% end %>
+  
+  
+   
+   
+  <% if @draft.deadline_date.nil?  %>
+    <%= render :partial => "layouts/no_object_list", :locals => {
+      :objects => "internal QC deadline ",
+      :single_object => "internal QC deadline" , 
+      :subject => "draft"
+    } %>
+  <% else %>
+    <%= render :partial => "drafts/qc_deadline/display", :locals => {
+      :draft => @draft 
+    } %>
+  <% end %>
+   
+   
+  <% if  current_user.has_project_role_symbol?(@project, :project_manager)%>
+    <%= render :partial => "drafts/qc_deadline/object_form", :locals => {
+      :new_object => @draft,
+      :url => execute_internal_qc_deadline_assignment_url(@draft )  
+    }%>
+  <% end %>
+</div>

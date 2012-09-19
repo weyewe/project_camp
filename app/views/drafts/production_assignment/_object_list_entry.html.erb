@@ -1,0 +1,6 @@
+<tr id="object_list_entry-<%= object.id %>"> 
+  <td><%= object.user.name %></td>
+  <td><%= object.description.html_safe %></td>
+  <td><%= format_date_from_datetime( object.start_date)  %></td>
+  <td><%= format_date_from_datetime( object.deadline_date)  %></td>
+</tr>

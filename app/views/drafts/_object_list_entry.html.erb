@@ -2,18 +2,71 @@
 
 <tr id="object_list_entry-<%= object.id %>"> 
   <td><%= object.number %></td>
-  <td><%= object.overall_feedback %></td>
-  <td>Production Staff
-    
-  </td>
+  
+  <td><%= object.overall_feedback.html_safe %></td>
+  
+  <!-- production team assignment  -->
   <td>
     
-    QC Approval
+    <%= link_to production_team_assignment_url(object) do %>
+      <% if object.assigned_production_members.count == 0 %>
+        <span class='label red'>NA</span>
+
+      <% else %> 
+          <span class="badge blue rounded"><%= object.assigned_production_members.count %></span> 
+      <% end %>
+    <% end %>
+     
   </td>
+  
+  <!-- QC approval status  -->
+  <td> 
+    <% if object.is_production_declare_finish == false %>
+      <span class="label red">NA</span>
+    <% else %>
+      <% if  object.is_qc_approved == false  %>
+        <span class='label orange'>Pending</span>
+      <% else %>
+        <span class='label green'>OK</span>
+      <% end %>
+    <% end %>
+  </td>
+  
+  <!-- Internal Deadline --> 
   <td>
-    Deadline
+    <%= link_to internal_qc_deadline_assignment_url(object) do %>
+      <% if  object.deadline_date.nil?   %>
+        <span class='label red'>NA</span>
+      <% else %>
+        <span class='label'><%= format_date_from_datetime( object.deadline_date ) %></span>
+      <% end %>
+    <% end %>
   </td> 
-  <td>Client Approval</td> 
-  <td>Client Deadline</td>
+  
+  <!-- Client Approval Status  (returning the feedback) + revision request -->
+  <td>
+    <% if object.is_draft_passed_for_review == false %>
+      <span class='label red'>NA</span>
+    <% else %>
+      <% if object.is_client_approved == false %>
+        <span class='label orange'>Pending</span>
+      <% else %>
+        <span class='label green'>YES</span>
+      <% end %>
+    <% end %>
+  </td> 
+  
+  <!-- Client Estimated feedback return  -->
+  <td>
+    <% if object.is_client_approved == true %>
+      <span class='label green'>OK</span>
+    <% else %>
+      <% if object.client_approval_deadline_date.nil?  %>
+        <span class='label red'>NA</span>
+      <% else %>
+        <span class='label orange'><%= format_date_from_datetime( object.client_approval_deadline_date ) %></span>
+      <% end %>
+    <% end %>
+  </td>
 </tr>
  

@@ -89,6 +89,23 @@ Projectcamp::Application.routes.draw do
   match 'task_based_draft_creation_for_component/:deliverable_component_subcription_id' => "drafts#task_based_draft_creation_for_component", :as => :task_based_draft_creation_for_component
   
   match 'task_based_production_team_assignment/:job_request_id/for/:project_id' => 'drafts#task_based_production_team_assignment', :as => :task_based_production_team_assignment
+  
+=begin
+  DRAFT PRODUCTION, not from task 
+=end
+  # assign production team (by PM)
+  match 'production_team_assignment/:draft_id' => 'drafts#production_team_assignment', :as => :production_team_assignment 
+  match 'execute_production_team_assignment/:draft_id' => 'drafts#execute_production_team_assignment', :as => :execute_production_team_assignment, :method => :post 
+  # assign internal deadline ( by PM ) 
+  match 'internal_qc_deadline_assignment/:draft_id' => "drafts#internal_qc_deadline_assignment", :as => :internal_qc_deadline_assignment
+  match 'execute_internal_qc_deadline_assignment/:draft_id' => 'drafts#execute_internal_qc_deadline_assignment', :as => :execute_internal_qc_deadline_assignment, :method => :post 
+  # propose internal draft finished ( by assigned production ) 
+  # approve internal draft ( by QC ) 
+  # mark that client has received the draft
+  # mark that client has approved + gave feedback 
+  # close the draft  ( finalize the draft ) 
+  # finalize the component production 
+  
 end
 
 

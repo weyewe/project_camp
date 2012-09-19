@@ -36,4 +36,91 @@ class Draft < ActiveRecord::Base
     
     return new_object
   end
+  
+  def assigned_production_members
+    User.joins(:job_requests).where(:job_requests => {:draft_id => self.id , 
+          :job_request_source => JOB_REQUEST_SOURCE[:production_execution],
+          :is_canceled => false })
+  end
+  
+  def production_job_requests 
+    self.job_requests.where(:job_request_source => JOB_REQUEST_SOURCE[:production_execution],
+    :is_canceled => false ).order("created_at DESC")
+  end
+  
+=begin
+  Create production assignment
+=end
+
+  def create_production_assignment(employee, object_params)
+    new_object = JobRequest.new  
+    
+    new_object.draft_id = self.id
+    new_object.project_id = self.deliverable_component_subcription.project_id 
+    new_object.creator_id = employee.id 
+    
+    new_object.description = object_params[:description]
+    if  User.find_by_id( object_params[:user_id] ).nil?
+      new_object.errors.add(:user_id , "The Employee is Invalid. Select an employee to do production " )
+      return new_object
+    else
+      new_object.user_id = object_params[:user_id]
+    end
+    
+    
+    start_date = Draft.parse_date( object_params[:start_date])
+    deadline_date = Draft.parse_date( object_params[:deadline_date]) 
+    if start_date.nil?
+      new_object.errors.add(:start_date , "Please enter a valid date. Format: dd/mm/yyyy" )
+      return new_object 
+    end
+    
+    if deadline_date.nil?
+      new_object.errors.add(:start_date , "Please enter a valid date. Format: dd/mm/yyyy" )
+      return new_object 
+    end
+    
+    if start_date > deadline_date
+      new_object.errors.add(:start_date , "Start Date must not be later than deadline date" )
+      return new_object
+    end
+    
+    
+    new_object.start_date = start_date 
+    new_object.deadline_date = deadline_date
+    new_object.job_request_source = JOB_REQUEST_SOURCE[:production_execution] 
+    new_object.save 
+    
+    # if not self.deadline_date.nil?
+    #     if new_object.deadline_date > self.deadline_date 
+    #       self.deadline_date = new_object.deadline_date
+    #       self.save
+    #     end
+    #   else
+    #     self.deadline_date = new_object.deadline_date
+    #     self.save
+    #   end
+    
+    new_object.send_notification
+    
+    return new_object 
+    
+  end
+  
+  
+  def self.parse_date( date_string ) 
+    if date_string.nil? or date_string.length == 0 
+      return nil
+    end
+    
+    date_array = date_string.split("/")
+    begin
+      Date.new(date_array[2].to_i, date_array[1].to_i, date_array[0].to_i) 
+    rescue 
+      return nil 
+    end
+  end
+  
+  
+  
 end

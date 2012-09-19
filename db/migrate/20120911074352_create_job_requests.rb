@@ -5,7 +5,7 @@ class CreateJobRequests < ActiveRecord::Migration
       t.integer :creator_id 
       
       t.integer :project_id
-      t.integer :deliverable_component_subcription_id 
+      # t.integer :deliverable_component_subcription_id 
       t.integer :draft_id 
       
       

@@ -1,0 +1,32 @@
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => "form-horizontal prevent_double_submit ajax-form   no_content_form",
+        :id => "new_object"}) do |f| %>
+
+  <%= f.input :description  , :input_html => {:class => "input-xlarge span5 wysihtml5_textarea" , :rows => 5  }, 
+  :label => "Task Description" %>
+  
+  <%= f.input :user_id, :hint => "Select Employee", :label => "Target Employee" do %>
+     <%= f.select :user_id, 
+         User.all_selectable_employee %>
+   <% end %>
+   
+   
+   <hr />
+
+  <%= f.input :start_date , :as => :string, 
+    :input_html => {:class => "input-xlarge datepicker span5", :rows => 5,
+      :value => format_date_from_datetime( new_object.start_date)}, 
+    :label => "Start Date", :hint => "(format: dd/mm/yyyy)"   %>
+    
+  <%= f.input :deadline_date , :as => :string, 
+    :input_html => {:class => "input-xlarge datepicker span5", :rows => 5,
+      :value => format_date_from_datetime( new_object.deadline_date)}, 
+    :label => "Deadline", :hint => "(format: dd/mm/yyyy)"   %>
+    
+  
+
+  <div class="form-actions">
+    <%= f.button :submit , :class => "btn btn-primary", :value=> "Create Assignment" %>
+  </div>
+<% end %>
